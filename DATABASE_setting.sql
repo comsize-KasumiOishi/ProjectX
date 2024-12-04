@@ -1,6 +1,6 @@
-//“¯–¼‚Ìƒf[ƒ^ƒx[ƒX‚ª‚È‚¢ê‡Atask_db‚ğì¬
+--åŒåã®ãƒ‡ãƒ¼ã‚¿ãƒ™ãƒ¼ã‚¹ãŒãªã„å ´åˆã€task_dbã‚’ä½œæˆ
 CREATE DATABASE IF NOT EXISTS task_db;
-//ƒ†[ƒU[ƒe[ƒuƒ‹‚ğì¬
+--ãƒ¦ãƒ¼ã‚¶ãƒ¼ãƒ†ãƒ¼ãƒ–ãƒ«ã‚’ä½œæˆ
 CREATE TABLE task_db.m_user(
 	user_id VARCHAR(24) PRIMARY KEY NOT NULL,
 	 password VARCHAR(32) NOT NULL,
@@ -8,14 +8,14 @@ CREATE TABLE task_db.m_user(
 	 update_datetime TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL,
 	 UNIQUE KEY (user_name)
 	);
-//ƒJƒeƒSƒŠ[ƒf[ƒuƒ‹‚ğì¬
+--ã‚«ãƒ†ã‚´ãƒªãƒ¼ãƒ‡ãƒ¼ãƒ–ãƒ«ã‚’ä½œæˆ
 CREATE TABLE task_db.m_category(
 	category_id INT PRIMARY KEY NOT NULL,
 	category_name VARCHAR(20) NOT NULL,
 	update_datetime TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL,
 	UNIQUE KEY (category_name)
 	);
-//ƒXƒe[ƒ^ƒXƒe[ƒuƒ‹‚Ìì¬
+--ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ãƒ†ãƒ¼ãƒ–ãƒ«ã®ä½œæˆ
 CREATE TABLE task_db.m_status(
 	status_code CHAR(2) PRIMARY KEY NOT NULL,
 	status_name VARCHAR(20) NOT NULL,
@@ -23,7 +23,7 @@ CREATE TABLE task_db.m_status(
 	UNIQUE KEY (status_name)
 	);
 	
-//ƒ^ƒXƒNƒe[ƒuƒ‹‚Ìì¬
+--ã‚¿ã‚¹ã‚¯ãƒ†ãƒ¼ãƒ–ãƒ«ã®ä½œæˆ
 CREATE TABLE task_db.t_task(
 	task_id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
 	task_name VARCHAR(50) NOT NULL,
@@ -36,7 +36,7 @@ CREATE TABLE task_db.t_task(
 	update_datetime TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL
 );
 
-//ŠO•”ƒL[‚Ì•t—^
+--å¤–éƒ¨ã‚­ãƒ¼ã®ä»˜ä¸
 ALTER TABLE task_db.t_task ADD FOREIGN KEY(user_id)
 REFERENCES task_db.m_user(user_id);
 
@@ -46,8 +46,8 @@ REFERENCES task_db.m_category(category_id);
 ALTER TABLE task_db.t_task ADD FOREIGN KEY(status_code)
 REFERENCES task_db.m_status(status_code);
 
-//ƒJƒ‰ƒ€–¼‚ÌŠm”F‚ğs‚¤
+--ã‚«ãƒ©ãƒ åã®ç¢ºèªã‚’è¡Œã†
 show columns from task_db.m_user;
 
-//ŠO•”ƒL[§–ñ‚ÌŠm”F
+--å¤–éƒ¨ã‚­ãƒ¼åˆ¶ç´„ã®ç¢ºèª
 SHOW CREATE TABLE task_db.t_task;
