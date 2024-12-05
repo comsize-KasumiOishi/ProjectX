@@ -1,128 +1,128 @@
---ƒeƒXƒgƒf[ƒ^ˆê——
+--ãƒ†ã‚¹ãƒˆãƒ‡ãƒ¼ã‚¿ä¸€è¦§
 
 
---ƒ†[ƒUƒ}ƒXƒ^ m_user(10l•ª)
---‡@admin
+--ãƒ¦ãƒ¼ã‚¶ãƒã‚¹ã‚¿ m_user(10äººåˆ†)
+--â‘ admin
 INSERT INTO 
 	m_user (user_id, password, user_name, update_datetime) 
 VALUES 
 	('admin','pass','admin', '2024-12-05 00:00:00');
 	
---‡A[àV’CÆ
+--â‘¡æ·±æ¾¤è¾°å“‰
 INSERT INTO 
 	m_user (user_id, password, user_name, update_datetime) 
 VALUES 
-	('p_tatsuya', 'tatsuya', '[àV’CÆ', '2024-12-05 00:00:00');
+	('p_tatsuya', 'tatsuya', 'æ·±æ¾¤è¾°å“‰', '2024-12-05 00:00:00');
 	
---‡B²‹vŠÔ‘å‰î
+--â‘¢ä½ä¹…é–“å¤§ä»‹
 INSERT INTO 
 	m_user (user_id, password, user_name, update_datetime) 
 VALUES 
-	('p_daisuke', 'daisuke', '²‹vŠÔ‘å‰î', '2024-12-05 00:00:00');
+	('p_daisuke', 'daisuke', 'ä½ä¹…é–“å¤§ä»‹', '2024-12-05 00:00:00');
 	
---‡C“n•ÓãÄ‘¾
+--â‘£æ¸¡è¾ºç¿”å¤ª
 INSERT INTO 
 	m_user (user_id, password, user_name, update_datetime) 
 VALUES 
-	('p_shota', 'shota', '“n•ÓãÄ‘¾', '2024-12-05 00:00:00');
+	('p_shota', 'shota', 'æ¸¡è¾ºç¿”å¤ª', '2024-12-05 00:00:00');
 	
---‡D‹{ŠÙ—Á‘¾
+--â‘¤å®®é¤¨æ¶¼å¤ª
 INSERT INTO 
 	m_user (user_id, password, user_name, update_datetime) 
 VALUES 
-	('p_ryota', 'ryota', '‹{ŠÙ—Á‘¾', '2024-12-05 00:00:00');
+	('p_ryota', 'ryota', 'å®®é¤¨æ¶¼å¤ª', '2024-12-05 00:00:00');
 	
---‡EŠâ–{Æ
+--â‘¥å²©æœ¬ç…§
 INSERT INTO 
 	m_user (user_id, password, user_name, update_datetime) 
 VALUES 
-	('p_hikaru', 'hikaru', 'Šâ–{Æ', '2024-12-05 00:00:00');
+	('p_hikaru', 'hikaru', 'å²©æœ¬ç…§', '2024-12-05 00:00:00');
 	
---‡Fˆ¢•”—º•½
+--â‘¦é˜¿éƒ¨äº®å¹³
 INSERT INTO 
 	m_user (user_id, password, user_name, update_datetime) 
 VALUES 
-	('p_ryohei', 'ryohei', 'ˆ¢•”—º•½', '2024-12-05 00:00:00');
+	('p_ryohei', 'ryohei', 'é˜¿éƒ¨äº®å¹³', '2024-12-05 00:00:00');
 	
---‡GŒüˆäN“ñ
+--â‘§å‘äº•åº·äºŒ
 INSERT INTO 
 	m_user (user_id, password, user_name, update_datetime) 
 VALUES 
-	('p_koji', 'koji', 'ŒüˆäN“ñ', '2024-12-05 00:00:00');
+	('p_koji', 'koji', 'å‘äº•åº·äºŒ', '2024-12-05 00:00:00');
 	
---‡H–Ú•˜@
+--â‘¨ç›®é»’è“®
 INSERT INTO 
 	m_user (user_id, password, user_name, update_datetime) 
 VALUES 
-	('p_ren', 'ren', '–Ú•˜@', '2024-12-05 00:00:00');
+	('p_ren', 'ren', 'ç›®é»’è“®', '2024-12-05 00:00:00');
 	
---‡Iƒ‰ƒE[ƒ‹
+--â‘©ãƒ©ã‚¦ãƒ¼ãƒ«
 INSERT INTO 
 	m_user (user_id, password, user_name, update_datetime) 
 VALUES 
-	('p_raul', 'raul', 'ƒ‰ƒE[ƒ‹', '2024-12-05 00:00:00');
+	('p_raul', 'raul', 'ãƒ©ã‚¦ãƒ¼ãƒ«', '2024-12-05 00:00:00');
 
 
---ƒJƒeƒSƒŠƒ}ƒXƒ^ m_category
+--ã‚«ãƒ†ã‚´ãƒªãƒã‚¹ã‚¿ m_category
 --A
 INSERT INTO 
 	m_category (category_id, category_name, update_datetime) 
 VALUES
-	('V¤•iAFŠJ”­ƒvƒƒWƒFƒNƒg','2024-12-05 00:00:00');
+	('æ–°å•†å“Aï¼šé–‹ç™ºãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆ','2024-12-05 00:00:00');
 	
 --B
 INSERT INTO
 	m_category (category_id, category_name, update_datetime) 
 VALUES
-	('Šù‘¶¤•iBF‰ü—ÇƒvƒƒWƒFƒNƒg','2024-12-05 00:00:00');
+	('æ—¢å­˜å•†å“Bï¼šæ”¹è‰¯ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆ','2024-12-05 00:00:00');
 
 
---ƒXƒe[ƒ^ƒXƒ}ƒXƒ^ m_status
---–¢’…è
+--ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ãƒã‚¹ã‚¿ m_status
+--æœªç€æ‰‹
 INSERT INTO
 	m_status (status_code, status_name, update_datetime) 
 VALUES
-	('00','–¢’…è','2024-12-05 00:00:00');
+	('00','æœªç€æ‰‹','2024-12-05 00:00:00');
 
---’…è
+--ç€æ‰‹
 INSERT INTO
 	m_status (status_code, status_name, update_datetime) 
 VALUES
-	('50','’…è','2024-12-05 00:00:00');
+	('50','ç€æ‰‹','2024-12-05 00:00:00');
 
---Š®—¹
+--å®Œäº†
 INSERT INTO
 	m_status (status_code, status_name, update_datetime) 
 VALUES
-	('99','Š®—¹','2024-12-05 00:00:00');
+	('99','å®Œäº†','2024-12-05 00:00:00');
 
 
---ƒ^ƒXƒNƒe[ƒuƒ‹ t_task
---‡@
+--ã‚¿ã‚¹ã‚¯ãƒ†ãƒ¼ãƒ–ãƒ« t_task
+--â‘ 
 INSERT INTO
 	t_task (task_id, task_name, category_id, limit_date, user_id, status_code, memo, create_datetime, update_datetime) 
 VALUES
 	(1, 'task1', 1, '2024-12-05', 'admin', '00', ' ', '2024-12-05 00:00:00', '2024-12-05 00:00:00');
 	
---‡A
+--â‘¡
 INSERT INTO
 	t_task (task_id, task_name, category_id, limit_date, user_id, status_code, memo, create_datetime, update_datetime) 
 VALUES
 	(2, 'task2', 1, '2024-12-05', 'p_tatsuya', '50', ' ', '2024-12-05 00:00:00', '2024-12-05 00:00:00');
 	
---‡B
+--â‘¢
 INSERT INTO
 	t_task (task_id, task_name, category_id, limit_date, user_id, status_code, memo, create_datetime, update_datetime) 
 VALUES
 	(3, 'task3', 1, '2024-12-05', 'p_daisuke', '99', ' ', '2024-12-05 00:00:00', '2024-12-05 00:00:00');
 	
---‡C
+--â‘£
 INSERT INTO
 	t_task (task_id, task_name, category_id, limit_date, user_id, status_code, memo, create_datetime, update_datetime) 
 VALUES
 	(4, 'task4', 2, '2024-12-05', 'admin', '00', ' ', '2024-12-05 00:00:00', '2024-12-05 00:00:00');
 	
---‡D
+--â‘¤
 INSERT INTO
 	t_task (task_id, task_name, category_id, limit_date, user_id, status_code, memo, create_datetime, update_datetime) 
 VALUES
