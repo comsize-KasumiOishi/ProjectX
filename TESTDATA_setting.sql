@@ -68,13 +68,13 @@ VALUES
 INSERT INTO 
 	m_category (category_id, category_name, update_datetime) 
 VALUES
-	('新商品A：開発プロジェクト','2024-12-05 00:00:00');
+	(1, '新商品A：開発プロジェクト','2024-12-05 00:00:00');
 	
 --B
 INSERT INTO
 	m_category (category_id, category_name, update_datetime) 
 VALUES
-	('既存商品B：改良プロジェクト','2024-12-05 00:00:00');
+	(2, '既存商品B：改良プロジェクト','2024-12-05 00:00:00');
 
 
 --ステータスマスタ m_status
