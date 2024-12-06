@@ -6,7 +6,8 @@ import java.sql.Timestamp;
 public class TaskCategoryUserStatusBean {
 	private   int  taskId;		
 	private String taskName;		
-	private int categoryId;		
+	private int categoryId;	
+	private String categoryName;
 	private Date limitDate;		
 	private String userId;		
 	private String userName;		
@@ -42,6 +43,14 @@ public class TaskCategoryUserStatusBean {
 
 	public void setCategoryId(int categoryId) {
 		this.categoryId = categoryId;
+	}
+	
+	public String getCategoryName() {
+		return categoryName;
+	}
+
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
 	}
 
 	public Date getLimitDate() {
