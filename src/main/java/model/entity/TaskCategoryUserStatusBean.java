@@ -14,7 +14,7 @@ public class TaskCategoryUserStatusBean {
 	private String statusName;		
 	private String memo;		
 	private Timestamp createDateTime;		
-	private Timestamp updateDAtetime;
+	private Timestamp updateDateTime;
 	
 	public TaskCategoryUserStatusBean() {
 		
@@ -100,14 +100,14 @@ public class TaskCategoryUserStatusBean {
 		this.createDateTime = createDateTime;
 	}
 
-	public Timestamp getUpdateDAtetime() {
-		return updateDAtetime;
+	public Timestamp getUpdateDateTime() {
+		return updateDateTime;
 	}
 
-	public void setUpdateDAtetime(Timestamp updateDAtetime) {
-		this.updateDAtetime = updateDAtetime;
+	public void setUpdateDateTime(Timestamp updateDateTime) {
+		this.updateDateTime = updateDateTime;
 	}
 
-	
+
 
 }
