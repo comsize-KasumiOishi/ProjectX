@@ -45,24 +45,30 @@ public class TaskDeleteServlet extends HttpServlet {
 
 		request.setCharacterEncoding("UTF-8");
 
+		//セッションからタスクIDを取得する
 		HttpSession session = request.getSession();
 		int taskId = (int) session.getAttribute("taskId");
 
+		//TaskCategoryUserStatusDAOのインスタンスを生成する
 		TaskCategoryUserStatusDAO dao = new TaskCategoryUserStatusDAO();
 
 		int count = 0;
 
 		try {
+			//削除に成功した件数を変数countに格納する
 			count = dao.delete(taskId);
 
 			if (count != 0) {
 
+				//変数countが0でない場合requestにcountを格納する
 				request.setAttribute("count", count);
 
+				//タスク削除成功画面に遷移する
 				RequestDispatcher rd = request.getRequestDispatcher("task-delete-success.jsp");
 				rd.forward(request, response);
 				
 			} else {
+				//上記以外の場合タスク削除失敗画面に遷移する
 				RequestDispatcher rd = request.getRequestDispatcher("task-delete-failure.jsp");
 				rd.forward(request, response);
 			}

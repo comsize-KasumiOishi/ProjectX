@@ -47,26 +47,38 @@ public class LoginServlet extends HttpServlet {
 		
 		request.setCharacterEncoding("UTF-8");
 		
+		//ログイン画面で入力されたユーザIDとパスワードを取得する
 		String userId = request.getParameter("userid");
 		String password = request.getParameter("password");
 		
+		//ユーザIDまたはパスワードが未入力だった場合ログイン失敗画面に遷移する
+		if(userId.isEmpty() || password.isEmpty()) {
+			RequestDispatcher rd = request.getRequestDispatcher("login-failure.jsp");
+			rd.forward(request, response);
+		}
+		
+		//UserDAOのインスタンスを生成する
 		UserDAO userdao = new UserDAO();
 		
 		try {
-
-			UserBean userbean =userdao.logincheck(userId, password);
+			//UserBean型の変数にUserDAOのログイン認証メソッドを格納する
+			UserBean userbean = userdao.logincheck(userId, password);
 			
+			//UserBean型の変数がnullでない場合はログイン認証に成功する
 			if (userbean != null) {
 				
+				//ユーザIDとパスワードとユーザー名をセッションに格納する
 				HttpSession session = request.getSession();
 				session.setAttribute("userId", userId);
 				session.setAttribute("password", password);
 				session.setAttribute("userName", userbean.getUserName());
 				
+				//メニュー画面に遷移する
 				RequestDispatcher rd = request.getRequestDispatcher("menu.jsp");
 				rd.forward(request, response);
 			}
 			else {
+				//ログイン認証に失敗した場合はログイン失敗画面に遷移する
 				RequestDispatcher rd = request.getRequestDispatcher("login-failure.jsp");
 				rd.forward(request, response);
 			}
@@ -74,6 +86,7 @@ public class LoginServlet extends HttpServlet {
 		} catch (SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}
+		
 		
 		//DAOで作成したリストをセッションに詰める
 		TaskCategoryUserStatusDAO tcusdao = new TaskCategoryUserStatusDAO();
