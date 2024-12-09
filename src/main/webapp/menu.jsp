@@ -24,7 +24,7 @@
 	
 	<br>
 	
-	<form action="TaskListServlet" method="POST">
+	<form action="TaskListServlet" method="GET">
 	
 	<input type="submit" value="タスク一覧表示">
 	
@@ -32,7 +32,7 @@
 	
 	<br>
 	
-	<form action="logout-success.jsp" method="POST">
+	<form action="logout-success.jsp" method="GET">
 	
 	<input type="submit" value="ログアウト">
 		

@@ -11,7 +11,7 @@
 	<hr>
 	<h3>ログインに失敗しました。</h3>
 	
-	<form action="login.jsp" method="POST">
+	<form action="login.jsp" method="GET">
 	<input type="submit" value="ログイン画面へ">
 	</form>
 </body>

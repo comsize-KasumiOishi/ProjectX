@@ -17,7 +17,7 @@
 	
 	<h3>ログアウトしました。</h3>
 	
-	<form action="login.jsp" method="POST">
+	<form action="login.jsp" method="GET">
 	
 	<input type="submit" value="ログイン画面へ">
 	<br>
