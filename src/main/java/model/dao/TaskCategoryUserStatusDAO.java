@@ -96,5 +96,24 @@ public class TaskCategoryUserStatusDAO {
 		}
 		return statusList;
 	}
+	
+	public int delete(int taskId) throws SQLException, ClassNotFoundException {
+		//削除した件数を返すメソッド
+		
+		int count = 0;
+		
+		//データベースに接続してタスクテーブルの情報を削除する
+		String sql = "DELETE FROM t_task WHERE task_id = ?";
+
+		try (Connection con = ConnectionManager.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql)) {
+
+			pstmt.setInt(1, taskId);
+
+			count = pstmt.executeUpdate();
+
+		}
+		return count;
+	}
 
 }
