@@ -2,6 +2,7 @@ package servlet;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,7 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import model.dao.TaskCategoryUserStatusDAO;
 import model.dao.UserDAO;
+import model.entity.TaskCategoryUserStatusBean;
 import model.entity.UserBean;
 
 /**
@@ -69,6 +72,26 @@ public class LoginServlet extends HttpServlet {
 			}
 			
 		} catch (SQLException | ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		//DAOで作成したリストをセッションに詰める
+		TaskCategoryUserStatusDAO tcusdao = new TaskCategoryUserStatusDAO();
+		List<TaskCategoryUserStatusBean> categoryList = null;
+		List<TaskCategoryUserStatusBean> userList = null;
+		List<TaskCategoryUserStatusBean> statusList = null;
+		
+		try {
+			categoryList = tcusdao.selectCategoryId();
+			userList = tcusdao.selectUserId();
+			statusList = tcusdao.selectStatusCode();
+			
+			HttpSession session = request.getSession();
+			session.setAttribute("categoryList", categoryList);
+			session.setAttribute("userList", userList);
+			session.setAttribute("statusList", statusList);
+			
+		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
 	}
