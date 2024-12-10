@@ -223,4 +223,42 @@ public class TaskCategoryUserStatusDAO {
 			return detail;
 			
 		}
+		
+		public List<TaskCategoryUserStatusBean> selectAll() throws SQLException, ClassNotFoundException {
+
+			List<TaskCategoryUserStatusBean> taskList = new ArrayList<TaskCategoryUserStatusBean>();
+
+			// データベースへの接続の取得、Statementの取得、SQLステートメントの実行
+			try (Connection con = ConnectionManager.getConnection();
+					PreparedStatement pstmt = con.prepareStatement(
+							"SELECT t1.task_id, t1.task_name, t2.category_name, t1.limit_date, t3.user_name, t4.status_name, t1.memo FROM t_task t1 JOIN m_category t2 ON t1.category_id = t2.category_id JOIN m_user t3 ON t1.user_id = t3.user_id JOIN m_status t4 ON t1.status_code = t4.status_code");
+					ResultSet res = pstmt.executeQuery()) {
+
+				// 結果の操作
+				while (res.next()) {
+					int taskId = res.getInt("t1.task_id");
+					String taskName = res.getString("t1.task_name");
+					String categoryName = res.getString("t2.category_name");
+					Date limitDate = res.getDate("t1.limit_date");
+					String userName = res.getString("t3.user_name");
+					String statusName = res.getString("t4.status_name");
+					String memo = res.getString("t1.memo");
+					System.out.println("タスクID 一覧サーブレット:"+taskId);
+					
+
+					TaskCategoryUserStatusBean taskCategoryUserStatus = new TaskCategoryUserStatusBean();
+					taskCategoryUserStatus.setTaskId(taskId);
+					taskCategoryUserStatus.setTaskName(taskName);
+					taskCategoryUserStatus.setCategoryName(categoryName);
+					taskCategoryUserStatus.setLimitDate(limitDate);
+					taskCategoryUserStatus.setUserName(userName);
+					taskCategoryUserStatus.setStatusName(statusName);
+					taskCategoryUserStatus.setMemo(memo);
+
+					taskList.add(taskCategoryUserStatus);
+				}
+			}
+			return taskList;
+
+		}
 }

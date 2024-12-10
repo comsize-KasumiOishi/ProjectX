@@ -11,7 +11,7 @@
 	<h1>タスク一覧</h1>
 	<hr>
 
-	<form action="menu.jsp" method="POSTS">
+	<form action="menu.jsp" method="POST">
 		<br> <input type="submit" value="メニュー画面へ">
 	</form>
 
