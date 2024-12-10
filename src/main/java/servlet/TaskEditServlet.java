@@ -1,8 +1,10 @@
 package servlet;
 
 import java.io.IOException;
-import java.sql.Date;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -51,53 +53,78 @@ public class TaskEditServlet extends HttpServlet {
 		TaskCategoryUserStatusDAO dao = new TaskCategoryUserStatusDAO();
 		TaskCategoryUserStatusBean tcusbean = (TaskCategoryUserStatusBean) session.getAttribute("detail");
 		//変更用に入力されたタスク名
-		String updateTaskName = request.getParameter("updatetaskname");
 		try {
-			//空文字をnullに変換
-			if (updateTaskName.equals("")) {
-				updateTaskName = null;
-			}
+			String updateTaskName = request.getParameter("updatetaskname");
+
 			//セレクトボックスでカテゴリーIDを取得
 			String updatestrCategoryId = request.getParameter("updatecategoryid");
 			//カテゴリーIDをint型に型変換
 			int updateCategoryId = Integer.parseInt(updatestrCategoryId);
+			
 			//期限を取得
-			long updateLimitDate = request.getDateHeader("updatelimitdate");
+			String updatestrLimitDate = request.getParameter("updatelimitdate");
+			//strLimitDate妥当性チェック
+			//変更する期限を格納するLocalDate型の変数limitDateを宣言
+			LocalDate limitDate = null;
+			//sql.date型の期限を格納する変数Dateを宣言
+			java.sql.Date sqlDate = null;
+			try {
+				//strLimitDateをLocalDate型にキャスト
+				limitDate = LocalDate.parse(updatestrLimitDate, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+				//今日の日付を取得してLocalDate型の変数todayに代入
+				LocalDate today = LocalDate.now();
+				//今日の日付と入力された日付を比較する
+				if(today.isAfter(limitDate)) {
+					RequestDispatcher rd = request.getRequestDispatcher("task-edit-failure.jsp");
+					rd.forward(request, response);
+				}
+				//todayをString型にキャスト
+				String strToday = today.toString();
+				
+				//セッションスコープに今日の日付を設定する
+				session.setAttribute("strToday", strToday);
+				
+				//LocalDate型のlimitDateをsql.date型に変換する
+				sqlDate = java.sql.Date.valueOf(limitDate);
+			} catch (DateTimeParseException | NullPointerException e) {
+				e.printStackTrace();
+			}
+			
+			
 			
 			//セレクトボックスでユーザーIDを取得
 			String updateUserId = request.getParameter("updateuserid");
 			//セレクトボックスでステータスコードを取得
 			String updateStatusCode = request.getParameter("updatestatuscode");
 			//確認用
-//			System.out.println("サーブレット内: " + updateStatusCode);
-//			メモを取得
+			//			System.out.println("サーブレット内: " + updateStatusCode);
+			//			メモを取得
 			String updateMemo = request.getParameter("updatememo");
-			if(updateMemo.equals("")) {
+			if (updateMemo.equals("")) {
 				updateMemo = null;
 			}
-			//		long型で取得した期限をDate型に変換
-			Date date = new Date(updateLimitDate);
+		
 
-//			入力された値が元の値と全て同じの場合、編集失敗画面に遷移する
+			//			入力された値が元の値と全て同じの場合、編集失敗画面に遷移する
 			if (updateTaskName.equals(tcusbean.getTaskName()) &&
 					updateCategoryId == tcusbean.getCategoryId() &&
-					date.compareTo(tcusbean.getLimitDate()) == 0 &&
+					sqlDate.compareTo(tcusbean.getLimitDate()) == 0 &&
 					updateUserId.equals(tcusbean.getUserId()) &&
 					updateStatusCode.equals(tcusbean.getStatusCode()) &&
 					updateMemo.equals(tcusbean.getMemo())) {
 				RequestDispatcher rd = request.getRequestDispatcher("task-edit-failure.jsp");
 				rd.forward(request, response);
 			} else {
-//				そうでない場合はBean型に情報を詰める
+				//				そうでない場合はBean型に情報を詰める
 				TaskCategoryUserStatusBean updatetcus = new TaskCategoryUserStatusBean();
 				updatetcus.setTaskName(updateTaskName);
 				updatetcus.setCategoryId(updateCategoryId);
-				updatetcus.setLimitDate(date);
+				updatetcus.setLimitDate(sqlDate);
 				updatetcus.setUserId(updateUserId);
 				updatetcus.setStatusCode(updateStatusCode);
 				updatetcus.setMemo(updateMemo);
 				updatetcus.setTaskId(tcusbean.getTaskId());
-//				引数にBean型を指定し、updateメソッドを呼ぶ
+				//				引数にBean型を指定し、updateメソッドを呼ぶ
 				count = dao.update(updatetcus);
 			}
 		} catch (ClassNotFoundException e) {
