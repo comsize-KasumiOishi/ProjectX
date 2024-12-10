@@ -1,9 +1,11 @@
 package model.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -115,5 +117,81 @@ public class TaskCategoryUserStatusDAO {
 		}
 		return count;
 	}
-
+	//タスク編集を行うメソッド
+		public int update(TaskCategoryUserStatusBean tcus) throws SQLException, ClassNotFoundException {
+//		変更したデータの数を送る変数
+			int count;
+			
+			try (Connection con = ConnectionManager.getConnection();
+					PreparedStatement pstmt = con
+							.prepareStatement(
+				"update t_task set task_name = ?, category_id = ?, limit_date = ? , user_id = ? , status_code = ? , memo = ?  where task_id = ?")) {
+//				タスク名の変更
+				pstmt.setString(1, tcus.getTaskName());
+//				カテゴリーの変更
+				pstmt.setInt(2, tcus.getCategoryId());
+//				期限の変更
+				pstmt.setDate(3, tcus.getLimitDate());
+//				担当者の変更
+				pstmt.setString(4, tcus.getUserId());
+//				ステータスの変更
+				pstmt.setString(5, tcus.getStatusCode());
+//				メモの変更
+				pstmt.setString(6, tcus.getMemo());
+//				変更するタスクID
+				pstmt.setInt(7, tcus.getTaskId());
+				
+				count = pstmt.executeUpdate();
+			return count;
+			
+		}
+		}
+		
+		public TaskCategoryUserStatusBean detail (int taskid) throws SQLException, ClassNotFoundException{
+			TaskCategoryUserStatusBean detail = new TaskCategoryUserStatusBean();
+			try (Connection con = ConnectionManager.getConnection();
+					PreparedStatement pstmt = con
+							.prepareStatement(
+						"select t1.task_id, t1.task_name, t2.category_id, t2.category_name, t1.limit_date, t3.user_id, t3.user_name, t4.status_code, t4.status_name, t1.memo, t1.create_datetime, t1.update_datetime "
+						+ " from t_task t1 "
+						+ "left outer join m_category t2 on t1.category_id = t2.category_id "
+						+ "left outer join m_user t3 on t1.user_id = t3.user_id "
+						+"left outer join m_status t4 on t1.status_code = t4.status_code  where t1.task_id = ?;"
+									)){
+				pstmt.setInt(1, taskid);
+				ResultSet res = pstmt.executeQuery();
+				while(res.next()) {
+					int detailTaskId = res.getInt("t1.task_id");
+					String detailTaskName = res.getString("t1.task_name");
+					int detailCategoryId = res.getInt("t2.category_id");
+					String detailCategoryName = res.getString("t2.category_name");
+					Date detailLimitDate = res.getDate("t1.limit_date");
+					String detailUserId = res.getString("t3.user_id");
+					String detailUserName = res.getString("t3.user_name");
+					String detailStatusCode = res.getString("t4.status_code");
+					String detailStatusName = res.getString("t4.status_name");
+					String detailMemo = res.getString("t1.memo");
+					Timestamp detailCreateDateTime = res.getTimestamp("t1.create_datetime");
+					Timestamp detailUpdateDateTime = res.getTimestamp("t1.update_datetime");
+					detail.setTaskId(detailTaskId);
+					detail.setTaskName(detailTaskName);
+					detail.setCategoryId(detailCategoryId);
+					detail.setCategoryName(detailCategoryName); 
+					detail.setLimitDate(detailLimitDate);
+					detail.setUserId(detailUserId);
+					detail.setUserName(detailUserName);
+					detail.setStatusCode(detailStatusCode);
+					detail.setStatusName(detailStatusName);
+					detail.setMemo(detailMemo);
+					detail.setCreateDateTime(detailCreateDateTime);
+					detail.setUpdateDateTime(detailUpdateDateTime);
+				}
+				
+			}
+			
+			
+			
+			return detail;
+			
+		}
 }
