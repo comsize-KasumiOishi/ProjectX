@@ -57,7 +57,7 @@ if(userName.equals(tcusbean.getUserName())){
 	<form action="TaskDetailServlet" method="post">
 <input type="submit" value="編集" >
 </form>
-<form action="TaskDeleteServlet" method="post">
+<form action="task-delete.jsp" method="post">
 <input type="submit" value="削除">
 </form>
 </table>
