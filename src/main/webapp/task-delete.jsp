@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.Date"%>
+    pageEncoding="UTF-8" import="java.util.Date,model.entity.TaskCategoryUserStatusBean,java.util.List"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,13 +8,16 @@
 </head>
 <body>
 	<%
-		int taskId = (int) session.getAttribute("taskId");
-		String taskName = (String) session.getAttribute("taskName");
-		String categoryName = (String) session.getAttribute("categoryName");
-		Date limitDate = (Date) session.getAttribute("limitDate");
-		String userName = (String) session.getAttribute("userName");
-		String statusName = (String) session.getAttribute("statusName");
-		String memo = (String) session.getAttribute("memo");
+		//詳細画面に表示したBean型を取得
+		TaskCategoryUserStatusBean tcusbean = (TaskCategoryUserStatusBean) session.getAttribute("detail");
+		
+		int taskId = tcusbean.getTaskId();
+		String taskName = tcusbean.getTaskName();
+		String categoryName = tcusbean.getCategoryName();
+		Date limitDate = tcusbean.getLimitDate();
+		String userName = tcusbean.getUserName();
+		String statusName = tcusbean.getStatusName();
+		String memo = tcusbean.getMemo();
 	%>
 
 	<h1>タスク削除画面</h1>
