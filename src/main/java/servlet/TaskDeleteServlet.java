@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import model.dao.TaskCategoryUserStatusDAO;
+import model.entity.TaskCategoryUserStatusBean;
 
 /**
  * Servlet implementation class TaskDeleteServlet
@@ -44,9 +45,23 @@ public class TaskDeleteServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		request.setCharacterEncoding("UTF-8");
+		
+		HttpSession session = request.getSession();
+		String userName = (String)session.getAttribute("userName");
+		TaskCategoryUserStatusBean tcusbean = (TaskCategoryUserStatusBean) session.getAttribute("detail");
+		String repName = tcusbean.getUserName();
+		
+		//ログイン者とタスク担当者が一致しているか調べる
+		//一致していない場合はタスクリストに戻す
+		if(repName.equals(userName)) {
+			RequestDispatcher rd = request.getRequestDispatcher("task-delete.jsp");
+			rd.forward(request, response);
+		}else {
+			RequestDispatcher rd = request.getRequestDispatcher("TaskListServlet");
+			rd.forward(request, response);	
+		}
 
 		//セッションからタスクIDを取得する
-		HttpSession session = request.getSession();
 		int taskId = (int) session.getAttribute("taskId");
 
 		//TaskCategoryUserStatusDAOのインスタンスを生成する
