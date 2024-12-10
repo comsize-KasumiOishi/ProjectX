@@ -95,6 +95,13 @@ public class TaskAddServlet extends HttpServlet {
 		String user = request.getParameter("user");
 		String status = request.getParameter("status");
 		String memo = request.getParameter("memo");
+		
+//		System.out.println(taskName);
+//		System.out.println(category);
+//		System.out.println(strLimitDate);
+//		System.out.println(user);
+//		System.out.println(status);
+//		System.out.println(memo);
 
 		//遷移先のURLマッピングを格納するString型の変数urlを宣言
 		String url = null;
@@ -219,7 +226,7 @@ public class TaskAddServlet extends HttpServlet {
 		}
 		
 		//urlに登録失敗画面のurlマッピングが代入されていたら画面遷移する
-		if(url == "register-failure.jsp") {
+		if(url.equals("register-failure.jsp")) {
 			//転送先のパスを指定して転送処理用オブジェクトを取得
 			RequestDispatcher rd = request.getRequestDispatcher(url);
 
