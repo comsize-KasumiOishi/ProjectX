@@ -63,6 +63,7 @@ public class TaskEditServlet extends HttpServlet {
 			int updateCategoryId = Integer.parseInt(updatestrCategoryId);
 			//期限を取得
 			long updateLimitDate = request.getDateHeader("updatelimitdate");
+			
 			//セレクトボックスでユーザーIDを取得
 			String updateUserId = request.getParameter("updateuserid");
 			//セレクトボックスでステータスコードを取得
@@ -71,7 +72,10 @@ public class TaskEditServlet extends HttpServlet {
 //			System.out.println("サーブレット内: " + updateStatusCode);
 //			メモを取得
 			String updateMemo = request.getParameter("updatememo");
-//			long型で取得した期限をDate型に変換
+			if(updateMemo.equals("")) {
+				updateMemo = null;
+			}
+			//		long型で取得した期限をDate型に変換
 			Date date = new Date(updateLimitDate);
 
 //			入力された値が元の値と全て同じの場合、編集失敗画面に遷移する
