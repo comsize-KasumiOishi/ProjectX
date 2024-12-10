@@ -10,7 +10,7 @@
 <body>
 	<%
 	//詳細画面に表示したBean型を取得
-	TaskCategoryUserStatusBean tcus = (TaskCategoryUserStatusBean) session.getAttribute("detail");
+	TaskCategoryUserStatusBean tcusbean = (TaskCategoryUserStatusBean) session.getAttribute("detail");
 
 	//セレクトボックスで表示するためのカテゴリーリストを取得
 	List<TaskCategoryUserStatusBean> categoryList = (List<TaskCategoryUserStatusBean>) session.getAttribute("categoryList");
@@ -27,12 +27,12 @@
 		<table border="1">
 			<tr>
 				<td>タスクID</td>
-				<td><%=tcus.getTaskId()%></td>
+				<td><%=tcusbean.getTaskId()%></td>
 			</tr>
 			<tr>
 				<td>タスク名</td>
 				<td><input type="text" name="updatetaskname"
-					value="<%=tcus.getTaskName()%>"></td>
+					value="<%=tcusbean.getTaskName()%>"></td>
 			</tr>
 			<tr>
 				<td>カテゴリー名</td>
@@ -41,7 +41,7 @@
 						for (int i = 0; i < categoryList.size(); i++) {
 							String categoryName = categoryList.get(i).getCategoryName();
 							int categoryId = categoryList.get(i).getCategoryId();
-							int repcategoryId = tcus.getCategoryId();
+							int repcategoryId = tcusbean.getCategoryId();
 							//カテゴリーリストから詳細画面で表示したカテゴリーを表示する
 							if (repcategoryId == categoryList.get(i).getCategoryId()) {
 						%>
@@ -54,7 +54,7 @@
 						for (int i = 0; i < categoryList.size(); i++) {
 						String categoryName = categoryList.get(i).getCategoryName();
 						int categoryId = categoryList.get(i).getCategoryId();
-						int repcategoryId = tcus.getCategoryId();
+						int repcategoryId = tcusbean.getCategoryId();
 						//カテゴリーリストから詳細画面で表示していないカテゴリーを表示する
 						if (repcategoryId != categoryList.get(i).getCategoryId()) {
 						%>
@@ -78,7 +78,7 @@
 						for (int i = 0; i < userList.size(); i++) {
 							String userName = userList.get(i).getUserName();
 							String userId = userList.get(i).getUserId();
-							String repuserId = tcus.getUserId();
+							String repuserId = tcusbean.getUserId();
 							//ユーザーリストから詳細画面で表示したユーザーを表示する
 							if (repuserId.equals(userList.get(i).getUserId())) {
 						%>
@@ -90,7 +90,7 @@
 						for (int i = 0; i < userList.size(); i++) {
 						String userName = userList.get(i).getUserName();
 						String userId = userList.get(i).getUserId();
-						String repuserId = tcus.getUserId();
+						String repuserId = tcusbean.getUserId();
 						//ユーザーリストから詳細画面で表示したユーザー以外を表示する
 						if (!(repuserId.equals(userList.get(i).getUserId()))) {
 						%>
@@ -110,7 +110,7 @@
 						for (int i = 0; i < statusList.size(); i++) {
 							String statusName = statusList.get(i).getStatusName();
 							String statusCode = statusList.get(i).getStatusCode();
-							String repstatusCode = tcus.getUserId();
+							String repstatusCode = tcusbean.getUserId();
 							if (repstatusCode.equals(statusList.get(i).getStatusCode())) {
 						%>
 						<!--セレクトボックスの中は表示はステータス名でステータスIDをServletに送る -->
@@ -122,7 +122,7 @@
 						for (int i = 0; i < statusList.size(); i++) {
 						String statusName = statusList.get(i).getStatusName();
 						String statusCode = statusList.get(i).getStatusCode();
-						String repstatusCode = tcus.getUserId();
+						String repstatusCode = tcusbean.getUserId();
 						if (!(repstatusCode.equals(statusList.get(i).getStatusCode()))) {
 						%>
 						<!--セレクトボックスの中は表示はステータス名でステータスIDをServletに送る -->
@@ -136,7 +136,7 @@
 			<tr>
 				<td>メモ</td>
 				<td><input type="text" name="updatememo"
-					value="<%=tcus.getMemo()%>"></td>
+					value="<%=tcusbean.getMemo()%>"></td>
 			</tr>
 		</table>
 		<table>

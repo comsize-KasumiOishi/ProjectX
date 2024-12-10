@@ -49,7 +49,7 @@ public class TaskEditServlet extends HttpServlet {
 		int count = 0;
 		HttpSession session = request.getSession();
 		TaskCategoryUserStatusDAO dao = new TaskCategoryUserStatusDAO();
-		TaskCategoryUserStatusBean tcus = (TaskCategoryUserStatusBean) session.getAttribute("detail");
+		TaskCategoryUserStatusBean tcusbean = (TaskCategoryUserStatusBean) session.getAttribute("detail");
 		//変更用に入力されたタスク名
 		String updateTaskName = request.getParameter("updatetaskname");
 		try {
@@ -75,12 +75,12 @@ public class TaskEditServlet extends HttpServlet {
 			Date date = new Date(updateLimitDate);
 
 //			入力された値が元の値と全て同じの場合、編集失敗画面に遷移する
-			if (updateTaskName.equals(tcus.getTaskName()) &&
-					updateCategoryId == tcus.getCategoryId() &&
-					date.compareTo(tcus.getLimitDate()) == 0 &&
-					updateUserId.equals(tcus.getUserId()) &&
-					updateStatusCode.equals(tcus.getStatusCode()) &&
-					updateMemo.equals(tcus.getMemo())) {
+			if (updateTaskName.equals(tcusbean.getTaskName()) &&
+					updateCategoryId == tcusbean.getCategoryId() &&
+					date.compareTo(tcusbean.getLimitDate()) == 0 &&
+					updateUserId.equals(tcusbean.getUserId()) &&
+					updateStatusCode.equals(tcusbean.getStatusCode()) &&
+					updateMemo.equals(tcusbean.getMemo())) {
 				RequestDispatcher rd = request.getRequestDispatcher("task-edit-failure.jsp");
 				rd.forward(request, response);
 			} else {
@@ -92,7 +92,7 @@ public class TaskEditServlet extends HttpServlet {
 				updatetcus.setUserId(updateUserId);
 				updatetcus.setStatusCode(updateStatusCode);
 				updatetcus.setMemo(updateMemo);
-				updatetcus.setTaskId(tcus.getTaskId());
+				updatetcus.setTaskId(tcusbean.getTaskId());
 //				引数にBean型を指定し、updateメソッドを呼ぶ
 				count = dao.update(updatetcus);
 			}

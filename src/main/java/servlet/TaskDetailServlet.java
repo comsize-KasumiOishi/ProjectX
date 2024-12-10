@@ -41,11 +41,11 @@ public class TaskDetailServlet extends HttpServlet {
 		//int型に型変換
 		int taskId = Integer.parseInt(strTaskId);
 		//各DAOとBeanを呼び出し
-		TaskCategoryUserStatusBean tcus = new TaskCategoryUserStatusBean();
+		TaskCategoryUserStatusBean tcusbean = new TaskCategoryUserStatusBean();
 		TaskCategoryUserStatusDAO dao = new TaskCategoryUserStatusDAO();
 		try {
 			//取得したタスクIDを用いて詳細画面用のBean型を取得
-			tcus = dao.detail(taskId);
+			tcusbean = dao.detail(taskId);
 		} catch (ClassNotFoundException e) {
 			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
@@ -55,7 +55,7 @@ public class TaskDetailServlet extends HttpServlet {
 		}
 		//取得した詳細画面用データをセッションにセット
 		HttpSession session = request.getSession();
-		session.setAttribute("detail", tcus);
+		session.setAttribute("detail", tcusbean);
 		//タスク詳細画面に遷移する
 		RequestDispatcher rd = request.getRequestDispatcher("task-detail.jsp");
 		rd.forward(request, response);
@@ -68,13 +68,12 @@ public class TaskDetailServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
 		String userName = (String)session.getAttribute("userName");
-		TaskCategoryUserStatusBean tcus = (TaskCategoryUserStatusBean) session.getAttribute("detail");
-		String repName = tcus.getUserName();
+		TaskCategoryUserStatusBean tcusbean = (TaskCategoryUserStatusBean) session.getAttribute("detail");
+		String repName = tcusbean.getUserName();
 		
 		//ログイン者とタスク担当者が一致しているか調べる
 		//一致していない場合はタスクリストに戻す
 		if(repName.equals(userName)) {
-			session.setAttribute("detailtable", tcus);
 			RequestDispatcher rd = request.getRequestDispatcher("task-edit.jsp");
 			rd.forward(request, response);
 		}else {

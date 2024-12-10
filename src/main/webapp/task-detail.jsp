@@ -9,8 +9,8 @@
 <body>
 <% 
 //セッションに入れた詳細画面のBean型を取得
-TaskCategoryUserStatusBean tcus = new TaskCategoryUserStatusBean();
-tcus = (TaskCategoryUserStatusBean)session.getAttribute("detail");
+TaskCategoryUserStatusBean tcusbean = new TaskCategoryUserStatusBean();
+tcusbean = (TaskCategoryUserStatusBean)session.getAttribute("detail");
 
 %>
 <h1>タスク詳細画面</h1>
@@ -18,31 +18,31 @@ tcus = (TaskCategoryUserStatusBean)session.getAttribute("detail");
  <table border="1">
  <tr>
  <td>タスクID</td>
- <td><%= tcus.getTaskId() %></td>
+ <td><%= tcusbean.getTaskId() %></td>
  </tr>
   <tr>
  <td>タスク名</td>
- <td><%= tcus.getTaskName() %></td>
+ <td><%= tcusbean.getTaskName() %></td>
  </tr>
   <tr>
  <td>カテゴリー名</td>
- <td><%= tcus.getCategoryName() %></td>
+ <td><%= tcusbean.getCategoryName() %></td>
  </tr>
  <tr>
  <td>期限</td>
- <td><%= tcus.getLimitDate() %></td>
+ <td><%= tcusbean.getLimitDate() %></td>
  </tr>
   <tr>
  <td>担当者</td>
- <td><%= tcus.getUserName() %></td>
+ <td><%= tcusbean.getUserName() %></td>
  </tr>
  <tr>
  <td>ステータス名</td>
- <td><%= tcus.getStatusName() %></td>
+ <td><%= tcusbean.getStatusName() %></td>
  </tr>
   <tr>
  <td>メモ</td>
- <td><%= tcus.getMemo() %></td>
+ <td><%= tcusbean.getMemo() %></td>
  </tr>
  </table>
 
@@ -50,7 +50,7 @@ tcus = (TaskCategoryUserStatusBean)session.getAttribute("detail");
 //現在ログインしているユーザーが詳細画面に表示されている
 //タスクの担当者かどうかのチェックを行う
 String userName = (String)session.getAttribute("userName");
-if(userName.equals(tcus.getUserName())){ 
+if(userName.equals(tcusbean.getUserName())){ 
 //ログイン者がタスクの担当者の場合、ボタン押下できる
 %>
 	<table>	
