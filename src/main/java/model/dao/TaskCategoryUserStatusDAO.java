@@ -99,6 +99,35 @@ public class TaskCategoryUserStatusDAO {
 		return statusList;
 	}
 	
+	public int insert(TaskCategoryUserStatusBean tcusbean) throws ClassNotFoundException, SQLException {
+		//データベースにタスク情報を登録するメソッド
+		
+		//データベースに接続してタスク情報を登録する
+		String sql = "INSERT INTO t_task (task_name, category_id, limit_date, user_id, status_code, memo) VALUES (?, ?, ?, ?, ?, ?)";
+
+		//登録件数を格納するint型の変数resを宣言
+		int res = 0;
+
+		try (Connection con = ConnectionManager.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql)) {
+
+			//プレースホルダへの値の設定
+			pstmt.setString(1, tcusbean.getTaskName());
+			pstmt.setInt(2, tcusbean.getCategoryId());
+			pstmt.setDate(3, tcusbean.getLimitDate());
+			pstmt.setString(4, tcusbean.getUserId());
+			pstmt.setString(5, tcusbean.getStatusCode());
+			pstmt.setString(6, tcusbean.getMemo());
+
+			//SQLステートメントの実行(更新系)
+			res = pstmt.executeUpdate();
+
+		}
+
+		return res;
+
+	}
+	
 	public int delete(int taskId) throws SQLException, ClassNotFoundException {
 		//削除した件数を返すメソッド
 		
