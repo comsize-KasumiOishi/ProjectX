@@ -1,14 +1,14 @@
 package model.entity;
 
-import java.sql.Date;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 
 public class TaskCategoryUserStatusBean {
 	private   int  taskId;		
 	private String taskName;		
 	private int categoryId;	
 	private String categoryName;
-	private Date limitDate;		
+	private LocalDate limitDate;		
 	private String userId;		
 	private String userName;		
 	private String statusCode;		
@@ -53,11 +53,11 @@ public class TaskCategoryUserStatusBean {
 		this.categoryName = categoryName;
 	}
 
-	public Date getLimitDate() {
+	public LocalDate getLimitDate() {
 		return limitDate;
 	}
 
-	public void setLimitDate(Date limitDate) {
+	public void setLimitDate(LocalDate limitDate) {
 		this.limitDate = limitDate;
 	}
 
