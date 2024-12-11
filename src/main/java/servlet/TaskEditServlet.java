@@ -47,19 +47,38 @@ public class TaskEditServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		//アップデート結果をカウントする変数
+		//アップデート結果をカウントする変数を宣言
 		int count = 0;
+		//文字数をカウントする変数を宣言
+		int length = 0;
+		//画面遷移先のURLをしまう変数を宣言
+		String url = null;
 		HttpSession session = request.getSession();
 		TaskCategoryUserStatusDAO dao = new TaskCategoryUserStatusDAO();
 		TaskCategoryUserStatusBean tcusbean = (TaskCategoryUserStatusBean) session.getAttribute("detail");
 		//変更用に入力されたタスク名
 		try {
 			String updateTaskName = request.getParameter("updatetaskname");
+			//updateTaskName妥当性チェック
+			//taskNameの文字数をcountに代入
+			length = updateTaskName.length();
+			if (updateTaskName.isEmpty()) {
+				//未入力チェック
+				url = "task-edit-failure.jsp";
+			} else if (count < 0 || count > 50) {
+				//文字数チェック
+				url = "task-edit-failure.jsp";
+			}
 
 			//セレクトボックスでカテゴリーIDを取得
 			String updatestrCategoryId = request.getParameter("updatecategoryid");
 			//カテゴリーIDをint型に型変換
 			int updateCategoryId = Integer.parseInt(updatestrCategoryId);
+			//カテゴリーIDの妥当性チェック
+			if(!(updateCategoryId == 1 || updateCategoryId == 2)) {
+				url = "task-edit-failure.jsp";
+			}
+			
 			
 			//期限を取得
 			String updatestrLimitDate = request.getParameter("updatelimitdate");
@@ -87,23 +106,61 @@ public class TaskEditServlet extends HttpServlet {
 				//LocalDate型のlimitDateをsql.date型に変換する
 				sqlDate = java.sql.Date.valueOf(limitDate);
 			} catch (DateTimeParseException | NullPointerException e) {
-				e.printStackTrace();
+				url = "task-edit-failure.jsp";
 			}
 			
 			
 			
 			//セレクトボックスでユーザーIDを取得
 			String updateUserId = request.getParameter("updateuserid");
+			//updateUserIdの妥当性チェック
+			//updateUserIdの文字数をcountに代入
+			count = updateUserId.length();
+			//文字数チェック
+			if (count < 0 || count > 24) {
+				url = "task-edit-failure.jsp";
+			}
+			
+			
 			//セレクトボックスでステータスコードを取得
 			String updateStatusCode = request.getParameter("updatestatuscode");
-			//確認用
-			//			System.out.println("サーブレット内: " + updateStatusCode);
-			//			メモを取得
+			//statusCodeの文字数をcountに代入
+			count = updateStatusCode.length();
+			//文字数チェック
+			if (count < 0 || count > 2) {
+				url = "task-edit-failure.jsp";
+			}
+			//範囲チェック
+			if(!(updateStatusCode.equals("00") || updateStatusCode.equals("50") || updateStatusCode.equals("99"))) {
+				url = "task-edit-failure.jsp";
+			}
+			
+			
+			//メモを取得
 			String updateMemo = request.getParameter("updatememo");
-			if (updateMemo.equals("")) {
+			//memo妥当性チェック
+			//memoの文字数をcountに代入
+			count = updateMemo.length();
+			//文字数チェック
+			if (count > 100) {
+				url = "task-edit-failure.jsp";
+			}
+			//空文字チェック
+			if(updateMemo.isEmpty()) {
 				updateMemo = null;
 			}
-		
+			
+			
+			//urlに登録失敗画面のurlマッピングが代入されていたら画面遷移する
+			if(url == "task-edit-failure.jsp"){
+				//転送先のパスを指定して転送処理用オブジェクトを取得
+				RequestDispatcher rd = request.getRequestDispatcher(url);
+
+				//リクエストの転送
+				rd.forward(request, response);
+				return;
+			}
+
 
 			//			入力された値が元の値と全て同じの場合、編集失敗画面に遷移する
 			if (updateTaskName.equals(tcusbean.getTaskName()) &&
@@ -112,8 +169,7 @@ public class TaskEditServlet extends HttpServlet {
 					updateUserId.equals(tcusbean.getUserId()) &&
 					updateStatusCode.equals(tcusbean.getStatusCode()) &&
 					updateMemo.equals(tcusbean.getMemo())) {
-				RequestDispatcher rd = request.getRequestDispatcher("task-edit-failure.jsp");
-				rd.forward(request, response);
+				url = "task-edit-failure.jsp";
 			} else {
 				//				そうでない場合はBean型に情報を詰める
 				TaskCategoryUserStatusBean updatetcus = new TaskCategoryUserStatusBean();
@@ -126,26 +182,25 @@ public class TaskEditServlet extends HttpServlet {
 				updatetcus.setTaskId(tcusbean.getTaskId());
 				//				引数にBean型を指定し、updateメソッドを呼ぶ
 				count = dao.update(updatetcus);
+				if(count == 0) {
+					url = "task-edit-failure.jsp"; 
+				}else {
+					url = "task-edit-result.jsp";
+				}
 			}
 		} catch (ClassNotFoundException e) {
-			RequestDispatcher rd = request.getRequestDispatcher("task-edit-failure.jsp");
-			rd.forward(request, response);
+			url = "task-edit-failure.jsp";
 		} catch (SQLException e) {
-			RequestDispatcher rd = request.getRequestDispatcher("task-edit-failure.jsp");
-			rd.forward(request, response);
+			url = "task-edit-failure.jsp";
 		} catch (NullPointerException e) {
-			RequestDispatcher rd = request.getRequestDispatcher("task-edit-failure.jsp");
-			rd.forward(request, response);
+			url = "task-edit-failure.jsp";
+		}catch(NumberFormatException e) {
+			url = "task-edit-failure.jsp";
 		}
-		if (count == 0) {
-			//編集に失敗した場合
-			RequestDispatcher rd = request.getRequestDispatcher("task-edit-failure.jsp");
+			
+		RequestDispatcher rd = request.getRequestDispatcher(url);
 			rd.forward(request, response);
-		} else {
-			//編集に成功した場合
-			RequestDispatcher rd = request.getRequestDispatcher("task-edit-result.jsp");
-			rd.forward(request, response);
-		}
+		
 
 	}
 
