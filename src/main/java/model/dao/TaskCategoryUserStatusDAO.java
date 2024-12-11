@@ -177,7 +177,9 @@ public class TaskCategoryUserStatusDAO {
 		}
 		
 		public TaskCategoryUserStatusBean detail (int taskid) throws SQLException, ClassNotFoundException{
+//			選択されたタスクIDのもつ情報を詰めるためのBeanの宣言
 			TaskCategoryUserStatusBean detail = new TaskCategoryUserStatusBean();
+			
 			try (Connection con = ConnectionManager.getConnection();
 					PreparedStatement pstmt = con
 							.prepareStatement(
@@ -187,21 +189,51 @@ public class TaskCategoryUserStatusDAO {
 						+ "left outer join m_user t3 on t1.user_id = t3.user_id "
 						+"left outer join m_status t4 on t1.status_code = t4.status_code  where t1.task_id = ?;"
 									)){
+//				詳細画面に送るタスクを検索するために参照するタスクID
 				pstmt.setInt(1, taskid);
+				
+//				タスク検索を行う
 				ResultSet res = pstmt.executeQuery();
+				
+//				タスク詳細画面に必要な情報をBeanに詰める
 				while(res.next()) {
+//					タスクID
 					int detailTaskId = res.getInt("t1.task_id");
+					
+//					タスク名
 					String detailTaskName = res.getString("t1.task_name");
+					
+//					カテゴリーID
 					int detailCategoryId = res.getInt("t2.category_id");
+					
+//					カテゴリー名
 					String detailCategoryName = res.getString("t2.category_name");
+					
+//					期限
 					Date detailLimitDate = res.getDate("t1.limit_date");
+					
+//					ユーザーID
 					String detailUserId = res.getString("t3.user_id");
+					
+//					ユーザー名
 					String detailUserName = res.getString("t3.user_name");
+					
+//					ステータスコード
 					String detailStatusCode = res.getString("t4.status_code");
+					
+//					ステータス名
 					String detailStatusName = res.getString("t4.status_name");
+					
+//					メモ
 					String detailMemo = res.getString("t1.memo");
+					
+//					タスク作成時刻
 					Timestamp detailCreateDateTime = res.getTimestamp("t1.create_datetime");
+
+//					タスク更新時刻
 					Timestamp detailUpdateDateTime = res.getTimestamp("t1.update_datetime");
+					
+//					各項目をBeanにセットする
 					detail.setTaskId(detailTaskId);
 					detail.setTaskName(detailTaskName);
 					detail.setCategoryId(detailCategoryId);
@@ -217,9 +249,7 @@ public class TaskCategoryUserStatusDAO {
 				}
 				
 			}
-			
-			
-			
+//			Beanに詰めた情報を戻り値として戻す
 			return detail;
 			
 		}
