@@ -69,31 +69,34 @@ tcus = (TaskCategoryUserStatusBean)session.getAttribute("detail");
 <% 
 //現在ログインしているユーザーが詳細画面に表示されている
 //タスクの担当者かどうかのチェックを行う
-String userName = (String)session.getAttribute("userName");
+String userName = (String)session.getAttribute("userName");%>
+<table>
+<form action="TaskListServlet" method="get">
+<input type="submit" value="一覧に戻る">
+</form>
+<%
 if(userName.equals(tcus.getUserName())){ 
 //ログイン者がタスクの担当者の場合、ボタン押下できる
 %>
-	<table>	
+		
 	<form action="TaskDetailServlet" method="post">
 <input type="submit" value="編集" >
 </form>
 <form action="TaskDeleteServlet" method="post">
 <input type="submit" value="削除">
 </form>
-</table>
 <%
 }else{
 //ログイン者がタスクの担当者ではない場合、ボタンを非活性化する
-%>
-<table>	
+%>	
 	<form action="TaskDetailServlet" method="post">
 <input type="submit" value="編集" disabled>
 </form>
 <form action="TaskDeleteServlet" method="post">
 <input type="submit" value="削除" disabled>
 </form>
-</table>
 <%} %>
+</table>
 <form action="ComentOutServlet" method="post">
 <input type="text" name="comment" class="txt" maxlength="100"><br>
 <input type="submit" value="コメント投稿">
