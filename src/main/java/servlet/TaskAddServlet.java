@@ -107,10 +107,10 @@ public class TaskAddServlet extends HttpServlet {
 		count = taskName.length();
 		if (taskName.isEmpty()) {
 			//未入力チェック
-			url = "register-failure.jsp";
+			url = "task-register-failure.jsp";
 		} else if (count < 0 || count > 50) {
 			//文字数チェック
-			url = "register-failure.jsp";
+			url = "task-register-failure.jsp";
 		}
 
 		//categoryId妥当性チェック
@@ -125,11 +125,11 @@ public class TaskAddServlet extends HttpServlet {
 			categoryId = Integer.parseInt(categoryArray[1]);
 		} catch (NullPointerException e) {
 			e.printStackTrace();
-			url = "register-failure.jsp";
+			url = "task-register-failure.jsp";
 		}
 		//範囲チェック
 		if(!(categoryId == 1 || categoryId == 2)) {
-			url = "register-failure.jsp";
+			url = "task-register-failure.jsp";
 		}
 
 		//strLimitDate妥当性チェック
@@ -145,7 +145,7 @@ public class TaskAddServlet extends HttpServlet {
 			LocalDate today = LocalDate.now();
 			//今日の日付と入力された日付を比較する
 			if(today.isAfter(limitDate)) {
-				url = "register-failure.jsp";
+				url = "task-register-failure.jsp";
 			}
 			//todayをString型にキャスト
 			String strToday = today.toString();
@@ -172,13 +172,13 @@ public class TaskAddServlet extends HttpServlet {
 			userId = userArray[1];
 		} catch (NullPointerException e) {
 			e.printStackTrace();
-			url = "register-failure.jsp";
+			url = "task-register-failure.jsp";
 		}
 		//userIdの文字数をcountに代入
 		count = userId.length();
 		//文字数チェック
 		if (count < 0 || count > 24) {
-			url = "register-failure.jsp";
+			url = "task-register-failure.jsp";
 		}
 
 		//statusCode妥当性チェック
@@ -193,17 +193,17 @@ public class TaskAddServlet extends HttpServlet {
 			statusCode = statusArray[1];
 		} catch (NullPointerException e) {
 			e.printStackTrace();
-			url = "register-failure.jsp";
+			url = "task-register-failure.jsp";
 		}
 		//statusCodeの文字数をcountに代入
 		count = statusCode.length();
 		//文字数チェック
 		if (count < 0 || count > 2) {
-			url = "register-failure.jsp";
+			url = "task-register-failure.jsp";
 		}
 		//範囲チェック
 		if(!(statusCode.equals("00") || statusCode.equals("50") || statusCode.equals("99"))) {
-			url = "register-failure.jsp";
+			url = "task-register-failure.jsp";
 		}
 
 		//memo妥当性チェック
@@ -211,7 +211,7 @@ public class TaskAddServlet extends HttpServlet {
 		count = memo.length();
 		//文字数チェック
 		if (count > 100) {
-			url = "register-failure.jsp";
+			url = "task-register-failure.jsp";
 		}
 		//空文字チェック
 		if(memo.isEmpty()) {
@@ -219,7 +219,7 @@ public class TaskAddServlet extends HttpServlet {
 		}
 		
 		//urlに登録失敗画面のurlマッピングが代入されていたら画面遷移する
-		if(url == "register-failure.jsp"){
+		if(url == "task-register-failure.jsp"){
 			//転送先のパスを指定して転送処理用オブジェクトを取得
 			RequestDispatcher rd = request.getRequestDispatcher(url);
 
@@ -250,14 +250,14 @@ public class TaskAddServlet extends HttpServlet {
 			res = dao.insert(tcusbean);
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
-			url = "register-failure.jsp";
+			url = "task-register-failure.jsp";
 		}
 
 		//resの値に応じて遷移する画面を変更する
 		if (res == 0) {
-			url = "register-failure.jsp";
+			url = "task-register-failure.jsp";
 		} else {
-			url = "register-success.jsp";
+			url = "task-register-success.jsp";
 		}
 
 		//転送先のパスを指定して転送処理用オブジェクトを取得
