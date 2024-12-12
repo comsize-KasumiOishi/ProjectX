@@ -41,7 +41,7 @@ public class TaskDetailServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		//一覧リストから送られてきた該当データのタスクIDを取得
-		String strTaskId = request.getParameter("taskid");
+		String strTaskId = request.getParameter("taskId");
 		//int型に型変換
 		int taskId = Integer.parseInt(strTaskId);
 		//各DAOとBeanを呼び出し
