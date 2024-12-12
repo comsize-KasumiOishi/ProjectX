@@ -10,6 +10,7 @@
 .txt{
     display: inline-block;
     width: 70%;
+    height: 70%;
     border: 1px solid #999;
     box-sizing: border-box;
     background: #f2f2f2;
@@ -108,7 +109,7 @@ if(userName.equals(tcus.getUserName())){
 </form>
 
 <!-- コメント表示機能の及び削除ボタン追加を行う -->
-<table>
+<table border="1">
 <% 
 //for文を用いてリストの中をすべて表示する
 //DetailServletを用いてタスクIDに紐づいたコメントのリストを取得する

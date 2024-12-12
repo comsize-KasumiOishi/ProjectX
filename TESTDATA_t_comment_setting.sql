@@ -1,4 +1,5 @@
 --ユーザマスタ t_comment(17件分)
+use task_db;
 
 --task_id = 1
 
