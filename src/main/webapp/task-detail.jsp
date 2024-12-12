@@ -80,7 +80,7 @@ if(userName.equals(tcus.getUserName())){
 //ログイン者がタスクの担当者の場合、ボタン押下できる
 %>
 		
-	<form action="TaskDetailServlet" method="post">
+<form action="TaskDetailServlet" method="post">
 <input type="submit" value="編集" >
 </form>
 <form action="TaskDeleteServlet" method="post">
@@ -102,6 +102,8 @@ if(userName.equals(tcus.getUserName())){
 <!-- コメント投稿機能の追加を行う -->
 <form action="ComentAddServlet" method="post">
 <input type="text" name="comment" class="txt" maxlength="100"><br>
+<input type="hidden" name="taskid" value="<%=tcus.getTaskId() %>" >
+<input type="hidden" name="userid" value="<%=tcus.getUserId() %>" >
 <input type="submit" value="コメント投稿">
 </form>
 
