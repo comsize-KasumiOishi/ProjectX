@@ -1,10 +1,15 @@
 package model.entity;
 
+import java.sql.Timestamp;
+
 public class TaskUserCommentBean {
 
 	private int taskId;
 	private String userId;
 	private String comment;
+	private String userName;
+	private Timestamp updateDateTime;
+	private int commentId;
 
 	public int getTaskId() {
 		return taskId;
@@ -29,5 +34,30 @@ public class TaskUserCommentBean {
 	public void setComment(String comment) {
 		this.comment = comment;
 	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public Timestamp getUpdateDateTime() {
+		return updateDateTime;
+	}
+
+	public void setUpdateDateTime(Timestamp updateDateTime) {
+		this.updateDateTime = updateDateTime;
+	}
+
+	public int getCommentId() {
+		return commentId;
+	}
+
+	public void setCommentId(int commentId) {
+		this.commentId = commentId;
+	}
+	
 
 }

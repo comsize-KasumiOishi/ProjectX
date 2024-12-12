@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import ="model.entity.TaskCategoryUserStatusBean"%>
+    pageEncoding="UTF-8" 
+    import ="model.entity.TaskCategoryUserStatusBean , java.util.ArrayList , java.util.List , model.dao.TaskCategoryUserStatusDAO , model.dao.TaskUserCommentDAO , model.entity.TaskUserCommentBean "%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -97,9 +98,32 @@ if(userName.equals(tcus.getUserName())){
 </form>
 <%} %>
 </table>
+
+<!-- コメント投稿機能の追加を行う -->
 <form action="ComentOutServlet" method="post">
 <input type="text" name="comment" class="txt" maxlength="100"><br>
 <input type="submit" value="コメント投稿">
 </form>
+
+<!-- コメント表示機能の及び削除ボタン追加を行う -->
+<table>
+<% 
+//for文を用いてリストの中をすべて表示する
+//DetailServletを用いてタスクIDに紐づいたコメントのリストを取得する
+List<TaskUserCommentBean> commentList = (List<TaskUserCommentBean>)session.getAttribute("commentList");
+for(TaskUserCommentBean tcubean : commentList){
+%>
+<tr>
+<td><b>投稿者:<%=tcubean.getUserName() %>></b></td>
+<td>投稿日:<%=tcubean.getUpdateDateTime() %></td>
+<td><a href="CommentDeleteServlet?commentId = <%=tcubean.getCommentId()%>">削除</a></td>
+</tr>
+<tr>
+<td colspan="3"><%=tcubean.getComment() %></td>
+</tr>
+<% 
+}
+%>
+</table>
 </body>
 </html>

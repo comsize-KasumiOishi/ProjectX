@@ -2,6 +2,8 @@ package servlet;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,7 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import model.dao.TaskCategoryUserStatusDAO;
+import model.dao.TaskUserCommentDAO;
 import model.entity.TaskCategoryUserStatusBean;
+import model.entity.TaskUserCommentBean;
 
 /**
  * Servlet implementation class TaskDetailServlet
@@ -41,11 +45,18 @@ public class TaskDetailServlet extends HttpServlet {
 		//int型に型変換
 		int taskId = Integer.parseInt(strTaskId);
 		//各DAOとBeanを呼び出し
+		//タスク詳細画面用
 		TaskCategoryUserStatusBean tcusbean = new TaskCategoryUserStatusBean();
-		TaskCategoryUserStatusDAO dao = new TaskCategoryUserStatusDAO();
+		TaskCategoryUserStatusDAO tcusdao = new TaskCategoryUserStatusDAO();
+		//タスクコメント用
+		List<TaskUserCommentBean> commentList = new ArrayList<TaskUserCommentBean>();
+		TaskUserCommentDAO tucdao = new TaskUserCommentDAO();
 		try {
 			//取得したタスクIDを用いて詳細画面用のBean型を取得
-			tcusbean = dao.detail(taskId);
+			tcusbean = tcusdao.detail(taskId);
+			//取得したタスクIDを用いて詳細画面用のコメント表示を取得
+			commentList = tucdao.commentList(taskId);
+			
 		} catch (ClassNotFoundException e) {
 			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
@@ -53,9 +64,12 @@ public class TaskDetailServlet extends HttpServlet {
 			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 		}
-		//取得した詳細画面用データをセッションにセット
+		
 		HttpSession session = request.getSession();
+		//取得した詳細画面用データをセッションにセット
 		session.setAttribute("detail", tcusbean);
+		//取得したコメントデータをセッションにセット
+		session.setAttribute("commentList", commentList);	
 		//タスク詳細画面に遷移する
 		RequestDispatcher rd = request.getRequestDispatcher("task-detail.jsp");
 		rd.forward(request, response);
@@ -68,12 +82,13 @@ public class TaskDetailServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
 		String userName = (String)session.getAttribute("userName");
-		TaskCategoryUserStatusBean tcusbean = (TaskCategoryUserStatusBean) session.getAttribute("detail");
-		String repName = tcusbean.getUserName();
+		TaskCategoryUserStatusBean tcus = (TaskCategoryUserStatusBean) session.getAttribute("detail");
+		String repName = tcus.getUserName();
 		
 		//ログイン者とタスク担当者が一致しているか調べる
 		//一致していない場合はタスクリストに戻す
 		if(repName.equals(userName)) {
+			session.setAttribute("detailtable", tcus);
 			RequestDispatcher rd = request.getRequestDispatcher("task-edit.jsp");
 			rd.forward(request, response);
 		}else {
