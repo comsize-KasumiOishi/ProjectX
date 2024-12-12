@@ -111,17 +111,21 @@ if(userName.equals(tcus.getUserName())){
 //for文を用いてリストの中をすべて表示する
 //DetailServletを用いてタスクIDに紐づいたコメントのリストを取得する
 List<TaskUserCommentBean> commentList = (List<TaskUserCommentBean>)session.getAttribute("commentList");
+if(commentList.isEmpty()){%>
+	<h3>コメントはありません</h3>
+<%}else{
 for(TaskUserCommentBean tcubean : commentList){
 %>
 <tr>
 <td><b>投稿者:<%=tcubean.getUserName() %>></b></td>
 <td>投稿日:<%=tcubean.getUpdateDateTime() %></td>
-<td><a href="CommentDeleteServlet?commentId = <%=tcubean.getCommentId()%>">削除</a></td>
+<td><a href="CommentDeleteServlet?commentId=<%=tcubean.getCommentId()%>">削除</a></td>
 </tr>
 <tr>
 <td colspan="3"><%=tcubean.getComment() %></td>
 </tr>
 <% 
+}
 }
 %>
 </table>
