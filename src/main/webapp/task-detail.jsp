@@ -100,7 +100,7 @@ if(userName.equals(tcus.getUserName())){
 </table>
 
 <!-- コメント投稿機能の追加を行う -->
-<form action="ComentOutServlet" method="post">
+<form action="ComentAddServlet" method="post">
 <input type="text" name="comment" class="txt" maxlength="100"><br>
 <input type="submit" value="コメント投稿">
 </form>
