@@ -25,7 +25,7 @@
 	
 	<br>
 	
-	<form action="testlist.jsp" method="GET">
+	<form action="TaskListServlet" method="GET">
 	
 	<input type="submit" value="タスク一覧表示">
 	
