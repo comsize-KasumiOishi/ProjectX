@@ -10,6 +10,7 @@ public class TaskUserCommentBean {
 	private String userName;
 	private Timestamp updateDateTime;
 	private int commentId;
+	private int commentCount;
 
 	public int getTaskId() {
 		return taskId;
@@ -59,5 +60,12 @@ public class TaskUserCommentBean {
 		this.commentId = commentId;
 	}
 	
+	public int getcommentCount() {
+		return commentCount;
+	}
+
+	public void setcommentCount(int commentCount) {
+		this.commentCount = commentCount;
+	}
 
 }

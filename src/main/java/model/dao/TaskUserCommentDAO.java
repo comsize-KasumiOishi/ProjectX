@@ -116,4 +116,32 @@ public class TaskUserCommentDAO {
 		return list;
 
 	}
+	
+	public List<TaskUserCommentBean> commentCount() throws SQLException, ClassNotFoundException {
+		
+		List<TaskUserCommentBean> commentCounts = new ArrayList<TaskUserCommentBean>();	
+		
+		// データベースへの接続の取得、Statementの取得、SQLステートメントの実行
+			try (Connection con = ConnectionManager.getConnection();
+				PreparedStatement pstmt = con.prepareStatement("SELECT task_id, COUNT(*) AS comment_count FROM t_comment GROUP BY task_id;");
+				ResultSet res = pstmt.executeQuery()){
+				
+				
+				while (res.next()) {
+	                int commentCount = res.getInt("comment_count");
+	                int taskId = res.getInt("task_id");
+
+	                
+	                TaskUserCommentBean taskUserCommentBean = new TaskUserCommentBean();
+	              
+					taskUserCommentBean.setcommentCount(commentCount);
+					taskUserCommentBean.setTaskId(taskId);
+
+					
+	                commentCounts.add(taskUserCommentBean);
+	            }
+			}
+			return commentCounts;
+			
+		}
 }

@@ -13,7 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import model.dao.TaskCategoryUserStatusDAO;
+import model.dao.TaskUserCommentDAO;
 import model.entity.TaskCategoryUserStatusBean;
+import model.entity.TaskUserCommentBean;
 
 /**
  * Servlet implementation class ItemListServlet
@@ -41,13 +43,17 @@ public class TaskListServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		
 		List<TaskCategoryUserStatusBean> taskList = null;
+		List<TaskUserCommentBean> commentCounts = null;
 
 		// DAOの生成
 		TaskCategoryUserStatusDAO dao = new TaskCategoryUserStatusDAO();
+		TaskUserCommentDAO dao2 = new TaskUserCommentDAO();
 
 		try {
 			// DAOの利用
 			taskList = dao.selectAll();
+			commentCounts = dao2.commentCount();
+			session.setAttribute("commentCounts", commentCounts);
 		} catch (SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -70,40 +76,7 @@ public class TaskListServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		request.setCharacterEncoding("UTF-8");
-		
 
-
-		HttpSession session = request.getSession();
-		
-		List<TaskCategoryUserStatusBean> taskList = null;
-
-		// DAOの生成
-		TaskCategoryUserStatusDAO dao = new TaskCategoryUserStatusDAO();
-
-		try {
-			// DAOの利用
-			taskList = dao.selectAll();
-		} catch (SQLException | ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-
-		if (taskList != null) {
-		// リクエストスコープへの属性の設定
-		session.setAttribute("taskList", taskList);
-		
-		for (TaskCategoryUserStatusBean task : taskList) {
-			System.out.println(task.getTaskId());
-		}
-		
-		
-		RequestDispatcher rd = request.getRequestDispatcher("task-list.jsp");
-		rd.forward(request, response);
-		}else {
-			RequestDispatcher rd = request.getRequestDispatcher("login-failure.jsp");
-			rd.forward(request, response);
-		}
-		
 	}
 
 }
