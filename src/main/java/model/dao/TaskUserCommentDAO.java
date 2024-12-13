@@ -86,4 +86,34 @@ public class TaskUserCommentDAO {
 		return list;
 
 	}
+
+	public List<TaskUserCommentBean> deleteCommentList(int commentId) throws SQLException, ClassNotFoundException {
+		//コメントリストを収めるリストの宣言
+		List<TaskUserCommentBean> list = new ArrayList<TaskUserCommentBean>();
+
+		//データベースに接続してコメントテーブルの情報を取得する
+		String sql = "SELECT t1.comment_id , t1.task_id , t2.user_id, t2.user_name , t1.comment , t1.update_datetime FROM t_comment t1 LEFT OUTER JOIN m_user t2 on t1.user_id = t2.user_id WHERE comment_id = ?";
+		try (Connection con = ConnectionManager.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql)) {
+
+			pstmt.setInt(1, commentId);
+
+			ResultSet res = pstmt.executeQuery();
+
+			while (res.next()) {
+				//リストに詰めるためのBeanの宣言
+				TaskUserCommentBean tucbean = new TaskUserCommentBean();
+				tucbean.setCommentId(res.getInt("t1.comment_id"));
+				tucbean.setTaskId(res.getInt("t1.task_id"));
+				tucbean.setUserId(res.getString("t2.user_id"));
+				tucbean.setUserName(res.getString("t2.user_name"));
+				tucbean.setComment(res.getString("t1.comment"));
+				tucbean.setUpdateDateTime(res.getTimestamp("t1.update_datetime"));
+
+				list.add(tucbean);
+			}
+		}
+		return list;
+
+	}
 }
