@@ -7,6 +7,7 @@
 <title>メニュー画面</title>
 </head>
 <body>
+	<%@ include file="header.jsp"%>
 	<% String userId = (String) session.getAttribute("userId");%>
 	<% String password = (String) session.getAttribute("password");%>
 	<% String userName = (String) session.getAttribute("userName");%>
@@ -24,7 +25,7 @@
 	
 	<br>
 	
-	<form action="TaskListServlet" method="GET">
+	<form action="testlist.jsp" method="GET">
 	
 	<input type="submit" value="タスク一覧表示">
 	

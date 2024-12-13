@@ -13,8 +13,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 
 import model.dao.TaskCategoryUserStatusDAO;
 import model.dao.UserDAO;
@@ -81,48 +79,44 @@ public class LoginServlet extends HttpServlet {
 
 				//タスクの期限が迫っているユーザに対して、ログイン時にアラートを出す
 				//アラートは現在日時から1週間以内に設定
+				//アラートを発したタスクの数をカウント
+				int alertCount = 0;
 				//TaskCategoryUserStatusDAOクラスのselectLimitDateメソッドを呼び出す
 				TaskCategoryUserStatusDAO tcusdao = new TaskCategoryUserStatusDAO();
 
-				//Date型のLimitDateを取り出して変数dateに詰める
-				Date date = tcusdao.selectLimitDate(userId);
+				//Date型のリストから一定の期限のLimitDateがあればbooleanを返す
 
-				//LimitDateをDate型からString型にキャストする
-				String strDate = date.toString();
-				
-				//String型のstrDateをLocalDate型にキャストする
-				LocalDate limitDate = LocalDate.parse(strDate);
-				
-				//タスクの期限から1週間引く
-				LocalDate alertDate = limitDate.minusDays(7);
-				System.out.println("タスクの期限から1週間引く:" + alertDate);
+				//Date型のリスト
+				List<Date> limitDateList = tcusdao.limitDateList(userId);
 
-				//タスクの期限が現在日時から1週間以内だったら警告メッセージを出す
-				if (alertDate.isBefore(limitDate)) {
-					JFrame frame = new JFrame();
-					
-					JOptionPane.showMessageDialog(null, "メッセージだよ");
+				for (Date date : limitDateList) {
+					//LimitDateをDate型からString型にキャストする
+					String strDate = date.toString();
 
-					JOptionPane.showMessageDialog(frame, "タスクの期限が迫っています", "警告",
-							JOptionPane.ERROR_MESSAGE);
-					
-//坂上さんへ
-//タスク期限と、タスク期限の1週間前の日付を比較するだけだとアラートになってない気がします。
-//A5のタスク期限が1個だけ迫ってる、だとアラートすり抜けます。
-//タスク期限がNullだった場合については未着手です。
-					
+					//String型のstrDateをLocalDate型にキャストする
+					LocalDate limitDate = LocalDate.parse(strDate);
+
+					//比較する現在日時を呼ぶ
+					LocalDate currentDate = LocalDate.now();
+
+					//もし期限の七日前が現在日時より前だったらtrue
+					if (currentDate.isAfter(limitDate.minusDays(7))) {
+						//注意喚起無し
+					} else {
+						//注意喚起あり
+						alertCount++;
+					}
 				}
-					//メニュー画面に遷移する
-					RequestDispatcher rd = request.getRequestDispatcher("menu.jsp");
-					rd.forward(request, response);
-				
+				session.setAttribute("alert", alertCount);
 			} else {
 				//ログイン認証に失敗した場合はログイン失敗画面に遷移する
 				RequestDispatcher rd = request.getRequestDispatcher("login-failure.jsp");
 				rd.forward(request, response);
 			}
 
-		} catch (SQLException | ClassNotFoundException e) {
+		} catch (SQLException |
+
+				ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 
@@ -145,6 +139,9 @@ public class LoginServlet extends HttpServlet {
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
+		//メニュー画面に遷移する
+		RequestDispatcher rd = request.getRequestDispatcher("menu.jsp");
+		rd.forward(request, response);
 	}
 
 }

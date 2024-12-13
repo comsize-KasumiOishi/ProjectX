@@ -291,11 +291,12 @@ public class TaskCategoryUserStatusDAO {
 
 	}
 
-	public Date selectLimitDate(String userId) throws ClassNotFoundException, SQLException {
-		//カテゴリマスタの情報一覧を格納したリストを返すメソッド
+	public List<Date> limitDateList(String userId) throws ClassNotFoundException, SQLException {
+		//期限の情報一覧を格納するリスト
+		List<Date> limitDateList = new ArrayList<Date>();
 
-		//データベースに接続してカテゴリマスタの情報を取得する
-		String sql = "SELECT limit_date FROM t_task WHERE user_id = ?";
+		//データベースに接続して期限の情報を取得する
+		String sql = "SELECT limit_date FROM t_task WHERE user_id = ? ORDER BY limit_date ASC";
 
 		try (Connection con = ConnectionManager.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql)) {
@@ -305,14 +306,11 @@ public class TaskCategoryUserStatusDAO {
 			//SQLステートメントの実行(参照系)
 			ResultSet res = pstmt.executeQuery();
 
-			if (res.next()) {
+			while (res.next()) {
 				Date date = res.getDate("limit_date");
-
-				return date;
-
-			} else {
-				return null;
-			}
+				limitDateList.add(date);			
+				}
+			return limitDateList;
 		}
 	}
 }
