@@ -47,7 +47,10 @@ public class TaskDeleteServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		
 		HttpSession session = request.getSession();
+		//ログインユーザーの取得
 		String userName = (String)session.getAttribute("userName");
+		
+		//タスク担当者の取得
 		TaskCategoryUserStatusBean tcusbean = (TaskCategoryUserStatusBean) session.getAttribute("detail");
 		String repName = tcusbean.getUserName();
 		
