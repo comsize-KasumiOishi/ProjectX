@@ -11,7 +11,24 @@ import java.util.List;
 
 import model.entity.TaskCategoryUserStatusBean;
 
+/**
+ * タスクの一覧画面表示、登録、編集、削除及び
+ * ログイン時のアラート機能のためのTaskテーブルのDAOです。
+ * @author 坂上
+ * @author 篠
+ * @author 柳沢
+ * @author 大石
+ */
+
 public class TaskCategoryUserStatusDAO {
+	
+	/**
+	 * カテゴリーマスターの情報一覧を格納したリストを出す
+	 * @author 篠
+	 * @param 無し
+	 * @return TaskCategoryUserStatusBean型のリスト
+	 * @throws SQLException , ClassNotFoundException
+	 */
 
 	public List<TaskCategoryUserStatusBean> selectCategoryId() throws ClassNotFoundException, SQLException {
 		//カテゴリマスタの情報一覧を格納したリストを返すメソッド
@@ -42,6 +59,14 @@ public class TaskCategoryUserStatusDAO {
 
 	}
 
+	/**
+	 * ユーザーマスターの情報一覧を格納したリストを出す
+	 * @author 篠
+	 * @param 無し
+	 * @return TaskCategoryUserStatusBean型のリスト
+	 * @throws SQLException , ClassNotFoundException
+	 */
+	
 	public List<TaskCategoryUserStatusBean> selectUserId() throws ClassNotFoundException, SQLException {
 		//ユーザマスタのユーザIDを格納したリストを返すメソッド
 
@@ -70,6 +95,14 @@ public class TaskCategoryUserStatusDAO {
 		return userList;
 
 	}
+	
+	/**
+	 * ステータスマスターの情報一覧を格納したリストを出す
+	 * @author 篠
+	 * @param 無し
+	 * @return TaskCategoryUserStatusBean型のリスト
+	 * @throws SQLException , ClassNotFoundException
+	 */
 
 	public List<TaskCategoryUserStatusBean> selectStatusCode() throws ClassNotFoundException, SQLException {
 		//ステータスマスタの情報一覧を格納したリストを返すメソッド
@@ -99,6 +132,14 @@ public class TaskCategoryUserStatusDAO {
 		return statusList;
 	}
 
+	/**
+	 * データベースにタスク情報を登録するメソッド
+	 * @author 篠
+	 * @param TaskCategoryUserStatusBean型の変数 tcusbean
+	 * @return int型の変数 res
+	 * @throws SQLException , ClassNotFoundException
+	 */
+	
 	public int insert(TaskCategoryUserStatusBean tcusbean) throws ClassNotFoundException, SQLException {
 		//データベースにタスク情報を登録するメソッド
 
@@ -128,6 +169,14 @@ public class TaskCategoryUserStatusDAO {
 
 	}
 
+	/**
+	 * データベースにあるタスク情報を削除するメソッド
+	 * @author 大石
+	 * @param int型の変数 taskId
+	 * @return int型の変数 count
+	 * @throws SQLException , ClassNotFoundException
+	 */
+	
 	public int delete(int taskId) throws SQLException, ClassNotFoundException {
 		//削除した件数を返すメソッド
 
@@ -147,6 +196,16 @@ public class TaskCategoryUserStatusDAO {
 		return count;
 	}
 
+	
+	/**
+	 * データベースにあるタスク情報を編集するメソッド
+	 * @author 坂上
+	 * @param TaskCategoryUserStatusBean型の変数 tcus
+	 * @return int型の変数 count
+	 * @throws SQLException , ClassNotFoundException
+	 */
+	
+	
 	//タスク編集を行うメソッド
 	public int update(TaskCategoryUserStatusBean tcus) throws SQLException, ClassNotFoundException {
 		//		変更したデータの数を送る変数
@@ -177,6 +236,14 @@ public class TaskCategoryUserStatusDAO {
 		}
 	}
 
+	/**
+	 * データベースにあるタスク情報の詳細を表示するメソッド
+	 * @author 坂上
+	 * @param int型の変数 taskId
+	 * @return TaskCategoryUserStatusBean型の変数 tcusbean
+	 * @throws SQLException , ClassNotFoundException
+	 */
+	
 	public TaskCategoryUserStatusBean detail(int taskid) throws SQLException, ClassNotFoundException {
 		//			選択されたタスクIDのもつ情報を詰めるためのBeanの宣言
 		TaskCategoryUserStatusBean detail = new TaskCategoryUserStatusBean();
@@ -253,6 +320,15 @@ public class TaskCategoryUserStatusDAO {
 		return detail;
 
 	}
+	
+	/**
+	 * データベースにあるタスク情報の一覧を表示するメソッド
+	 * @author 柳沢
+	 * @param 無し
+	 * @return TaskCategoryUserStatusBean型のリスト taskList
+	 * @throws SQLException , ClassNotFoundException
+	 */
+	
 
 	public List<TaskCategoryUserStatusBean> selectAll() throws SQLException, ClassNotFoundException {
 
@@ -291,6 +367,15 @@ public class TaskCategoryUserStatusDAO {
 
 	}
 
+	
+	/**
+	 * データベースにある期限の一覧を表示するメソッド
+	 * @author 坂上
+	 * @param String型の変数 userId
+	 * @return Date型のリスト limitDateList
+	 * @throws SQLException , ClassNotFoundException
+	 */
+	
 	public List<Date> limitDateList(String userId) throws ClassNotFoundException, SQLException {
 		//期限の情報一覧を格納するリスト
 		List<Date> limitDateList = new ArrayList<Date>();

@@ -9,7 +9,23 @@ import java.util.List;
 
 import model.entity.TaskUserCommentBean;
 
+/**
+ * タスクの一覧画面表示、登録、編集、削除のためのCommentテーブルのDAOです。
+ * @author 坂上
+ * @author 篠
+ * @author 柳沢
+ */
+
 public class TaskUserCommentDAO {
+	
+	/**
+	 * コメントテーブルにコメントを登録するメソッド
+	 * @author 篠
+	 * @param TaskUserCommentBean型の変数 tucbean
+	 * @return int型の変数 res
+	 * @throws SQLException , ClassNotFoundException
+	 */
+
 
 	public int insert(TaskUserCommentBean tucbean) throws ClassNotFoundException, SQLException {
 		//データベースにコメント情報を登録するメソッド
@@ -35,6 +51,14 @@ public class TaskUserCommentDAO {
 		return res;
 
 	}
+	
+	/**
+	 * コメントテーブルにあるコメントを削除するメソッド
+	 * @author 篠
+	 * @param int型の変数 commentId
+	 * @return int型の変数 count
+	 * @throws SQLException , ClassNotFoundException
+	 */
 
 	public int delete(int commentId) throws ClassNotFoundException, SQLException {
 		//データベースからコメント情報を削除した件数を返すメソッド
@@ -56,6 +80,14 @@ public class TaskUserCommentDAO {
 		return count;
 
 	}
+	
+	/**
+	 * コメントテーブルにあるタスク一件に紐づいたコメントのリストを表示するメソッド
+	 * @author 坂上
+	 * @param int型の変数 taskId
+	 * @return TaskUserCommentBean型のリスト commentList
+	 * @throws SQLException , ClassNotFoundException
+	 */
 
 	public List<TaskUserCommentBean> commentList(int taskId) throws SQLException, ClassNotFoundException {
 		//コメントリストを収めるリストの宣言
@@ -87,6 +119,16 @@ public class TaskUserCommentDAO {
 
 	}
 
+	
+	/**
+	 * コメントテーブルにあるコメントを削除するのに必要なリストの表示するメソッド
+	 * @author 篠
+	 * @param int型の変数 commentId
+	 * @return TaskUserCommentBean型のリスト list
+	 * @throws SQLException , ClassNotFoundException
+	 */
+	
+	
 	public List<TaskUserCommentBean> deleteCommentList(int commentId) throws SQLException, ClassNotFoundException {
 		//コメントリストを収めるリストの宣言
 		List<TaskUserCommentBean> list = new ArrayList<TaskUserCommentBean>();
@@ -116,6 +158,16 @@ public class TaskUserCommentDAO {
 		return list;
 
 	}
+	
+	
+	/**
+	 * コメントテーブルにあるタスクのリストとそれに紐づいたコメントの数を表示するメソッド
+	 * @author 柳沢
+	 * @param 無し
+	 * @return TaskUserCommentBean型のリスト commentCounts
+	 * @throws SQLException , ClassNotFoundException
+	 */
+	
 	
 	public List<TaskUserCommentBean> commentCount() throws SQLException, ClassNotFoundException {
 		
