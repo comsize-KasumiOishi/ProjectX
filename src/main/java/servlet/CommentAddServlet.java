@@ -30,20 +30,77 @@ public class CommentAddServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
+	/**
+	 * コメントをデータベースに登録するクラスです
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		//コメントをデータベースに登録するメソッド
-
 		//リクエストのエンコーディング方式を指定
 		request.setCharacterEncoding("UTF-8");
 
 		//リクエストパラメータの取得
 		String comment = request.getParameter("comment");
-		String taskid = request.getParameter("taskid");
+		String strTaskId = request.getParameter("taskid");
 		String userId = request.getParameter("userid");
 
+		//遷移先のURLマッピングを格納するString型の変数urlを宣言
+		String url = null;
+
+		//文字数チェックが必要な項目の文字数をカウントするint型の変数countを宣言
+		int count = 0;
+
+		//comment妥当性チェック
+		if (comment == null || comment.isEmpty()) {
+			//未入力チェック
+			url = "comment-register-failure.jsp";
+		}
+		try {
+			//commentの文字数をcountに代入
+			count = comment.length();
+			if (count < 0 || count > 100) {
+				//文字数チェック
+				url = "comment-register-failure.jsp";
+			}
+		} catch (NullPointerException e) {
+			e.printStackTrace();
+		}
+
+		//taskid妥当性チェック
+		if (strTaskId == null || strTaskId.isEmpty()) {
+			//未入力チェック
+			url = "comment-register-failure.jsp";
+		}
+
+		//userId妥当性チェック
+		if (userId == null || userId.isEmpty()) {
+			//未入力チェック
+			url = "comment-register-failure.jsp";
+		}
+		try {
+			//userIdの文字数をcountに代入
+			count = userId.length();
+			if (count < 0 || count > 24) {
+			//文字数チェック
+			url = "comment-register-failure.jsp";
+			}
+		} catch (NullPointerException e) {
+			e.printStackTrace();
+		}
+
+		//urlに登録失敗画面のurlマッピングが代入されていたら画面遷移する
+		if (url == "comment-register-failure.jsp") {
+			//転送先のパスを指定して転送処理用オブジェクトを取得
+			RequestDispatcher rd = request.getRequestDispatcher(url);
+
+			//リクエストの転送
+			rd.forward(request, response);
+			
+			//メソッドの途中で処理を終了させる
+			return;
+		}
+
 		//taskidをint型にキャスト
-		int taskId = Integer.parseInt(taskid);
+		int taskId = Integer.parseInt(strTaskId);
 
 		//TaskUserCommentBeanのインスタンスを作成
 		TaskUserCommentBean tucbean = new TaskUserCommentBean();
@@ -58,9 +115,6 @@ public class CommentAddServlet extends HttpServlet {
 
 		//登録件数を格納するint型の変数resを宣言
 		int res = 0;
-
-		//遷移先のURLマッピングを格納するString型の変数urlを宣言
-		String url = null;
 
 		//TaskCategoryUserStatusDAOクラスのinsertメソッドを呼び出す
 		try {
