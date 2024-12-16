@@ -87,7 +87,6 @@ public class LoginServlet extends HttpServlet {
 				//Date型のリストに、limitDateListメソッドで取得したリストを格納する
 				//一定の期限のLimitDateがあればbooleanを返す
 				List<Date> limitDateList = tcusdao.limitDateList(userId);
-				System.out.println(limitDateList.size());
 
 				for (Date date : limitDateList) {
 					if (date != null) {
