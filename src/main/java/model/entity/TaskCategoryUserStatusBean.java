@@ -1,5 +1,6 @@
 package model.entity;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.sql.Timestamp;
 
@@ -9,7 +10,7 @@ import java.sql.Timestamp;
  */
 
 
-public class TaskCategoryUserStatusBean {
+public class TaskCategoryUserStatusBean implements Serializable {
 	private   int  taskId;		
 	private String taskName;		
 	private int categoryId;	

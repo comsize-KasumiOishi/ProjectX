@@ -1,11 +1,13 @@
 package model.entity;
 
+import java.io.Serializable;
+
 /**
  * ログイン認証のためのm_userテーブルのBeanです。
  * @author 大石圭純
  */
 
-public class UserBean {
+public class UserBean implements Serializable {
 
 	private String userId;
 	private String password;
