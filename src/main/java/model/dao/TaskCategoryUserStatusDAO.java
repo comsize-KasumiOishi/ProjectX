@@ -349,7 +349,7 @@ public class TaskCategoryUserStatusDAO {
 				String userName = res.getString("t3.user_name");
 				String statusName = res.getString("t4.status_name");
 				String memo = res.getString("t1.memo");
-				System.out.println("タスクID 一覧サーブレット:" + taskId);
+				
 
 				TaskCategoryUserStatusBean taskCategoryUserStatus = new TaskCategoryUserStatusBean();
 				taskCategoryUserStatus.setTaskId(taskId);
