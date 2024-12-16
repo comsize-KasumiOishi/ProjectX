@@ -2,6 +2,8 @@
 	pageEncoding="UTF-8"
 	import="java.util.Date,model.entity.TaskCategoryUserStatusBean,java.util.List"%>
 <!DOCTYPE html>
+<!-- タスク削除失敗画面 -->
+<!-- @author 坂上 -->
 <html>
 <head>
 <meta charset="UTF-8">
