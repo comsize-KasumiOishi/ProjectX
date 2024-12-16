@@ -18,6 +18,7 @@ import javax.servlet.http.HttpSession;
 
 import model.dao.TaskCategoryUserStatusDAO;
 import model.entity.TaskCategoryUserStatusBean;
+
 /**
  * タスク登録を行うためのサーブレット
  * @author 篠杏樹
@@ -43,28 +44,20 @@ public class TaskAddServlet extends HttpServlet {
 		//カテゴリマスタの情報を格納するリストを作成
 		List<TaskCategoryUserStatusBean> categoryList = new ArrayList<>();
 
-		//TaskCategoryUserStatusDAOクラスのselectCategoryIdメソッドを呼び出す
-		try {
-			categoryList = dao.selectCategoryId();
-		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
-		}
-
 		//ユーザマスタの情報を格納するリストを作成
 		List<TaskCategoryUserStatusBean> userList = new ArrayList<>();
 
-		//TaskCategoryUserStatusDAOクラスのselectUserIdメソッドを呼び出す
-		try {
-			userList = dao.selectUserId();
-		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
-		}
-
 		//ステータスマスタの情報を格納するリストを作成
 		List<TaskCategoryUserStatusBean> statusList = new ArrayList<>();
-
-		//TaskCategoryUserStatusDAOクラスのselectStatusCodeメソッドを呼び出す
+		
 		try {
+			//TaskCategoryUserStatusDAOクラスのselectCategoryIdメソッドを呼び出す
+			categoryList = dao.selectCategoryId();
+			
+			//TaskCategoryUserStatusDAOクラスのselectUserIdメソッドを呼び出す
+			userList = dao.selectUserId();
+			
+			//TaskCategoryUserStatusDAOクラスのselectStatusCodeメソッドを呼び出す
 			statusList = dao.selectStatusCode();
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
