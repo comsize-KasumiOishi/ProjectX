@@ -78,15 +78,15 @@ public class LoginServlet extends HttpServlet {
 				session.setAttribute("userName", userbean.getUserName());
 
 				//タスクの期限が迫っているユーザに対して、ログイン時にアラートを出す
-				//アラートは現在日時から1週間以内に設定
+				//アラートはタスクの期限から1週間以内に設定
 				//アラートを発したタスクの数をカウント
 				int alertCount = 0;
-				//TaskCategoryUserStatusDAOクラスのselectLimitDateメソッドを呼び出す
+				
+				//TaskCategoryUserStatusDAOインスタンスを生成する
 				TaskCategoryUserStatusDAO tcusdao = new TaskCategoryUserStatusDAO();
 
-				//Date型のリストから一定の期限のLimitDateがあればbooleanを返す
-
-				//Date型のリスト
+				//Date型のリストに、limitDateListメソッドで取得したリストを格納する
+				//一定の期限のLimitDateがあればbooleanを返す
 				List<Date> limitDateList = tcusdao.limitDateList(userId);
 
 				for (Date date : limitDateList) {
@@ -107,20 +107,22 @@ public class LoginServlet extends HttpServlet {
 						alertCount++;
 					}
 				}
+				
 				session.setAttribute("alert", alertCount);
+			
 			} else {
 				//ログイン認証に失敗した場合はログイン失敗画面に遷移する
 				RequestDispatcher rd = request.getRequestDispatcher("login-failure.jsp");
 				rd.forward(request, response);
 			}
 
-		} catch (SQLException |
-
-				ClassNotFoundException e) {
+		} catch (SQLException|ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-
-		//DAOで作成したリストをセッションに詰める
+		
+		
+		//TaskCategoryUserStatusDAOで作成したリストをセッションに詰める
+		//これは登録機能などでカテゴリーのプルダウンを表示させる際に使用する
 		TaskCategoryUserStatusDAO tcusdao = new TaskCategoryUserStatusDAO();
 		List<TaskCategoryUserStatusBean> categoryList = null;
 		List<TaskCategoryUserStatusBean> userList = null;
