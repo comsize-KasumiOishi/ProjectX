@@ -80,46 +80,47 @@ public class LoginServlet extends HttpServlet {
 				//アラートはタスクの期限から1週間以内に設定
 				//アラートを発したタスクの数をカウント
 				int alertCount = 0;
-				
+
 				//TaskCategoryUserStatusDAOインスタンスを生成する
 				TaskCategoryUserStatusDAO tcusdao = new TaskCategoryUserStatusDAO();
 
 				//Date型のリストに、limitDateListメソッドで取得したリストを格納する
 				//一定の期限のLimitDateがあればbooleanを返す
 				List<Date> limitDateList = tcusdao.limitDateList(userId);
+				System.out.println(limitDateList.size());
 
 				for (Date date : limitDateList) {
-					//LimitDateをDate型からString型にキャストする
-					String strDate = date.toString();
+					if (date != null) {
+						//LimitDateをDate型からString型にキャストする
+						String strDate = date.toString();
 
-					//String型のstrDateをLocalDate型にキャストする
-					LocalDate limitDate = LocalDate.parse(strDate);
+						//String型のstrDateをLocalDate型にキャストする
+						LocalDate limitDate = LocalDate.parse(strDate);
 
-					//比較する現在日時を呼ぶ
-					LocalDate currentDate = LocalDate.now();
+						//比較する現在日時を呼ぶ
+						LocalDate currentDate = LocalDate.now();
 
-					//もし期限の七日前が現在日時より前だったらtrue
-					if (currentDate.isBefore(limitDate.minusDays(7))) {
-						//注意喚起無し
-					} else {
-						//注意喚起あり
-						alertCount++;
+						//もし期限の七日前が現在日時より前だったらtrue
+						if (currentDate.isBefore(limitDate.minusDays(7))) {
+							//注意喚起無し
+						} else {
+							//注意喚起あり
+							alertCount++;
+						}
 					}
 				}
-				
 				session.setAttribute("alert", alertCount);
-			
+
 			} else {
 				//ログイン認証に失敗した場合はログイン失敗画面に遷移する
 				RequestDispatcher rd = request.getRequestDispatcher("login-failure.jsp");
 				rd.forward(request, response);
 			}
 
-		} catch (SQLException|ClassNotFoundException e) {
+		} catch (SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-		
-		
+
 		//TaskCategoryUserStatusDAOで作成したリストをセッションに詰める
 		//これは登録機能などでカテゴリーのプルダウンを表示させる際に使用する
 		TaskCategoryUserStatusDAO tcusdao = new TaskCategoryUserStatusDAO();
