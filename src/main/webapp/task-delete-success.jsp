@@ -17,7 +17,10 @@
 	int taskId = tcusbean.getTaskId();
 	String taskName = tcusbean.getTaskName();
 	String categoryName = tcusbean.getCategoryName();
-	Date limitDate = tcusbean.getLimitDate();
+	Date limitDate = null;
+	if(tcusbean.getLimitDate() != null){
+		limitDate = tcusbean.getLimitDate();
+	}
 	String userName = tcusbean.getUserName();
 	String statusName = tcusbean.getStatusName();
 	String memo = null;
@@ -46,7 +49,13 @@
 		</tr>
 		<tr>
 			<td>期限</td>
+			<% 
+			if(limitDate == null){
+			%>
+			<td>無期限</td>
+			<%}else{ %>
 			<td><%=limitDate%></td>
+			<%} %>
 		</tr>
 		<tr>
 			<td>ユーザー名</td>

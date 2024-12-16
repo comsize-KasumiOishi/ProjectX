@@ -17,10 +17,21 @@
 		int taskId = tcusbean.getTaskId();
 		String taskName = tcusbean.getTaskName();
 		String categoryName = tcusbean.getCategoryName();
-		Date limitDate = tcusbean.getLimitDate();
+		Date limitDate = null;
+		if(tcusbean.getLimitDate() != null){
+			limitDate = tcusbean.getLimitDate();
+		}	
+		
 		String userName = tcusbean.getUserName();
 		String statusName = tcusbean.getStatusName();
-		String memo = tcusbean.getMemo();
+		
+		String memo = null;
+		if(tcusbean.getMemo() == null){
+			memo = "";
+		}else{
+			memo = tcusbean.getMemo();
+		}
+				
 	%>
 
 	<h1>タスク削除失敗画面</h1>
@@ -44,7 +55,13 @@
 		</tr>
 		<tr>
 			<td>期限</td>
+			<% 
+			if(limitDate == null){
+			%>
+			<td>無期限</td>
+			<%}else{ %>
 			<td><%=limitDate%></td>
+			<%} %>
 		</tr>
 		<tr>
 			<td>ユーザー名</td>
