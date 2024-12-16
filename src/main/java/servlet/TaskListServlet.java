@@ -63,9 +63,6 @@ public class TaskListServlet extends HttpServlet {
 		session.setAttribute("taskList", taskList);
 		RequestDispatcher rd = request.getRequestDispatcher("task-list.jsp");
 		rd.forward(request, response);
-		}else {
-			RequestDispatcher rd = request.getRequestDispatcher("login-failure.jsp");
-			rd.forward(request, response);
 		}
 	}
 		
