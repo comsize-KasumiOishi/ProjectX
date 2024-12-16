@@ -13,9 +13,9 @@ import model.entity.UserBean;
  */
 public class UserDAO {
 	/**
-	 * 指定されたコードから従業員の氏名を検索して返します
-	 * @param code 従業員のコード
-	 * @return 従業員の氏名
+	 * 指定されたユーザIDとパスワードから、該当するユーザー名を検索して返します
+	 * @param userId, password 従業員のユーザーIDとパスワード
+	 * @return ユーザIDとパスワードとユーザー名を格納したUserBean型のuserbean
 	 * @throws SQLException
 	 */
 	public UserBean logincheck(String userId, String password) throws SQLException, ClassNotFoundException {
