@@ -19,7 +19,10 @@ import model.entity.TaskCategoryUserStatusBean;
 import model.entity.TaskUserCommentBean;
 
 /**
+ * 
+ * タスクの詳細画面を表示するメソッド
  * Servlet implementation class TaskDetailServlet
+ * @author 坂上
  */
 @WebServlet("/TaskDetailServlet")
 public class TaskDetailServlet extends HttpServlet {
@@ -36,7 +39,13 @@ public class TaskDetailServlet extends HttpServlet {
     }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * 
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response
+	 * 一覧リストから送られてきた該当データのタスクIDを元に
+	 * 該当データのコメントを含めた詳細表示のためのデータをセッションに入れる
+	 * タスク詳細画面へと遷移する
+	 * 
+	 *
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
@@ -78,6 +87,8 @@ public class TaskDetailServlet extends HttpServlet {
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * タスク詳細画面で表示されたデータのタスク担当者とログインユーザーが同じであれば
+	 * タスク編集画面へと遷移する
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");

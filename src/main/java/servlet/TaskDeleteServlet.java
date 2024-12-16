@@ -16,8 +16,15 @@ import model.entity.TaskCategoryUserStatusBean;
 
 /**
  * Servlet implementation class TaskDeleteServlet
+ * 
+ * タスクの削除機能に関するServlet
+ * @author 坂上
  */
 @WebServlet("/TaskDeleteServlet")
+
+
+
+
 public class TaskDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -39,26 +46,29 @@ public class TaskDeleteServlet extends HttpServlet {
 	}
 
 	/**
+	 * 指定されたタスクIDを元にデータベースへ接続を行い、削除を行う
+	 * 削除を行う前にログイン者とタスク担当者が同じかのチェックを行う
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @throws ServletException, IOException
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
 		request.setCharacterEncoding("UTF-8");
-		
+
 		HttpSession session = request.getSession();
 		//ログインユーザーの取得
-		String userName = (String)session.getAttribute("userName");
-		
+		String userName = (String) session.getAttribute("userName");
+
 		//タスク担当者の取得
 		TaskCategoryUserStatusBean tcusbean = (TaskCategoryUserStatusBean) session.getAttribute("detail");
 		String repName = tcusbean.getUserName();
-		
+
 		//ログイン者とタスク担当者が一致しているか調べる
 		//一致していない場合はタスクリストに戻す
-		if(!(repName.equals(userName))) {
+		if (!(repName.equals(userName))) {
 			RequestDispatcher rd = request.getRequestDispatcher("TaskListServlet");
-			rd.forward(request, response);	
+			rd.forward(request, response);
 		}
 
 		//セッションからタスクIDを取得する
@@ -81,7 +91,7 @@ public class TaskDeleteServlet extends HttpServlet {
 				//タスク削除成功画面に遷移する
 				RequestDispatcher rd = request.getRequestDispatcher("task-delete-success.jsp");
 				rd.forward(request, response);
-				
+
 			} else {
 				//上記以外の場合タスク削除失敗画面に遷移する
 				RequestDispatcher rd = request.getRequestDispatcher("task-delete-failure.jsp");

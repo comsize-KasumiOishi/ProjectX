@@ -18,7 +18,12 @@ import model.dao.TaskCategoryUserStatusDAO;
 import model.entity.TaskCategoryUserStatusBean;
 
 /**
+ * タスク編集画面で入力された値の妥当性チェックを行った後
+ * データベースへアクセスし、タスクの編集を行う
+ * 編集が成功すればタスク編集成功画面へ
+ * 編集が失敗すればタスク編集失敗画面へ
  * Servlet implementation class TaskEditServlet
+ * @author 坂上
  */
 @WebServlet("/TaskEditServlet")
 public class TaskEditServlet extends HttpServlet {
@@ -42,7 +47,15 @@ public class TaskEditServlet extends HttpServlet {
 	}
 
 	/**
+	 * 編集画面で入力された値の各妥当性チェックを行い
+	 * また、全てが同じ値であったら編集失敗画面へと遷移する
+	 * 
+	 * そうでない場合はデータベースへのアクセスを行い
+	 * 編集を行い、編集が成功すれば成功画面へ
+	 * 失敗したら失敗画面へと遷移する
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @author 坂上
+	 * 
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
