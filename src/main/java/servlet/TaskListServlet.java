@@ -46,13 +46,13 @@ public class TaskListServlet extends HttpServlet {
 		List<TaskUserCommentBean> commentCounts = null;
 
 		// DAOの生成
-		TaskCategoryUserStatusDAO dao = new TaskCategoryUserStatusDAO();
-		TaskUserCommentDAO dao2 = new TaskUserCommentDAO();
+		TaskCategoryUserStatusDAO listDao = new TaskCategoryUserStatusDAO();
+		TaskUserCommentDAO commentDao = new TaskUserCommentDAO();
 
 		try {
 			// DAOの利用
-			taskList = dao.selectAll();
-			commentCounts = dao2.commentCount();
+			taskList = listDao.selectAll();
+			commentCounts = commentDao.commentCount();
 			session.setAttribute("commentCounts", commentCounts);
 		} catch (SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
