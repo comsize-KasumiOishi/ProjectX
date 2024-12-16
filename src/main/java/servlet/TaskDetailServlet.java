@@ -57,12 +57,13 @@ public class TaskDetailServlet extends HttpServlet {
 			//取得したタスクIDを用いて詳細画面用のコメント表示を取得
 			commentList = tucdao.commentList(taskId);
 			
+			//例外が起きた場合はタスク一覧画面へと遷移する
 		} catch (ClassNotFoundException e) {
-			// TODO 自動生成された catch ブロック
-			e.printStackTrace();
+			RequestDispatcher rd = request.getRequestDispatcher("TaskListServlet");
+			rd.forward(request, response);	
 		} catch (SQLException e) {
-			// TODO 自動生成された catch ブロック
-			e.printStackTrace();
+			RequestDispatcher rd = request.getRequestDispatcher("TaskListServlet");
+			rd.forward(request, response);	
 		}
 		
 		HttpSession session = request.getSession();
@@ -81,11 +82,15 @@ public class TaskDetailServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
+		
+		//現在のログインユーザーの取得
 		String userName = (String)session.getAttribute("userName");
+		
+		//タスク担当者の取得
 		TaskCategoryUserStatusBean tcus = (TaskCategoryUserStatusBean) session.getAttribute("detail");
 		String repName = tcus.getUserName();
 		
-		//ログイン者とタスク担当者が一致しているか調べる
+		//ログインユーザーとタスク担当者が一致しているか調べる
 		//一致していない場合はタスクリストに戻す
 		if(repName.equals(userName)) {
 			session.setAttribute("detailtable", tcus);

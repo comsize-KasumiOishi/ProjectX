@@ -53,9 +53,7 @@ public class TaskDeleteServlet extends HttpServlet {
 		
 		//ログイン者とタスク担当者が一致しているか調べる
 		//一致していない場合はタスクリストに戻す
-		if(repName.equals(userName)) {
-			
-		}else {
+		if(!(repName.equals(userName))) {
 			RequestDispatcher rd = request.getRequestDispatcher("TaskListServlet");
 			rd.forward(request, response);	
 		}
@@ -88,7 +86,8 @@ public class TaskDeleteServlet extends HttpServlet {
 			}
 
 		} catch (SQLException | ClassNotFoundException e) {
-			e.printStackTrace();
+			RequestDispatcher rd = request.getRequestDispatcher("task-delete-failure.jsp");
+			rd.forward(request, response);
 		}
 
 	}
