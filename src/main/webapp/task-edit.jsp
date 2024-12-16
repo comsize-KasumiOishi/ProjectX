@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"
-	import="model.entity.TaskCategoryUserStatusBean , java.util.List"%>
+	import="model.entity.TaskCategoryUserStatusBean , java.util.List , java.time.LocalDate"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,7 +9,7 @@
 </head>
 <body>
 	<%
-	//詳細画面に表示したBean型を取得
+	//詳細画面に表示したBean型をセッションで取得
 	TaskCategoryUserStatusBean tcusbean = (TaskCategoryUserStatusBean) session.getAttribute("detail");
 
 	//セレクトボックスで表示するためのカテゴリーリストを取得
@@ -18,8 +18,13 @@
 	List<TaskCategoryUserStatusBean> userList = (List<TaskCategoryUserStatusBean>) session.getAttribute("userList");
 	//セレクトボックスで表示するためのステータスリストを取得
 	List<TaskCategoryUserStatusBean> statusList = (List<TaskCategoryUserStatusBean>) session.getAttribute("statusList");
+	
+	//現在時刻を出すための変数を宣言
+	LocalDate currentDate = LocalDate.now();
+	
 	%>
 	<h1>タスク編集画面</h1>
+
 	<hr>
 	<!-- タスク編集Servletに変更内容を送る -->
 	<!-- また、初期値として詳細画面で表示した内容を表示する-->
@@ -69,7 +74,7 @@
 			</tr>
 			<tr>
 				<td>期限</td>
-				<td><input type="date" name="updatelimitdate" min=""> <!-- minに現在時刻を設定する--></td>
+				<td><input type="date" name="updatelimitdate" value="<%=tcusbean.getLimitDate() %>" min="<%=currentDate%>" > <!-- minに現在時刻を設定する--></td>
 			</tr>
 			<tr>
 				<td>ユーザー名</td>
