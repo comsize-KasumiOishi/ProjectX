@@ -19,7 +19,11 @@
 		Date limitDate = tcusbean.getLimitDate();
 		String userName = tcusbean.getUserName();
 		String statusName = tcusbean.getStatusName();
+		if(tcusbean.getMemo() == null){
+			String memo = "";
+		}else{
 		String memo = tcusbean.getMemo();
+		}
 	%>
 
 	<h1>タスク削除完了画面</h1>

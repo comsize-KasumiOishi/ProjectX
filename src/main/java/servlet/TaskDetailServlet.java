@@ -79,7 +79,9 @@ public class TaskDetailServlet extends HttpServlet {
 		//取得した詳細画面用データをセッションにセット
 		session.setAttribute("detail", tcusbean);
 		//取得したコメントデータをセッションにセット
-		session.setAttribute("commentList", commentList);	
+		session.setAttribute("commentList", commentList);
+		//取得したタスクIDをセッションにセット
+		session.setAttribute("taskId", taskId);
 		//タスク詳細画面に遷移する
 		RequestDispatcher rd = request.getRequestDispatcher("task-detail.jsp");
 		rd.forward(request, response);
