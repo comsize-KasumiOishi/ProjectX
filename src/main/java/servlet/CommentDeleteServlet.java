@@ -59,7 +59,7 @@ public class CommentDeleteServlet extends HttpServlet {
 		//セッションスコープにcommentIdとコメント情報が格納されたリストを設定
 		HttpSession session = request.getSession();
 		session.setAttribute("commentId", commentId);
-		session.setAttribute("commentList", commentList);
+		session.setAttribute("commentDeleteList", commentList);
 
 		//転送先のパスを指定して転送処理用オブジェクトを取得
 		RequestDispatcher rd = request.getRequestDispatcher("comment-delete.jsp");

@@ -14,7 +14,7 @@
 		<%--CommentDeleteServletのdoGetメソッドでセッションスコープに設定した
 	コメント情報が格納されたリストを取得 --%>
 		<%
-		List<TaskUserCommentBean> commentList = (List<TaskUserCommentBean>) session.getAttribute("commentList");
+		List<TaskUserCommentBean> commentList = (List<TaskUserCommentBean>) session.getAttribute("commentDeleteList");
 		for (TaskUserCommentBean tcubean : commentList) {
 		%>
 		<tr>

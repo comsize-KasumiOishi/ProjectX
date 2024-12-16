@@ -9,7 +9,7 @@
 <body>
 <h1>コメント削除成功画面</h1>
 <h2>以上のコメントの削除に成功しました</h2>
-<form action = "task-list.jsp" method = "POST">
+<form action = "TaskListServlet" method = "GET">
 <input type = "submit" value = "タスク一覧表示画面">
 </form>
 </body>

@@ -9,7 +9,7 @@
 <body>
 	<h1>コメント登録成功画面</h1>
 	<h2>コメントの登録に成功しました。</h2>
-	<form action="task-list.jsp" method="POST">
+	<form action="TaskListServlet" method="GET">
 		<input type="submit" value="タスク一覧表示画面">
 	</form>
 </body>
