@@ -91,7 +91,7 @@ if(userName.equals(tcus.getUserName())){
 }else{
 //ログイン者がタスクの担当者ではない場合、ボタンを非活性化する
 %>	
-	<form action="TaskDetailServlet" method="post">
+<form action="TaskDetailServlet" method="post">
 <input type="submit" value="編集" disabled>
 </form>
 <form action="TaskDeleteServlet" method="post">
