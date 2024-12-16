@@ -7,7 +7,17 @@ import java.sql.SQLException;
 
 import model.entity.UserBean;
 
+/**
+ * ログイン認証のためのm_userテーブルのDAOです。
+ * @author 大石圭純
+ */
 public class UserDAO {
+	/**
+	 * 指定されたコードから従業員の氏名を検索して返します
+	 * @param code 従業員のコード
+	 * @return 従業員の氏名
+	 * @throws SQLException
+	 */
 	public UserBean logincheck(String userId, String password) throws SQLException, ClassNotFoundException {
 
 		String sql = "SELECT user_name FROM m_user WHERE user_id = ? AND password = ?";

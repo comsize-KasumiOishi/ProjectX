@@ -12,6 +12,7 @@
 	<h3>ユーザIDとパスワードを入力してください</h3>
 	
 	<form action="LoginServlet" method="POST">
+	<%--24文字制限も記載する --%>
 	ユーザID
 	<input type = "text" name = "userid" required><br>
 	パスワード

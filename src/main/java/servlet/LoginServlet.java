@@ -74,7 +74,6 @@ public class LoginServlet extends HttpServlet {
 				//ユーザIDとパスワードとユーザー名をセッションに格納する
 				HttpSession session = request.getSession();
 				session.setAttribute("userId", userId);
-				session.setAttribute("password", password);
 				session.setAttribute("userName", userbean.getUserName());
 
 				//タスクの期限が迫っているユーザに対して、ログイン時にアラートを出す
