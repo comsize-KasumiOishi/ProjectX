@@ -18,7 +18,10 @@ import javax.servlet.http.HttpSession;
 
 import model.dao.TaskCategoryUserStatusDAO;
 import model.entity.TaskCategoryUserStatusBean;
-
+/**
+ * タスク登録を行うためのサーブレット
+ * @author 篠杏樹
+ */
 /**
  * Servlet implementation class TaskAddServlet
  */
@@ -26,12 +29,14 @@ import model.entity.TaskCategoryUserStatusBean;
 public class TaskAddServlet extends HttpServlet {
 
 	/**
+	 * プルダウンで表示する項目を取得するメソッド
+	 * @throws ClassNotFoundException,SQLException
+	 */
+	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		//プルダウンで表示する項目を取得するメソッド
-
 		//TaskCategoryUserStatusDAOクラスのインスタンスを作成
 		TaskCategoryUserStatusDAO dao = new TaskCategoryUserStatusDAO();
 
@@ -65,11 +70,18 @@ public class TaskAddServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 
-		//セッションスコープにリストを設定する
+		//今日の日付を取得してLocalDate型の変数todayに代入
+		LocalDate today = LocalDate.now();
+
+		//todayをString型にキャスト
+		String strToday = today.toString();
+
+		//セッションスコープにリストと今日の日付を設定する
 		HttpSession session = request.getSession();
 		session.setAttribute("categoryList", categoryList);
 		session.setAttribute("userList", userList);
 		session.setAttribute("statusList", statusList);
+		session.setAttribute("strToday", strToday);
 
 		//転送先のパスを指定して転送処理用オブジェクトを取得
 		RequestDispatcher rd = request.getRequestDispatcher("task-register.jsp");
@@ -79,12 +91,15 @@ public class TaskAddServlet extends HttpServlet {
 	}
 
 	/**
+	 * タスク情報を登録するメソッド
+	 * @throws NullPointerException,DateTimeParseException,ClassNotFoundException,
+	 * SQLException
+	 */
+	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		//タスク情報を登録するメソッド
-
 		//リクエストのエンコーディング方式を指定
 		request.setCharacterEncoding("UTF-8");
 
@@ -95,7 +110,7 @@ public class TaskAddServlet extends HttpServlet {
 		String user = request.getParameter("user");
 		String status = request.getParameter("status");
 		String memo = request.getParameter("memo");
-		
+
 		//遷移先のURLマッピングを格納するString型の変数urlを宣言
 		String url = null;
 
@@ -103,14 +118,19 @@ public class TaskAddServlet extends HttpServlet {
 		int count = 0;
 
 		//taskName妥当性チェック
-		//taskNameの文字数をcountに代入
-		count = taskName.length();
-		if (taskName.isEmpty()) {
+		if (taskName == null || taskName.isEmpty()) {
 			//未入力チェック
 			url = "task-register-failure.jsp";
-		} else if (count < 0 || count > 50) {
-			//文字数チェック
-			url = "task-register-failure.jsp";
+		}
+		try {
+			//taskNameの文字数をcountに代入
+			count = taskName.length();
+			if (count < 0 || count > 50) {
+				//文字数チェック
+				url = "task-register-failure.jsp";
+			}
+		} catch (NullPointerException e) {
+			e.printStackTrace();
 		}
 
 		//categoryId妥当性チェック
@@ -128,7 +148,7 @@ public class TaskAddServlet extends HttpServlet {
 			url = "task-register-failure.jsp";
 		}
 		//範囲チェック
-		if(!(categoryId == 1 || categoryId == 2)) {
+		if (!(categoryId == 1 || categoryId == 2)) {
 			url = "task-register-failure.jsp";
 		}
 
@@ -144,16 +164,10 @@ public class TaskAddServlet extends HttpServlet {
 			//今日の日付を取得してLocalDate型の変数todayに代入
 			LocalDate today = LocalDate.now();
 			//今日の日付と入力された日付を比較する
-			if(today.isAfter(limitDate)) {
+			if (today.isAfter(limitDate)) {
 				url = "task-register-failure.jsp";
 			}
-			//todayをString型にキャスト
-			String strToday = today.toString();
-			
-			//セッションスコープに今日の日付を設定する
-			HttpSession session = request.getSession();
-			session.setAttribute("strToday", strToday);
-			
+
 			//LocalDate型のlimitDateをsql.date型に変換する
 			sqlDate = java.sql.Date.valueOf(limitDate);
 		} catch (DateTimeParseException | NullPointerException e) {
@@ -202,24 +216,28 @@ public class TaskAddServlet extends HttpServlet {
 			url = "task-register-failure.jsp";
 		}
 		//範囲チェック
-		if(!(statusCode.equals("00") || statusCode.equals("50") || statusCode.equals("99"))) {
+		if (!(statusCode.equals("00") || statusCode.equals("50") || statusCode.equals("99"))) {
 			url = "task-register-failure.jsp";
 		}
 
 		//memo妥当性チェック
-		//memoの文字数をcountに代入
-		count = memo.length();
-		//文字数チェック
-		if (count > 100) {
-			url = "task-register-failure.jsp";
-		}
 		//空文字チェック
-		if(memo.isEmpty()) {
+		if (memo == null || memo.isEmpty()) {
 			memo = null;
 		}
-		
+		try {
+			//memoの文字数をcountに代入
+			count = memo.length();
+			//文字数チェック
+			if (count > 100) {
+				url = "task-register-failure.jsp";
+			}
+		} catch (NullPointerException e) {
+			e.printStackTrace();
+		}
+
 		//urlに登録失敗画面のurlマッピングが代入されていたら画面遷移する
-		if(url == "task-register-failure.jsp"){
+		if (url == "task-register-failure.jsp") {
 			//転送先のパスを指定して転送処理用オブジェクトを取得
 			RequestDispatcher rd = request.getRequestDispatcher(url);
 

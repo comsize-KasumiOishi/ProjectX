@@ -102,7 +102,7 @@ if(userName.equals(tcus.getUserName())){
 
 <!-- コメント投稿機能の追加を行う -->
 <form action="CommentAddServlet" method="post">
-<input type="text" name="comment" class="txt" maxlength="100"><br>
+<input type="text" name="comment" class="txt" maxlength="100" required><br>
 <input type="hidden" name="taskid" value="<%=tcus.getTaskId() %>" >
 <input type="hidden" name="userid" value="<%=userName %>" >
 <input type="submit" value="コメント投稿">

@@ -1,11 +1,9 @@
 package model.entity;
-
-import java.sql.Timestamp;
-
 /**
- * コメント一覧、詳細、登録、削除のため結合したt_commentテーブルのBeanです。
- * @author 坂上
+ * コメント情報を保持するためのBean
+ * @author 篠杏樹
  */
+import java.sql.Timestamp;
 
 public class TaskUserCommentBean {
 

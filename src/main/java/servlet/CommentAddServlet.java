@@ -12,7 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import model.dao.TaskUserCommentDAO;
 import model.entity.TaskUserCommentBean;
-
+/**
+ * コメントをデータベースに登録するためのサーブレット
+ * @author 篠杏樹
+ */
 /**
  * Servlet implementation class CommentAddServlet
  */
@@ -28,10 +31,11 @@ public class CommentAddServlet extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * コメントをデータベースに登録するためのメソッド
+	 * @throws NullPointerException,ClassNotFoundException,SQLException
 	 */
 	/**
-	 * コメントをデータベースに登録するクラスです
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {

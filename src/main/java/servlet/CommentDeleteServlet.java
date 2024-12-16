@@ -15,7 +15,10 @@ import javax.servlet.http.HttpSession;
 
 import model.dao.TaskUserCommentDAO;
 import model.entity.TaskUserCommentBean;
-
+/**
+ * コメントをデータベースから削除するためのサーブレット
+ * @author 篠杏樹
+ */
 /**
  * Servlet implementation class CommentDeleteServlet
  */
@@ -23,12 +26,14 @@ import model.entity.TaskUserCommentBean;
 public class CommentDeleteServlet extends HttpServlet {
 
 	/**
+	 * コメント削除確認画面に表示するコメント情報をリストに詰めて送るメソッド
+	 * @throws ClassNotFoundException,SQLException
+	 */
+	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		//コメント削除確認画面に表示するコメント情報をリストに詰めて送るメソッド
-
 		//リクエストのエンコーディング方式を指定
 		request.setCharacterEncoding("UTF-8");
 
@@ -65,12 +70,14 @@ public class CommentDeleteServlet extends HttpServlet {
 	}
 
 	/**
+	 * コメントをデータベースから削除するメソッド
+	 * @throws ClassNotFoundException,SQLException
+	 */
+	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		//コメントをデータベースから削除するメソッド
-
 		//doPostメソッドでセッションスコープに設定したcommentIdを取得
 		HttpSession session = request.getSession();
 		int commentId = (int) session.getAttribute("commentId");
