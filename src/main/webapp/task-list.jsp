@@ -2,28 +2,34 @@
 	pageEncoding="UTF-8"
 	import="java.util.List, model.entity.TaskCategoryUserStatusBean, model.entity.TaskUserCommentBean, java.util.Date, java.time.LocalDate,java.time.ZoneId"%>
 <!DOCTYPE html>
+<!-- 
+タスク一覧画面
+@author 柳沢 
+-->
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>タスク一覧画面</title>
 </head>
 <body>
+	<!-- ページタイトル -->
 	<h1>タスク一覧</h1>
 	<hr>
 	<br>
 	<br>
+	<!-- メニュー画面遷移ボタン -->
 	<form action="menu.jsp" method="POST">
 		<input type="submit" value="メニュー画面へ">
 	</form>
+	
+	<!-- タスク一覧表示用の値をセッションから取得 -->
 	<%
 	List<TaskCategoryUserStatusBean> taskList = (List) session.getAttribute("taskList");
-	%>
-	<%
 	List<TaskUserCommentBean> commentCounts = (List) session.getAttribute("commentCounts");
 	%>
 
 
-
+	<!-- タスク一覧生成用テーブル -->
 	<table border=1 class="fixed-table">
 
 		<tr>
@@ -40,13 +46,12 @@
 		//タスクリストが空でないときの処理
 		if (taskList != null && !taskList.isEmpty()) {
 
-			
-
-			// taskListを繰り返し処理
+		// taskListを繰り返し処理
 			for (TaskCategoryUserStatusBean task : taskList) {
-				// taskの情報を表示
+		// taskの情報を表示
 		%>
 		<tr>
+			<!-- タスク詳細ボタン -->
 			<td>
 				<form action="TaskDetailServlet " method="GET">
 
@@ -56,11 +61,11 @@
 
 				</form>
 			</td>
-
+			<!-- タスク名 -->
 			<td><p><%=task.getTaskName()%></p></td>
-
+			<!-- タスクカテゴリー -->
 			<td><p><%=task.getCategoryName()%></p></td>
-
+			<!-- タスク期限 -->
 			<td>
 				<%
 				if (task.getLimitDate() == null) {
@@ -75,13 +80,13 @@
 				 }
 				 %>
 			</td>
-
+			<!-- タスク担当者 -->
 			<td><p><%=task.getUserName()%></p></td>
-
+			<!-- タスクステータス -->
 			<td><p><%=task.getStatusName()%></p></td>
-
+			<!-- メモ -->
 			<td>
-				<p class="omitted-text-2">
+				<p class="display-limit">
 					<%
 					if (task.getMemo() == null) {
 						task.setMemo("");
@@ -95,6 +100,7 @@
 					%>
 				</p>
 			</td>
+			<!-- コメント件数 -->
 			<td>
 				<%
 			boolean comment = false;
@@ -115,7 +121,9 @@
 
 			<%
 			}
-
+			%>
+		<!-- タスクが1件も登録されていない場合 -->
+		<% 
 		} else {
 			%>
 
@@ -128,17 +136,17 @@
 		</tr>
 
 	</table>
-
-
-
+	
+<!-- CSSの設定 -->
 	<style>
+
 .fixed-table {
 	table-layout: fixed;
 	width: 100%;
 	border-collapse: collapse;
 }
 
-.omitted-text-2 {
+.display-limit {
 	overflow: hidden;
 	display: -webkit-box;
 	-webkit-box-orient: vertical;
