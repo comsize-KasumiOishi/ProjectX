@@ -142,8 +142,20 @@
 			</tr>
 			<tr>
 				<td>メモ</td>
+				<% 
+				if(tcusbean.getMemo() != null){
+				%>
 				<td><input type="text" name="updatememo"
 					value="<%=tcusbean.getMemo()%>"></td>
+					<%
+				}else{
+					%>
+					<td>
+					<input type="text" name="updatememo"></td>
+					<%
+				}
+					%>
+					
 			</tr>
 		</table>
 		<table>
