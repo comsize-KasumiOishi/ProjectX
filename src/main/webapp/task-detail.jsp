@@ -66,7 +66,17 @@ tcus = (TaskCategoryUserStatusBean)session.getAttribute("detail");
  </tr>
   <tr>
  <td>メモ</td>
+ <% 
+ if(tcus.getMemo() == null){
+ %>
+ <td> </td>
+ <% 
+ }else{
+ %>
  <td><%= tcus.getMemo() %></td>
+ <% 
+ }
+ %>
  </tr>
  </table>
 
