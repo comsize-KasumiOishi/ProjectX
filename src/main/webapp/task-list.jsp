@@ -57,7 +57,7 @@
 
 					<input type="hidden" name="taskId" value="<%=task.getTaskId()%>">
 					<input type="submit" name="button" value="詳細"
-						style="background-color: green; width: 100%; height: 100%;">
+						style="background-color: lightgreen; width: 100%; height: 100%;">
 
 				</form>
 			</td>
