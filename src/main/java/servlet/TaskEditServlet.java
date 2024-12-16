@@ -54,7 +54,6 @@ public class TaskEditServlet extends HttpServlet {
 	 * 編集を行い、編集が成功すれば成功画面へ
 	 * 失敗したら失敗画面へと遷移する
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 * @author 坂上
 	 * 
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
