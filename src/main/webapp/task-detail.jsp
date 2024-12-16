@@ -10,7 +10,7 @@
 .txt{
     display: inline-block;
     width: 70%;
-    height: 70%;
+    height: auto;
     border: 1px solid #999;
     box-sizing: border-box;
     background: #f2f2f2;
