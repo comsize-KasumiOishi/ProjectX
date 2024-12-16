@@ -8,12 +8,12 @@ import java.sql.SQLException;
 import model.entity.UserBean;
 
 /**
- * ログイン認証のためのm_userテーブルのDAOです。
+ * ログイン認証のためのm_userテーブルのDAO
  * @author 大石圭純
  */
 public class UserDAO {
 	/**
-	 * 指定されたユーザIDとパスワードから、該当するユーザー名を検索して返します
+	 * 指定されたユーザIDとパスワードから、該当するユーザー名を検索して返す
 	 * @param userId, password 従業員のユーザーIDとパスワード
 	 * @return ユーザIDとパスワードとユーザー名を格納したUserBean型のuserbean
 	 * @throws SQLException

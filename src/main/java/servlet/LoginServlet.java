@@ -20,6 +20,11 @@ import model.entity.TaskCategoryUserStatusBean;
 import model.entity.UserBean;
 
 /**
+ * ログイン処理のためのServlet
+ * @author 大石圭純
+ */
+
+/**
  * Servlet implementation class LoginServlet
  */
 @WebServlet("/LoginServlet")
@@ -44,7 +49,16 @@ public class LoginServlet extends HttpServlet {
 	}
 
 	/**
+	 * ログイン画面で入力されたユーザIDとパスワードを用いてログイン認証を行う
+	 * ログイン認証に成功するとメニュー画面に遷移する
+	 * 各妥当性チェックを行い、ログイン認証に失敗するとログイン失敗画面へと遷移する
+	 * タスクの期限が迫っているユーザに対して、ログイン時にアラートを出す
+	 * 
+	 */
+	
+	 /**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * 
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
