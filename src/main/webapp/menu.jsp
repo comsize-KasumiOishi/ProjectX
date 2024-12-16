@@ -1,21 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<!-- 
- メニュー画面
- @author 大石圭純
- -->
 <html>
 <head>
 <meta charset="UTF-8">
 <title>メニュー画面</title>
 </head>
 <body>
-	<%@ include file="header.jsp"%>
-	<% String userId = (String) session.getAttribute("userId");%>
-	<% String password = (String) session.getAttribute("password");%>
 	<% String userName = (String) session.getAttribute("userName");%>
-	
+	<%@ include file="header.jsp"%>
 	<h3>メニュー画面</h3>
 	<hr>
 	ようこそ！<%= userName%>さん<br>

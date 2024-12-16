@@ -1,10 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<!-- 
- ログアウト画面
- @author 大石圭純
- -->
 <html>
 <head>
 <meta charset="UTF-8">
@@ -13,21 +9,19 @@
 <body>
 	<h3>ログアウト画面</h3>
 	<hr>
-	<% String userId = (String) session.getAttribute("userId");%>
-	<% String password = (String) session.getAttribute("password");%>
 	<% String userName = (String) session.getAttribute("userName");%>
 	
 	お疲れさまでした！<%= userName%>さん
 	
 	<h3>ログアウトしました。</h3>
 	
+	<% session.invalidate();%>
+	
 	<form action="login.jsp" method="GET">
 	
 	<input type="submit" value="ログイン画面へ">
 	<br>
 	<br>
-	</form>
-	
-	<% session.invalidate();%>
+	</form>	
 </body>
 </html>
