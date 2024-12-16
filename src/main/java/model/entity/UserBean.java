@@ -1,5 +1,10 @@
 package model.entity;
 
+/**
+ * ログイン認証のためのm_userテーブルのBeanです。
+ * @author 大石圭純
+ */
+
 public class UserBean {
 
 	private String userId;

@@ -4,6 +4,11 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+/**
+ * データベースに接続するためのConnectionManagerです。
+ * @author 大石圭純
+ */
+
 public class ConnectionManager {
 	
 	private final static String URL = "jdbc:mysql://localhost:3306/task_db";
