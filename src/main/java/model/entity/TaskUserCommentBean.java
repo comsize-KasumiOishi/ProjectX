@@ -2,6 +2,11 @@ package model.entity;
 
 import java.sql.Timestamp;
 
+/**
+ * コメント一覧、詳細、登録、削除のため結合したt_commentテーブルのBeanです。
+ * @author 坂上
+ */
+
 public class TaskUserCommentBean {
 
 	private int taskId;

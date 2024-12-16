@@ -3,6 +3,12 @@ package model.entity;
 import java.sql.Date;
 import java.sql.Timestamp;
 
+/**
+ * タスク一覧、詳細、編集、登録、削除のため結合したt_taskテーブルのBeanです。
+ * @author 坂上
+ */
+
+
 public class TaskCategoryUserStatusBean {
 	private   int  taskId;		
 	private String taskName;		
