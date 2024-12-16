@@ -96,7 +96,7 @@ if(userName.equals(tcus.getUserName())){
 <form action="TaskDetailServlet" method="post">
 <input type="submit" value="編集" >
 </form>
-<form action="TaskDeleteServlet" method="post">
+<form action="task-delete.jsp" method="post">
 <input type="submit" value="削除">
 </form>
 <%
@@ -106,7 +106,7 @@ if(userName.equals(tcus.getUserName())){
 <form action="TaskDetailServlet" method="post">
 <input type="submit" value="編集" disabled>
 </form>
-<form action="TaskDeleteServlet" method="post">
+<form action="task-delete.jsp" method="post">
 <input type="submit" value="削除" disabled>
 </form>
 <%} %>
