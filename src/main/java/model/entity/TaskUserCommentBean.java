@@ -1,11 +1,12 @@
 package model.entity;
+import java.io.Serializable;
 /**
  * コメント情報を保持するためのBean
  * @author 篠杏樹
  */
 import java.sql.Timestamp;
 
-public class TaskUserCommentBean {
+public class TaskUserCommentBean implements Serializable {
 
 	private int taskId;
 	private String userId;
