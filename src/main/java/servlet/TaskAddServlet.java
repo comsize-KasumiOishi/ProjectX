@@ -168,23 +168,31 @@ public class TaskAddServlet extends HttpServlet {
 		}
 
 		//userId妥当性チェック
+		//セッションスコープに設定したuserListを取得
+		HttpSession session = request.getSession();
+		List<TaskCategoryUserStatusBean> userList = (List<TaskCategoryUserStatusBean>) session.getAttribute("userList");
 		//userNameとuserIdを格納する変数を宣言
 		String userName = null;
 		String userId = null;
 		//未入力チェック
 		try {
+			//userIdにカンマが含まれてるか確認する
+			if(!(user.contains(","))) {
+				url = "task-register-failure.jsp";
+			}
 			//userをカンマで区切る
 			String[] userArray = user.split(",");
 			userName = userArray[0];
 			userId = userArray[1];
-		} catch (NullPointerException e) {
+			
+			//範囲チェック(ユーザマスタの情報とuserIdが一致しているか調べる)
+			for(TaskCategoryUserStatusBean tcusbean : userList) {
+				if(!(userName.equals(tcusbean.getUserId())) || !(userId.equals(tcusbean.getUserName()))) {
+					url = "task-register-failure.jsp";
+				}
+			}
+		} catch (NullPointerException | ArrayIndexOutOfBoundsException e) {
 			e.printStackTrace();
-			url = "task-register-failure.jsp";
-		}
-		//userIdの文字数をcountに代入
-		count = userId.length();
-		//文字数チェック
-		if (count < 0 || count > 24) {
 			url = "task-register-failure.jsp";
 		}
 
