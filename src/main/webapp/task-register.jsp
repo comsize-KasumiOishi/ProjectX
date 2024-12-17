@@ -16,7 +16,7 @@
 	String today = (String) session.getAttribute("strToday");%>
 	<h1>タスク登録画面</h1>
 	<form action="TaskAddServlet" method="POST">
-		タスク名：<input type="text" name="taskName" required><br> 
+		タスク名：<input type="text" name="taskName" maxlength="50" required><br> 
 		カテゴリ分類：<select name="category"><%
 						for (TaskCategoryUserStatusBean tcusbean : categoryList) {
 						%>
@@ -39,7 +39,7 @@
 						<%
 						}
 						%></select><br>
-		メモ：<input type="textarea" name="memo"><br> 
+		メモ：<input type="textarea" name="memo" maxlength="100"><br> 
 		<input type="submit" value="登録"> 
 		<input type="reset" value="取消">
 	</form>
