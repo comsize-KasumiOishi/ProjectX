@@ -49,14 +49,14 @@ public class TaskAddServlet extends HttpServlet {
 
 		//ステータスマスタの情報を格納するリストを作成
 		List<TaskCategoryUserStatusBean> statusList = new ArrayList<>();
-		
+
 		try {
 			//TaskCategoryUserStatusDAOクラスのselectCategoryIdメソッドを呼び出す
 			categoryList = dao.selectCategoryId();
-			
+
 			//TaskCategoryUserStatusDAOクラスのselectUserIdメソッドを呼び出す
 			userList = dao.selectUserId();
-			
+
 			//TaskCategoryUserStatusDAOクラスのselectStatusCodeメソッドを呼び出す
 			statusList = dao.selectStatusCode();
 		} catch (ClassNotFoundException | SQLException e) {
@@ -150,21 +150,27 @@ public class TaskAddServlet extends HttpServlet {
 		LocalDate limitDate = null;
 		//sql.date型の期限を格納する変数Dateを宣言
 		java.sql.Date sqlDate = null;
-		try {
-			//strLimitDateをLocalDate型にキャスト
-			limitDate = LocalDate.parse(strLimitDate, DateTimeFormatter.ofPattern("yyyy-MM-dd")); //Date型ではない？ localdate型を使う？ 補足資料読む
-			//範囲チェック
-			//今日の日付を取得してLocalDate型の変数todayに代入
-			LocalDate today = LocalDate.now();
-			//今日の日付と入力された日付を比較する
-			if (today.isAfter(limitDate)) {
-				url = "task-register-failure.jsp";
-			}
+		//空文字チェック
+		if (strLimitDate == null || strLimitDate.isEmpty()) {
 
-			//LocalDate型のlimitDateをsql.date型に変換する
-			sqlDate = java.sql.Date.valueOf(limitDate);
-		} catch (DateTimeParseException | NullPointerException e) {
-			e.printStackTrace();
+		} else {
+			try {
+				//strLimitDateをLocalDate型にキャスト
+				limitDate = LocalDate.parse(strLimitDate, DateTimeFormatter.ofPattern("yyyy-MM-dd")); //Date型ではない？ localdate型を使う？ 補足資料読む
+				//範囲チェック
+				//今日の日付を取得してLocalDate型の変数todayに代入
+				LocalDate today = LocalDate.now();
+				//今日の日付と入力された日付を比較する
+				if (today.isAfter(limitDate)) {
+					url = "task-register-failure.jsp";
+				}
+
+				//LocalDate型のlimitDateをsql.date型に変換する
+				sqlDate = java.sql.Date.valueOf(limitDate);
+			} catch (DateTimeParseException | NullPointerException e) {
+				e.printStackTrace();
+				limitDate = null;
+			}
 		}
 
 		//userId妥当性チェック
@@ -177,17 +183,19 @@ public class TaskAddServlet extends HttpServlet {
 		//未入力チェック
 		try {
 			//userIdにカンマが含まれてるか確認する
-			if(!(user.contains(","))) {
+			if (!(user.contains(","))) {
 				url = "task-register-failure.jsp";
 			}
 			//userをカンマで区切る
 			String[] userArray = user.split(",");
 			userName = userArray[0];
 			userId = userArray[1];
-			
+
 			//範囲チェック(ユーザマスタの情報とuserIdが一致しているか調べる)
-			for(TaskCategoryUserStatusBean tcusbean : userList) {
-				if(!(userName.equals(tcusbean.getUserId())) || !(userId.equals(tcusbean.getUserName()))) {
+			for (TaskCategoryUserStatusBean tcusbean : userList) {
+				if(userName.equals(tcusbean.getUserId()) || userId.equals(tcusbean.getUserName())) {
+					break;
+				}else{
 					url = "task-register-failure.jsp";
 				}
 			}
@@ -225,16 +233,17 @@ public class TaskAddServlet extends HttpServlet {
 		//空文字チェック
 		if (memo == null || memo.isEmpty()) {
 			memo = null;
-		}
-		try {
-			//memoの文字数をcountに代入
-			count = memo.length();
-			//文字数チェック
-			if (count > 100) {
-				url = "task-register-failure.jsp";
+		} else {
+			try {
+				//memoの文字数をcountに代入
+				count = memo.length();
+				//文字数チェック
+				if (count > 100) {
+					url = "task-register-failure.jsp";
+				}
+			} catch (NullPointerException e) {
+				e.printStackTrace();
 			}
-		} catch (NullPointerException e) {
-			e.printStackTrace();
 		}
 
 		//urlに登録失敗画面のurlマッピングが代入されていたら画面遷移する
