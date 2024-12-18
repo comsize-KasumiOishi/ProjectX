@@ -14,9 +14,62 @@ import model.entity.TaskCategoryUserStatusBean;
 class TaskCategoryUserStatusDAOTest {
 
 	@Test
-	void test() {
-		fail("まだ実装されていません");
+	void limitDateList格納成功確認() {
+		//準備
+		TaskCategoryUserStatusDAO dao = new TaskCategoryUserStatusDAO();
+		String userId = "admin";
+		List<Date> limitDateList = null;
+
+		try {
+			limitDateList = dao.limitDateList(userId);
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		}
+		assertNotNull(limitDateList);
 	}
+	
+	@Test
+	void categoryList格納成功確認() {
+		//準備
+		TaskCategoryUserStatusDAO dao = new TaskCategoryUserStatusDAO();
+		List<TaskCategoryUserStatusBean> categoryList = null;
+
+		try {
+			categoryList = dao.selectCategoryId();
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		}
+		assertNotNull(categoryList);
+	}
+	
+	@Test
+	void userList格納成功確認() {
+		//準備
+		TaskCategoryUserStatusDAO dao = new TaskCategoryUserStatusDAO();
+		List<TaskCategoryUserStatusBean> userList = null;
+
+		try {
+			userList = dao.selectUserId();
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		}
+		assertNotNull(userList);
+	}
+	
+	@Test
+	void statusList格納成功確認() {
+		//準備
+		TaskCategoryUserStatusDAO dao = new TaskCategoryUserStatusDAO();
+		List<TaskCategoryUserStatusBean> statusList = null;
+
+		try {
+			statusList = dao.selectStatusCode();
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		}
+		assertNotNull(statusList);
+	}
+	
 	@Test
 	void 詳細画面表示test() {
 		//準備のためのインスタンス
