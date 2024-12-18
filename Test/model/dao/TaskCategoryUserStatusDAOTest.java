@@ -13,6 +13,8 @@ import model.entity.TaskCategoryUserStatusBean;
 
 class TaskCategoryUserStatusDAOTest {
 
+	//Oishi
+	
 	@Test
 	void test() {
 		fail("まだ実装されていません");
