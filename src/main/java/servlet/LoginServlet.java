@@ -52,7 +52,7 @@ public class LoginServlet extends HttpServlet {
 		String password = request.getParameter("password");
 
 		//ユーザIDまたはパスワードが未入力だった場合ログイン失敗画面に遷移する
-		if (userId.isEmpty() || password.isEmpty()) {
+		if (userId == null || password == null || userId.isEmpty() || password.isEmpty()) {
 			RequestDispatcher rd = request.getRequestDispatcher("login-failure.jsp");
 			rd.forward(request, response);
 		}
