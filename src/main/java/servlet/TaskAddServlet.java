@@ -130,19 +130,24 @@ public class TaskAddServlet extends HttpServlet {
 		//categoryIdとcategoryNameを格納する変数を宣言
 		String categoryName = null;
 		int categoryId = 0;
-		//未入力チェック
-		try {
-			//categoryをカンマで区切る
-			String[] categoryArray = category.split(",");
-			categoryName = categoryArray[0];
-			categoryId = Integer.parseInt(categoryArray[1]);
-		} catch (NullPointerException e) {
-			e.printStackTrace();
+		//文字列にカンマが含まれているか確認する
+		if (!(category.contains(","))) {
 			url = "task-register-failure.jsp";
-		}
-		//範囲チェック
-		if (!(categoryId == 1 || categoryId == 2)) {
-			url = "task-register-failure.jsp";
+		}else {
+			//未入力チェック
+			try {
+				//categoryをカンマで区切る
+				String[] categoryArray = category.split(",");
+				categoryName = categoryArray[0];
+				categoryId = Integer.parseInt(categoryArray[1]);
+			} catch (NullPointerException e) {
+				e.printStackTrace();
+				url = "task-register-failure.jsp";
+			}
+			//範囲チェック
+			if (!(categoryId == 1 || categoryId == 2)) {
+				url = "task-register-failure.jsp";
+			}
 		}
 
 		//strLimitDate妥当性チェック
@@ -152,7 +157,7 @@ public class TaskAddServlet extends HttpServlet {
 		java.sql.Date sqlDate = null;
 		//空文字チェック
 		if (strLimitDate == null || strLimitDate.isEmpty()) {
-
+			strLimitDate = null;
 		} else {
 			try {
 				//strLimitDateをLocalDate型にキャスト
