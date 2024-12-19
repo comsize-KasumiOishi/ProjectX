@@ -94,13 +94,13 @@ public class LoginServlet extends HttpServlet {
 
 						//比較する現在日時を呼ぶ
 						LocalDate currentDate = LocalDate.now();
-
 						//もし期限の七日前が現在日時より前だったらtrue
-						if (currentDate.isBefore(limitDate.minusDays(7))) {
-							//注意喚起無し
-						} else {
+						if (currentDate.isAfter(limitDate.minusDays(7))&& currentDate.isBefore(limitDate)) {
+						
 							//注意喚起あり
 							alertCount++;
+						} else {
+							//注意喚起無し
 						}
 					}
 				}
