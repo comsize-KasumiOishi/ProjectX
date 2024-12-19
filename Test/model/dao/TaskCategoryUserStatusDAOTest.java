@@ -408,4 +408,46 @@ class TaskCategoryUserStatusDAOTest {
 		//Assert 検証
 		assertNotNull(list);
 	}
+	
+	@Test
+	void タスク削除成功() {
+		//準備のためのインスタンス
+		//Arrange 準備
+		int count = 0;
+		int taskId = 5;
+		TaskCategoryUserStatusDAO dao = new TaskCategoryUserStatusDAO();
+		//Act 	実行
+		try {
+			count = dao.delete(taskId);
+		} catch (ClassNotFoundException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		}
+		//Assert 検証
+		assertEquals(count,1);
+	}
+	
+	@Test
+	void タスク削除失敗() {
+		//準備のためのインスタンス
+		//Arrange 準備
+		int count = 0;
+		int taskId = 6;
+		TaskCategoryUserStatusDAO dao = new TaskCategoryUserStatusDAO();
+		//Act 	実行
+		try {
+			count = dao.delete(taskId);
+		} catch (ClassNotFoundException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		}
+		//Assert 検証
+		assertEquals(count,0);
+	}
 }
