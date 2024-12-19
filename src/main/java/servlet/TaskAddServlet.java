@@ -130,17 +130,17 @@ public class TaskAddServlet extends HttpServlet {
 		//categoryIdとcategoryNameを格納する変数を宣言
 		String categoryName = null;
 		int categoryId = 0;
-		//文字列にカンマが含まれているか確認する
-		if (!(category.contains(","))) {
-			url = "task-register-failure.jsp";
-		}else {
 			//未入力チェック
 			try {
+				//categoryにカンマが含まれてるか確認する
+				if (!(category.contains(","))) {
+					url = "task-register-failure.jsp";
+				}
 				//categoryをカンマで区切る
 				String[] categoryArray = category.split(",");
 				categoryName = categoryArray[0];
 				categoryId = Integer.parseInt(categoryArray[1]);
-			} catch (NullPointerException e) {
+			} catch (NullPointerException | ArrayIndexOutOfBoundsException e) {
 				e.printStackTrace();
 				url = "task-register-failure.jsp";
 			}
@@ -148,7 +148,6 @@ public class TaskAddServlet extends HttpServlet {
 			if (!(categoryId == 1 || categoryId == 2)) {
 				url = "task-register-failure.jsp";
 			}
-		}
 
 		//strLimitDate妥当性チェック
 		//登録する期限を格納するLocalDate型の変数limitDateを宣言
@@ -215,22 +214,27 @@ public class TaskAddServlet extends HttpServlet {
 		String statusCode = null;
 		//未入力チェック
 		try {
+			//statusにカンマが含まれてるか確認する
+			if (!(status.contains(","))) {
+				url = "task-register-failure.jsp";
+			}
 			//statusをカンマで区切る
 			String[] statusArray = status.split(",");
 			statusName = statusArray[0];
 			statusCode = statusArray[1];
-		} catch (NullPointerException e) {
+			
+			//statusCodeの文字数をcountに代入
+			count = statusCode.length();
+			//文字数チェック
+			if (count < 0 || count > 2) {
+				url = "task-register-failure.jsp";
+			}
+			//範囲チェック
+			if (!(statusCode.equals("00") || statusCode.equals("50") || statusCode.equals("99"))) {
+				url = "task-register-failure.jsp";
+			}
+		} catch (NullPointerException | ArrayIndexOutOfBoundsException e) {
 			e.printStackTrace();
-			url = "task-register-failure.jsp";
-		}
-		//statusCodeの文字数をcountに代入
-		count = statusCode.length();
-		//文字数チェック
-		if (count < 0 || count > 2) {
-			url = "task-register-failure.jsp";
-		}
-		//範囲チェック
-		if (!(statusCode.equals("00") || statusCode.equals("50") || statusCode.equals("99"))) {
 			url = "task-register-failure.jsp";
 		}
 
