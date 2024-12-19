@@ -2,6 +2,8 @@ package servlet;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,7 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import model.dao.TaskCategoryUserStatusDAO;
+import model.dao.TaskUserCommentDAO;
 import model.entity.TaskCategoryUserStatusBean;
+import model.entity.TaskUserCommentBean;
 
 /**
  * Servlet implementation class TaskDeleteServlet
@@ -73,7 +77,30 @@ public class TaskDeleteServlet extends HttpServlet {
 
 		//セッションからタスクIDを取得する
 		int taskId = (int) session.getAttribute("taskId");
-
+		//コメントがついているかどうか調べる
+		//TaskUserCommentDAOを呼び出す
+		TaskUserCommentDAO tucdao = new TaskUserCommentDAO();
+		//コメントがついているか確認する
+		List<TaskUserCommentBean> commentList = new ArrayList<TaskUserCommentBean>();
+		try {
+			commentList = tucdao.commentList(taskId);
+		} catch (ClassNotFoundException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		}
+		//ついていたらコメントの削除を行うように促すページに飛ぶ
+		int commentCheck = 0;
+		if(!(commentList == null || commentList.isEmpty())) {
+			commentCheck = 1;
+			request.setAttribute("commentCheck",commentCheck);
+			RequestDispatcher rd = request.getRequestDispatcher("task-delete-failure.jsp");
+			rd.forward(request, response);
+		}
+		//ついていなかったらタスクの削除を行う
+		
 		//TaskCategoryUserStatusDAOのインスタンスを生成する
 		TaskCategoryUserStatusDAO dao = new TaskCategoryUserStatusDAO();
 
