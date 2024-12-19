@@ -12,10 +12,7 @@ import model.entity.TaskUserCommentBean;
 
 class TaskUserCommentDAOTest {
 
-	@Test
-	void test() {
-		fail("まだ実装されていません");
-	}
+
 	
 	@Test
 	void コメント件数取得() {
