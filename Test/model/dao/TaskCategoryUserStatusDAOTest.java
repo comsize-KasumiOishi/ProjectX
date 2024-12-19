@@ -92,7 +92,7 @@ class TaskCategoryUserStatusDAOTest {
 	}
 
 	@Test
-	void 変更画面() {
+	void 変更画面成功() {
 		//Arrange
 		TaskCategoryUserStatusBean bean = new TaskCategoryUserStatusBean();
 		int count = 0;
@@ -118,27 +118,196 @@ class TaskCategoryUserStatusDAOTest {
 		//Assert
 		assertEquals(count, 1);
 	}
-	
 	@Test
-	void 削除画面() {
+	void taskNameNULL変更失敗画面() {
 		//Arrange
+		TaskCategoryUserStatusBean bean = new TaskCategoryUserStatusBean();
 		int count = 0;
-		int taskId = 1;
+		Date date = new Date(2024 - 12 - 06);
+//		bean.setTaskName("task1");
+		bean.setCategoryId(1);
+		bean.setLimitDate(date);
+		bean.setUserId("admin");
+		bean.setStatusCode("50");
+		bean.setMemo("とくにありません");
+		bean.setTaskId(1);
 		//Act
 		TaskCategoryUserStatusDAO dao = new TaskCategoryUserStatusDAO();
 		try {
-			count = dao.delete(taskId);
+			count = dao.update(bean);
+			 fail();
 		} catch (ClassNotFoundException e) {
 			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 		} catch (SQLException e) {
+			//Assert
+			assertEquals(count, 0);
+		}
+	}
+	
+	@Test
+	void categoryIdNULL変更失敗画面() {
+		//Arrange
+		TaskCategoryUserStatusBean bean = new TaskCategoryUserStatusBean();
+		int count = 0;
+		Date date = new Date(2024 - 12 - 06);
+		bean.setTaskName("task1");
+//		bean.setCategoryId(1);
+		bean.setLimitDate(date);
+		bean.setUserId("admin");
+		bean.setStatusCode("50");
+		bean.setMemo("とくにありません");
+		bean.setTaskId(1);
+		//Act
+		TaskCategoryUserStatusDAO dao = new TaskCategoryUserStatusDAO();
+		try {
+			count = dao.update(bean);
+			 fail();
+		} catch (ClassNotFoundException e) {
 			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
+		} catch (SQLException e) {
+			//Assert
+			assertEquals(count, 0);
 		}
-		//Assert
-		assertEquals(count, 1);
-		
 	}
+	
+	@Test
+	void userIdNULL変更失敗画面() {
+		//Arrange
+		TaskCategoryUserStatusBean bean = new TaskCategoryUserStatusBean();
+		int count = 0;
+		Date date = new Date(2024 - 12 - 06);
+		bean.setTaskName("task1");
+		bean.setCategoryId(1);
+		bean.setLimitDate(date);
+//		bean.setUserId("admin");
+		bean.setStatusCode("50");
+		bean.setMemo("とくにありません");
+		bean.setTaskId(1);
+		//Act
+		TaskCategoryUserStatusDAO dao = new TaskCategoryUserStatusDAO();
+		try {
+			count = dao.update(bean);
+			 fail();
+		} catch (ClassNotFoundException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		} catch (SQLException e) {
+			//Assert
+			assertEquals(count, 0);
+		}
+	}
+	
+	@Test
+	void statusCodeNULL変更失敗画面() {
+		//Arrange
+		TaskCategoryUserStatusBean bean = new TaskCategoryUserStatusBean();
+		int count = 0;
+		Date date = new Date(2024 - 12 - 06);
+		bean.setTaskName("task1");
+		bean.setCategoryId(1);
+		bean.setLimitDate(date);
+		bean.setUserId("admin");
+//		bean.setStatusCode("50");
+		bean.setMemo("とくにありません");
+		bean.setTaskId(1);
+		//Act
+		TaskCategoryUserStatusDAO dao = new TaskCategoryUserStatusDAO();
+		try {
+			count = dao.update(bean);
+			 fail();
+		} catch (ClassNotFoundException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		} catch (SQLException e) {
+			//Assert
+			assertEquals(count, 0);
+		}
+	}
+	
+	
+	@Test
+	void taskName文字数チェック変更失敗画面() {
+		//Arrange
+		TaskCategoryUserStatusBean bean = new TaskCategoryUserStatusBean();
+		int count = 0;
+		Date date = new Date(2024 - 12 - 06);
+		bean.setTaskName("あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもらりるれろわおんやゆよ１２３４５");
+		bean.setCategoryId(1);
+		bean.setLimitDate(date);
+		bean.setUserId("admin");
+		bean.setStatusCode("50");
+		bean.setMemo("とくにありません");
+		bean.setTaskId(1);
+		//Act
+		TaskCategoryUserStatusDAO dao = new TaskCategoryUserStatusDAO();
+		try {
+			count = dao.update(bean);
+			 fail();
+		} catch (ClassNotFoundException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		} catch (SQLException e) {
+			//Assert
+			assertEquals(count, 0);
+		}
+	}
+	@Test
+	void statusCode文字数チェック変更失敗画面() {
+		//Arrange
+		TaskCategoryUserStatusBean bean = new TaskCategoryUserStatusBean();
+		int count = 0;
+		Date date = new Date(2024 - 12 - 06);
+		bean.setTaskName("task1");
+		bean.setCategoryId(1);
+		bean.setLimitDate(date);
+		bean.setUserId("admin");
+		bean.setStatusCode("123");
+		bean.setMemo("とくにありません");
+		bean.setTaskId(1);
+		//Act
+		TaskCategoryUserStatusDAO dao = new TaskCategoryUserStatusDAO();
+		try {
+			count = dao.update(bean);
+			 fail();
+		} catch (ClassNotFoundException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		} catch (SQLException e) {
+			//Assert
+			assertEquals(count, 0);
+		}
+	}
+	@Test
+	void memo文字数チェック変更失敗画面() {
+		//Arrange
+		TaskCategoryUserStatusBean bean = new TaskCategoryUserStatusBean();
+		int count = 0;
+		Date date = new Date(2024 - 12 - 06);
+		bean.setTaskName("task1");
+		bean.setCategoryId(1);
+		bean.setLimitDate(date);
+		bean.setUserId("admin");
+		bean.setStatusCode("50");
+		bean.setMemo("寿限無 寿限無 五劫のすり切れ 海砂利水魚の 水行末、雲来末、風来末 食う寝るところに住むところ やぶらこうじのぶらこうじ パイポパイポパイポのシューリンガン シューリンガンのグーリンダイ グーリンダイのポンポコピーのポンポコナーの長久命の長助");
+		//122文字
+		bean.setTaskId(1);
+		//Act
+		TaskCategoryUserStatusDAO dao = new TaskCategoryUserStatusDAO();
+		try {
+			count = dao.update(bean);
+			 fail();
+		} catch (ClassNotFoundException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		} catch (SQLException e) {
+			//Assert
+			assertEquals(count, 0);
+		}
+	}
+	
+	
 	
 	@Test
 	void 期限リストの取得() {
