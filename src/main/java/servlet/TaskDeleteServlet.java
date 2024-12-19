@@ -95,10 +95,13 @@ public class TaskDeleteServlet extends HttpServlet {
 		int commentCheck = 0;
 		if(!(commentList == null || commentList.isEmpty())) {
 			commentCheck = 1;
-			request.setAttribute("commentCheck",commentCheck);
+			session.setAttribute("check",commentCheck);
+			System.out.println("コメントチェック" + commentCheck);
 			RequestDispatcher rd = request.getRequestDispatcher("task-delete-failure.jsp");
 			rd.forward(request, response);
 		}
+		
+		System.out.println("コメントチェック通貨済み"+ commentCheck);
 		//ついていなかったらタスクの削除を行う
 		
 		//TaskCategoryUserStatusDAOのインスタンスを生成する

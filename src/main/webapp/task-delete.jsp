@@ -52,7 +52,13 @@
 	</tr>
 	<tr>
 		<td>メモ</td>
+		<% 
+		if(memo == null || memo.isEmpty()){
+		%>
+		<td></td>
+		<%}else{ %>
 		<td><%= memo%></td>
+		<%} %>
 	</tr>
 	</table>
 	
