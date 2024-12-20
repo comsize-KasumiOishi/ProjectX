@@ -294,5 +294,25 @@ class TaskUserCommentDAOTest {
 		//Assert
 		assertNotNull(list);
 	}
+	
+	@Test
+	void タスク削除時コメント削除() {
+		//Arrange
+		int taskId = 5;
+		int count = 0;
+		//Act
+		TaskUserCommentDAO dao = new TaskUserCommentDAO();
+		try {
+			count = dao.taskCommentDelete(taskId);
+		} catch (ClassNotFoundException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		}
+		//Assert
+		assertEquals(count, 1);
+	}
 
 }
