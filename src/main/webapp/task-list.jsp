@@ -2,10 +2,6 @@
 	pageEncoding="UTF-8"
 	import="java.util.List, model.entity.TaskCategoryUserStatusBean, model.entity.TaskUserCommentBean, java.util.Date, java.time.LocalDate,java.time.ZoneId"%>
 <!DOCTYPE html>
-<!-- 
-タスク一覧画面
-@author 柳沢 
--->
 <html>
 <head>
 <meta charset="UTF-8">
@@ -62,9 +58,9 @@
 				</form>
 			</td>
 			<!-- タスク名 -->
-			<td><p><%=task.getTaskName()%></p></td>
+			<td><div><%=task.getTaskName()%></div></td>
 			<!-- タスクカテゴリー -->
-			<td><p><%=task.getCategoryName()%></p></td>
+			<td><div><%=task.getCategoryName()%></div></td>
 			<!-- タスク期限 -->
 			<td>
 				<%
@@ -81,12 +77,12 @@
 				 %>
 			</td>
 			<!-- タスク担当者 -->
-			<td><p><%=task.getUserName()%></p></td>
+			<td><div><%=task.getUserName()%></div></td>
 			<!-- タスクステータス -->
-			<td><p><%=task.getStatusName()%></p></td>
+			<td><div><%=task.getStatusName()%></div></td>
 			<!-- メモ -->
 			<td>
-				<p class="display-limit">
+				<div class="display-limit">
 					<%
 					if (task.getMemo() == null) {
 						task.setMemo("");
@@ -98,7 +94,7 @@
 					<%
 					}
 					%>
-				</p>
+				</div>
 			</td>
 			<!-- コメント件数 -->
 			<td>

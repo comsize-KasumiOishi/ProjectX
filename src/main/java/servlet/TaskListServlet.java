@@ -18,30 +18,23 @@ import model.entity.TaskCategoryUserStatusBean;
 import model.entity.TaskUserCommentBean;
 
 /**
- * Servlet implementation class ItemListServlet
+ * タスク一覧機能に関するServlet
+ * @author 柳沢
  */
+
 @WebServlet("/TaskListServlet")
 public class TaskListServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public TaskListServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
 		request.setCharacterEncoding("UTF-8");
 
-
 		HttpSession session = request.getSession();
-		
+
 		List<TaskCategoryUserStatusBean> taskList = null;
 		List<TaskUserCommentBean> commentCounts = null;
 
@@ -53,27 +46,12 @@ public class TaskListServlet extends HttpServlet {
 			// DAOの利用
 			taskList = listDao.selectAll();
 			commentCounts = commentDao.commentCount();
+			session.setAttribute("taskList", taskList);
 			session.setAttribute("commentCounts", commentCounts);
+			RequestDispatcher rd = request.getRequestDispatcher("task-list.jsp");
+			rd.forward(request, response);
 		} catch (SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-
-		if (taskList != null) {
-		// リクエストスコープへの属性の設定
-		session.setAttribute("taskList", taskList);
-		RequestDispatcher rd = request.getRequestDispatcher("task-list.jsp");
-		rd.forward(request, response);
-		}
 	}
-		
-	
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-
-	}
-
 }
