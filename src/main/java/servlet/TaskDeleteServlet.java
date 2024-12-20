@@ -94,11 +94,15 @@ public class TaskDeleteServlet extends HttpServlet {
 		//ついていたらコメントの削除を行うように促すページに飛ぶ
 		int commentCheck = 0;
 		if(!(commentList == null || commentList.isEmpty())) {
-			commentCheck = 1;
-			session.setAttribute("check",commentCheck);
-			System.out.println("コメントチェック" + commentCheck);
-			RequestDispatcher rd = request.getRequestDispatcher("task-delete-failure.jsp");
-			rd.forward(request, response);
+			try {
+				commentCheck = tucdao.taskCommentDelete(taskId);
+			} catch (ClassNotFoundException e) {
+				// TODO 自動生成された catch ブロック
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO 自動生成された catch ブロック
+				e.printStackTrace();
+			}
 		}
 		
 		System.out.println("コメントチェック通貨済み"+ commentCheck);

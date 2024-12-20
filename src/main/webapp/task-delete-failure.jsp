@@ -11,8 +11,6 @@
 </head>
 <body>
 	<% 
-	int commentCheck  = (int)session.getAttribute("check");
-	if(commentCheck == 0){
 		//詳細画面に表示したBean型を取得
 		TaskCategoryUserStatusBean tcusbean = (TaskCategoryUserStatusBean) session.getAttribute("detail");
 
@@ -84,22 +82,6 @@
 	<form action="TaskListServlet" method="get">
 		<input type="submit" value="一覧に戻る">
 	</form>
-<%
-}else{ 
 
-%>
-<h3>タスクにコメントが投稿されているのでコメントを削除してから削除をしてください</h3>
-<table>
-<td>
-<form action="TaskListServlet" method="get">
-		<input type="submit" value="一覧に戻る">
-	</form>
-	</td>
-	</table>
-
-<%
-
-}
-%>
 </body>
 </html>

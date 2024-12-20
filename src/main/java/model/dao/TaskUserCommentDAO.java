@@ -196,4 +196,33 @@ public class TaskUserCommentDAO {
 			return commentCounts;
 			
 		}
+	
+	/**
+	 * コメントテーブルにあるコメントを削除するメソッド
+	 * @author 坂上
+	 * @param int型の変数 taskId
+	 * @return int型の変数 count
+	 * @throws SQLException , ClassNotFoundException
+	 */
+
+	public int taskCommentDelete(int taskId) throws ClassNotFoundException, SQLException {
+		//データベースからコメント情報を削除した件数を返すメソッド
+
+		//削除件数を格納するint型の変数countを宣言
+		int count = 0;
+
+		//データベースに接続してタスクテーブルの情報を削除する
+		String sql = "DELETE FROM t_comment WHERE task_id = ?";
+
+		try (Connection con = ConnectionManager.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql)) {
+
+			pstmt.setInt(1, taskId);
+
+			count = pstmt.executeUpdate();
+
+		}
+		return count;
+
+	}
 }
