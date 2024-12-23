@@ -81,8 +81,8 @@ table {
 }
 
 /*	タスク詳細画面のコメントボックスのサイズ
-	task-detail.jspにid属性「id="comment"」を追記する
+	task-detail.jspにid属性「id="commentbox"」を追記する
 */
-#comment{
+#commentbox{
 	padding: 3em;
 }
