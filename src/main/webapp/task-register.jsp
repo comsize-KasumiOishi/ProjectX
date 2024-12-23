@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" href="style.css" >
 <title>タスク登録画面</title>
 </head>
 <body>
@@ -14,7 +15,7 @@
 	List<TaskCategoryUserStatusBean> userList = (List<TaskCategoryUserStatusBean>) session.getAttribute("userList");
 	List<TaskCategoryUserStatusBean> statusList = (List<TaskCategoryUserStatusBean>) session.getAttribute("statusList");
 	String today = (String) session.getAttribute("strToday");%>
-	<h1>タスク登録画面</h1>
+	<h2>タスク登録画面</h2>
 	<form action="TaskAddServlet" method="POST">
 		タスク名：<input type="text" name="taskName" maxlength="50" required><br> 
 		カテゴリ分類：<select name="category"><%
@@ -40,11 +41,11 @@
 						}
 						%></select><br>
 		メモ：<input type="textarea" name="memo" maxlength="100"><br> 
-		<input type="submit" value="登録"> 
-		<input type="reset" value="取消">
+		<input type="submit" id="button" value="登録"> 
+		<input type="reset" id="button" value="取消">
 	</form>
 	<form action = "menu.jsp" method = "GET">
-	<input type="submit" value="メニュー画面へ"> 
+	<input type="submit" id="button" value="メニュー画面へ"> 
 	</form>
 </body>
 </html>

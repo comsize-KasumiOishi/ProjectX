@@ -7,9 +7,9 @@
 <title>タスク登録成功画面</title>
 </head>
 <body>
-	<h1>タスクの登録に成功しました。</h1>
+	<h2>タスクの登録に成功しました。</h2>
 	<form action="menu.jsp">
-		<input type="submit" value="メニュー画面へ">
+		<input type="submit" id="button" value="メニュー画面へ">
 	</form>
 </body>
 </html>

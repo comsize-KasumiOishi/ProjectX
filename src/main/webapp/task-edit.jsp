@@ -2,11 +2,10 @@
 	pageEncoding="UTF-8"
 	import="model.entity.TaskCategoryUserStatusBean , java.util.List , java.time.LocalDate"%>
 <!DOCTYPE html>
-<!-- タスク編集画面 -->
-<!-- @author 坂上 -->
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" href="style.css" >
 <title>タスク編集画面</title>
 </head>
 <body>
@@ -25,7 +24,7 @@
 	LocalDate currentDate = LocalDate.now();
 	
 	%>
-	<h1>タスク編集画面</h1>
+	<h2>タスク編集画面</h2>
 
 	<hr>
 	<!-- タスク編集Servletに変更内容を送る -->
@@ -159,11 +158,11 @@
 			</tr>
 		</table>
 		<table>
-			<input type="submit" value="変更する">
-			<input type="reset" value="すべてクリアにする">
+			<input type="submit" id="button" value="変更する">
+			<input type="reset" id="button" value="すべてクリアにする">
 			</form>
 			<form action="TaskListServlet" action="get">
-				<input type="submit" value="一覧に戻る">
+				<input type="submit" id="button" value="一覧に戻る">
 			</form>
 		</table>
 </body>

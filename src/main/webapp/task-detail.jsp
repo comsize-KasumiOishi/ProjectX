@@ -2,23 +2,11 @@
     pageEncoding="UTF-8" 
     import ="model.entity.TaskCategoryUserStatusBean , java.util.ArrayList , java.util.List , model.dao.TaskCategoryUserStatusDAO , model.dao.TaskUserCommentDAO , model.entity.TaskUserCommentBean "%>
 <!DOCTYPE html>
-<!-- タスク編集画面 -->
-<!-- @author 坂上 -->
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" href="style.css" >
 <title>タスク詳細画面</title>
-<style>
-.txt{
-    display: inline-block;
-    width: 70%;
-    height: auto;
-    border: 1px solid #999;
-    box-sizing: border-box;
-    background: #f2f2f2;
-    margin: 0.5em 0;
-}
-</style>
 </head>
 <body>
 <% 
@@ -27,7 +15,7 @@ TaskCategoryUserStatusBean tcus = new TaskCategoryUserStatusBean();
 tcus = (TaskCategoryUserStatusBean)session.getAttribute("detail");
 
 %>
-<h1>タスク詳細画面</h1>
+<h2>タスク詳細画面</h2>
 <hr>
  <table border="1">
  <tr>
@@ -86,7 +74,7 @@ tcus = (TaskCategoryUserStatusBean)session.getAttribute("detail");
 String userName = (String)session.getAttribute("userName");%>
 <table>
 <form action="TaskListServlet" method="get">
-<input type="submit" value="一覧に戻る">
+<input type="submit" id="button" value="一覧に戻る">
 </form>
 <%
 if(userName.equals(tcus.getUserName())){ 
@@ -94,30 +82,30 @@ if(userName.equals(tcus.getUserName())){
 %>
 		
 <form action="TaskDetailServlet" method="post">
-<input type="submit" value="編集" >
+<input type="submit" id="button" value="編集" >
 </form>
 <form action="task-delete.jsp" method="post">
-<input type="submit" value="削除">
+<input type="submit" id="button" value="削除">
 </form>
 <%
 }else{
 //ログイン者がタスクの担当者ではない場合、ボタンを非活性化する
 %>	
 <form action="TaskDetailServlet" method="post">
-<input type="submit" value="編集" disabled>
+<input type="submit" id="button" value="編集" disabled>
 </form>
 <form action="task-delete.jsp" method="post">
-<input type="submit" value="削除" disabled>
+<input type="submit" id="button" value="削除" disabled>
 </form>
 <%} %>
 </table>
 
 <!-- コメント投稿機能の追加を行う -->
 <form action="CommentAddServlet" method="post">
-<input type="text" name="comment" class="txt" maxlength="100" required><br>
+<input type="text" id="commentbox" name="comment" class="txt" maxlength="100" required><br>
 <input type="hidden" name="taskid" value="<%=tcus.getTaskId() %>" >
 <input type="hidden" name="userid" value="<%=userName %>" >
-<input type="submit" value="コメント投稿">
+<input type="submit" id="button" value="コメント投稿">
 </form>
 
 <!-- コメント表示機能の及び削除ボタン追加を行う -->
@@ -145,7 +133,7 @@ for(TaskUserCommentBean tcubean : commentList){
 }
 %>
 </table>
-<input type = "submit" value = "削除">
+<input type = "submit" id="button" value = "削除">
 </form>
 </body>
 </html>

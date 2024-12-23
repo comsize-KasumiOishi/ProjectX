@@ -5,17 +5,18 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" href="style.css" >
 <title>タスク一覧画面</title>
 </head>
 <body>
 	<!-- ページタイトル -->
-	<h1>タスク一覧</h1>
+	<h2>タスク一覧</h2>
 	<hr>
 	<br>
 	<br>
 	<!-- メニュー画面遷移ボタン -->
 	<form action="menu.jsp" method="POST">
-		<input type="submit" value="メニュー画面へ">
+		<input type="submit" id="menubutton" value="メニュー画面へ">
 	</form>
 	
 	<!-- タスク一覧表示用の値をセッションから取得 -->

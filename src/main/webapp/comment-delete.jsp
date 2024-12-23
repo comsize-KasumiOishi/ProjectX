@@ -5,10 +5,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" href="style.css" >
 <title>コメント削除確認画面</title>
 </head>
 <body>
-	<h1>コメント削除確認画面</h1>
+	<h2>コメント削除確認画面</h2>
 
 	<table border="1">
 		<%--CommentDeleteServletのdoGetメソッドでセッションスコープに設定した
@@ -30,12 +31,12 @@
 		%>
 	</table>
 
-	<h2>以上のコメントを削除しますか？</h2>
+	<h3>以上のコメントを削除しますか？</h3>
 	<form action="CommentDeleteServlet" method="POST">
-		<input type="submit" value="削除">
+		<input type="submit" id="button" value="削除">
 	</form>
 	<form action="task-detail.jsp">
-		<input type="submit" value="タスク詳細画面に戻る">
+		<input type="submit" id="button" value="タスク詳細画面に戻る">
 	</form>
 </body>
 </html>

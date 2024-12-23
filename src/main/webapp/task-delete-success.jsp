@@ -2,11 +2,10 @@
 	pageEncoding="UTF-8"
 	import="java.util.Date,model.entity.TaskCategoryUserStatusBean,java.util.List"%>
 <!DOCTYPE html>
-<!-- タスク削除完了画面 -->
-<!-- @author 坂上 -->
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" href="style.css" >
 <title>タスク削除完了画面</title>
 </head>
 <body>
@@ -31,7 +30,7 @@
 	}
 	%>
 
-	<h1>タスク削除完了画面</h1>
+	<h2>タスク削除完了画面</h2>
 	<hr>
 
 	<table border>
@@ -76,7 +75,7 @@
 	<br>
 
 	<form action="menu.jsp" method="GET">
-		<input type="submit" value="メニューに戻る">
+		<input type="submit" id="button" value="メニューに戻る">
 	</form>
 
 </body>

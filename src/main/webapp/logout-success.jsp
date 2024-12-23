@@ -4,10 +4,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" href="style.css" >
 <title>ログアウト画面</title>
 </head>
 <body>
-	<h3>ログアウト画面</h3>
+	<h2>ログアウト画面</h2>
 	<hr>
 	<% String userName = (String) session.getAttribute("userName");%>
 	
@@ -19,7 +20,7 @@
 	
 	<form action="login.jsp" method="GET">
 	
-	<input type="submit" value="ログイン画面へ">
+	<input type="submit" id="button" value="ログイン画面へ">
 	<br>
 	<br>
 	</form>	

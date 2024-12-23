@@ -1,11 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.Date,model.entity.TaskCategoryUserStatusBean,java.util.List"%>
 <!DOCTYPE html>
-<!-- タスク削除画面 -->
-<!-- @author 坂上 -->
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" href="style.css" >
 <title>タスク削除画面</title>
 </head>
 <body>
@@ -22,7 +21,7 @@
 		String memo = tcusbean.getMemo();
 	%>
 
-	<h1>タスク削除画面</h1>
+	<h2>タスク削除画面</h2>
 	<hr>
 	
 	<table border>
@@ -67,11 +66,11 @@
 	<br>
 
 	<form action="TaskListServlet" method="POST">
-	<input type="submit" value="一覧に戻る">
+	<input type="submit" id="button" value="一覧に戻る">
 	</form>
 	
 	<form action="TaskDeleteServlet" method="POST">
-	<input type="submit" value="削除">
+	<input type="submit" id="button" value="削除">
 	</form>
 	
 </body>

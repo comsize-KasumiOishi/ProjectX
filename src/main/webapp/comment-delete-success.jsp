@@ -5,10 +5,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" href="style.css" >
 <title>コメント削除成功画面</title>
 </head>
 <body>
-	<h1>コメント削除成功画面</h1>
+	<h2>コメント削除成功画面</h2>
 	<%--CommentDeleteServletのdoGetメソッドでセッションスコープに設定した
 	コメント情報が格納されたリストを取得 --%>
 	<%
@@ -28,9 +29,9 @@
 	<%
 	}
 	%>
-	<h2>以上のコメントの削除に成功しました</h2>
+	<h3>以上のコメントの削除に成功しました</h3>
 	<form action="TaskListServlet" method="GET">
-		<input type="submit" value="タスク一覧表示画面">
+		<input type="submit" id="button" value="タスク一覧表示画面">
 	</form>
 </body>
 </html>

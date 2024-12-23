@@ -2,11 +2,10 @@
 	pageEncoding="UTF-8"
 	import="java.util.Date,model.entity.TaskCategoryUserStatusBean,java.util.List"%>
 <!DOCTYPE html>
-<!-- タスク削除失敗画面 -->
-<!-- @author 坂上 -->
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" href="style.css" >
 <title>タスク削除失敗画面</title>
 </head>
 <body>
@@ -34,7 +33,7 @@
 				
 	%>
 
-	<h1>タスク削除失敗画面</h1>
+	<h2>タスク削除失敗画面</h2>
 	<hr>
 
 	<h3>以下のデータを削除できませんでした。</h3>
@@ -80,7 +79,7 @@
 	<br>
 
 	<form action="TaskListServlet" method="get">
-		<input type="submit" value="一覧に戻る">
+		<input type="submit" id="button" value="一覧に戻る">
 	</form>
 
 </body>

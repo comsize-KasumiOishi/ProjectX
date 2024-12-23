@@ -5,7 +5,6 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="style.css" >
-
 <title>ログイン画面</title>
 </head>
 <body>
@@ -15,9 +14,9 @@
 	
 	<form action="LoginServlet" method="POST">
 	ユーザID
-	<input type = "text" id="text" maxlength="24" name = "userid" required><br>
+	<input type = "text" id="textbox" maxlength="24" name = "userid" required><br>
 	パスワード
-	<input type = "password" maxlength="32" id="password" name = "password" required><br>
+	<input type = "password" maxlength="32" id="textbox" name = "password" required><br>
 	<br>
 	<input type="submit" id="button" value="ログイン">
 	<input type="reset" id="button" value="クリア">

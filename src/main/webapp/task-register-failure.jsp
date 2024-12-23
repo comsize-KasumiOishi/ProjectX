@@ -9,7 +9,7 @@
 <body>
 	<h2>タスクの登録に失敗しました。</h2>
 	<form action="task-register.jsp">
-		<input type="submit" value="タスク登録画面へ">
+		<input type="submit" id="button" value="タスク登録画面へ">
 	</form>
 </body>
 </html>

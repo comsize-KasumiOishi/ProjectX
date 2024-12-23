@@ -4,19 +4,20 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" href="style.css" >
 <title>メニュー画面</title>
 </head>
 <body>
 	<% String userName = (String) session.getAttribute("userName");%>
 	<%@ include file="header.jsp"%>
-	<h3>メニュー画面</h3>
+	<h2>メニュー画面</h2>
 	<hr>
 	ようこそ！<%= userName%>さん<br>
 	<br>
 	
 	<form action="TaskAddServlet" method="GET">
 	
-	<input type="submit" value="タスク登録">
+	<input type="submit" id="button" value="タスク登録">
 	
 	</form>
 	
@@ -24,7 +25,7 @@
 	
 	<form action="TaskListServlet" method="GET">
 	
-	<input type="submit" value="タスク一覧表示">
+	<input type="submit" id="button" value="タスク一覧表示">
 	
 	</form>
 	
@@ -32,7 +33,7 @@
 	
 	<form action="logout-success.jsp" method="GET">
 	
-	<input type="submit" value="ログアウト">
+	<input type="submit" id="button" value="ログアウト">
 		
 	</form>
 </body>
