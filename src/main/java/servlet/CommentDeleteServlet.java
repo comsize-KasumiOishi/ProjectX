@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 
 import model.dao.TaskUserCommentDAO;
 import model.entity.TaskUserCommentBean;
+
 /**
  * コメントをデータベースから削除するためのサーブレット
  * @author 篠杏樹
@@ -38,10 +39,7 @@ public class CommentDeleteServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 
 		//リクエストパラメータの取得
-		String strCommentId = request.getParameter("commentId");
-
-		//commentIdをint型にキャスト
-		int commentId = Integer.parseInt(strCommentId);
+		String[] strCommentId = request.getParameterValues("commentId");
 
 		//TaskUserCommentDAOクラスのインスタンスを作成
 		TaskUserCommentDAO dao = new TaskUserCommentDAO();
@@ -51,14 +49,14 @@ public class CommentDeleteServlet extends HttpServlet {
 
 		//TaskUserCommentDAOクラスのcommentListメソッドを呼び出す
 		try {
-			commentList = dao.deleteCommentList(commentId);
+			commentList = dao.deleteCommentList(strCommentId);
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
 
 		//セッションスコープにcommentIdとコメント情報が格納されたリストを設定
 		HttpSession session = request.getSession();
-		session.setAttribute("commentId", commentId);
+		session.setAttribute("strCommentId", strCommentId);
 		session.setAttribute("commentDeleteList", commentList);
 
 		//転送先のパスを指定して転送処理用オブジェクトを取得
@@ -80,7 +78,25 @@ public class CommentDeleteServlet extends HttpServlet {
 			throws ServletException, IOException {
 		//doPostメソッドでセッションスコープに設定したcommentIdを取得
 		HttpSession session = request.getSession();
-		int commentId = (int) session.getAttribute("commentId");
+		String[] strCommentId = (String[]) session.getAttribute("strCommentId");
+
+		//遷移先のURLマッピングを格納するString型の変数urlを宣言
+		String url = null;
+		
+		//妥当性チェック
+		if (strCommentId == null) {
+			//urlにコメント削除失敗画面に遷移する
+			url = "comment-delete-failure.jsp";
+			
+			//転送先のパスを指定して転送処理用オブジェクトを取得
+			RequestDispatcher rd = request.getRequestDispatcher(url);
+
+			//リクエストの転送
+			rd.forward(request, response);
+
+			//メソッドを強制的に終了する
+			return;
+		}
 
 		//TaskUserCommentDAOクラスのインスタンスを作成
 		TaskUserCommentDAO dao = new TaskUserCommentDAO();
@@ -88,12 +104,9 @@ public class CommentDeleteServlet extends HttpServlet {
 		//削除件数を格納するint型の変数resを宣言
 		int res = 0;
 
-		//遷移先のURLマッピングを格納するString型の変数urlを宣言
-		String url = null;
-
 		//TaskCategoryUserStatusDAOクラスのdeleteメソッドを呼び出す
 		try {
-			res = dao.delete(commentId);
+			res = dao.delete(strCommentId);
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 			url = "comment-delete-failure.jsp";

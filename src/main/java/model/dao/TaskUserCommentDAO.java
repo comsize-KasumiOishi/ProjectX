@@ -17,7 +17,7 @@ import model.entity.TaskUserCommentBean;
  */
 
 public class TaskUserCommentDAO {
-	
+
 	/**
 	 * コメントテーブルにコメントを登録するメソッド
 	 * @author 篠
@@ -25,7 +25,6 @@ public class TaskUserCommentDAO {
 	 * @return int型の変数 res
 	 * @throws SQLException , ClassNotFoundException
 	 */
-
 
 	public int insert(TaskUserCommentBean tucbean) throws ClassNotFoundException, SQLException {
 		//データベースにコメント情報を登録するメソッド
@@ -51,7 +50,7 @@ public class TaskUserCommentDAO {
 		return res;
 
 	}
-	
+
 	/**
 	 * コメントテーブルにあるコメントを削除するメソッド
 	 * @author 篠
@@ -60,19 +59,37 @@ public class TaskUserCommentDAO {
 	 * @throws SQLException , ClassNotFoundException
 	 */
 
-	public int delete(int commentId) throws ClassNotFoundException, SQLException {
-		//データベースからコメント情報を削除した件数を返すメソッド
+	public int delete(String[] strCommentId) throws ClassNotFoundException, SQLException {
+		//検索をかけるsql文を宣言
+		String sql = null;
 
 		//削除件数を格納するint型の変数countを宣言
 		int count = 0;
 
-		//データベースに接続してタスクテーブルの情報を削除する
-		String sql = "DELETE FROM t_comment WHERE comment_id = ?";
+		//StringBuilderにsql文を追加する
+		StringBuilder stringbuilder = new StringBuilder("DELETE FROM t_comment WHERE");
+
+		for (int i = 0; i < strCommentId.length; i++) {
+			if (i == 0) {
+				stringbuilder.append(" comment_id = ?");
+			} else if (i >= 1) {
+				stringbuilder.append(" OR comment_id = ?");
+			}
+		}
+
+		//Where句に続く文言stringbuilderをsql文に追加する
+		sql = stringbuilder.toString();
 
 		try (Connection con = ConnectionManager.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql)) {
 
-			pstmt.setInt(1, commentId);
+			//プレースホルダの数を格納するint型の変数placeを宣言
+			int place = 1;
+			for (int i = 0; i < strCommentId.length; i++) {
+				int commentId = Integer.parseInt(strCommentId[i]);
+				pstmt.setInt(place, commentId);
+				place++;
+			}
 
 			count = pstmt.executeUpdate();
 
@@ -80,7 +97,7 @@ public class TaskUserCommentDAO {
 		return count;
 
 	}
-	
+
 	/**
 	 * コメントテーブルにあるタスク一件に紐づいたコメントのリストを表示するメソッド
 	 * @author 坂上
@@ -119,26 +136,47 @@ public class TaskUserCommentDAO {
 
 	}
 
-	
-	/**
-	 * コメントテーブルにあるコメントを削除するのに必要なリストの表示するメソッド
-	 * @author 篠
-	 * @param int型の変数 commentId
-	 * @return TaskUserCommentBean型のリスト list
-	 * @throws SQLException , ClassNotFoundException
-	 */
-	
-	
-	public List<TaskUserCommentBean> deleteCommentList(int commentId) throws SQLException, ClassNotFoundException {
+	/*コメントテーブルにあるコメントを削除するのに必要なリストの表示するメソッド*
+
+	@author 篠
+	 * @param int型の変数 commentId*@return
+	TaskUserCommentBean型のリスト list*@throws SQLException,ClassNotFoundException*/
+
+	public List<TaskUserCommentBean> deleteCommentList(String[] strCommentId)
+			throws SQLException, ClassNotFoundException {
+		//検索をかけるsql文を宣言
+		String sql = null;
+
 		//コメントリストを収めるリストの宣言
 		List<TaskUserCommentBean> list = new ArrayList<TaskUserCommentBean>();
 
-		//データベースに接続してコメントテーブルの情報を取得する
-		String sql = "SELECT t1.comment_id , t1.task_id , t2.user_id, t2.user_name , t1.comment , t1.update_datetime FROM t_comment t1 LEFT OUTER JOIN m_user t2 on t1.user_id = t2.user_id WHERE comment_id = ?";
+		//StringBuilderにsql文を追加する
+		StringBuilder stringbuilder = new StringBuilder("SELECT t1.comment_id , "
+				+ "t1.task_id , t2.user_id, t2.user_name , t1.comment , "
+				+ "t1.update_datetime FROM t_comment t1 LEFT OUTER JOIN m_user "
+				+ "t2 on t1.user_id = t2.user_id WHERE");
+
+		for (int i = 0; i < strCommentId.length; i++) {
+			if (i == 0) {
+				stringbuilder.append(" comment_id = ?");
+			} else if (i >= 1) {
+				stringbuilder.append(" OR comment_id = ?");
+			}
+		}
+
+		//Where句に続く文言stringbuilderをsql文に追加する
+		sql = stringbuilder.toString();
+
 		try (Connection con = ConnectionManager.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql)) {
 
-			pstmt.setInt(1, commentId);
+			//プレースホルダの数を格納するint型の変数placeを宣言
+			int place = 1;
+			for (int i = 0; i < strCommentId.length; i++) {
+				int commentId = Integer.parseInt(strCommentId[i]);
+				pstmt.setInt(place, commentId);
+				place++;
+			}
 
 			ResultSet res = pstmt.executeQuery();
 
@@ -158,8 +196,7 @@ public class TaskUserCommentDAO {
 		return list;
 
 	}
-	
-	
+
 	/**
 	 * コメントテーブルにあるタスクのリストとそれに紐づいたコメントの数を表示するメソッド
 	 * @author 柳沢
@@ -196,7 +233,7 @@ public class TaskUserCommentDAO {
 			return commentCounts;
 			
 		}
-	
+
 	/**
 	 * コメントテーブルにあるコメントを削除するメソッド
 	 * @author 坂上

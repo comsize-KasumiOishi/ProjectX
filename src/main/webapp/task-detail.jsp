@@ -132,9 +132,10 @@ if(commentList.isEmpty()){%>
 for(TaskUserCommentBean tcubean : commentList){
 %>
 <tr>
+<td><form action = "CommentDeleteServlet" method = "GET">
+<input type = "checkbox" name =commentId value ="<%=tcubean.getCommentId()%>"></td>
 <td><b>投稿者:<%=tcubean.getUserName() %>></b></td>
 <td>投稿日:<%=tcubean.getUpdateDateTime() %></td>
-<td><a href="CommentDeleteServlet?commentId=<%=tcubean.getCommentId()%>">削除</a></td>
 </tr>
 <tr>
 <td colspan="3"><%=tcubean.getComment() %></td>
@@ -144,5 +145,7 @@ for(TaskUserCommentBean tcubean : commentList){
 }
 %>
 </table>
+<input type = "submit" value = "削除">
+</form>
 </body>
 </html>

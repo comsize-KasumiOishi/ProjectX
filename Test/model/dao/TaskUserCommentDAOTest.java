@@ -256,7 +256,7 @@ class TaskUserCommentDAOTest {
 	@Test
 	void コメント情報削除成功() {
 		//Arrange
-		int commentId = 2;
+		String[] commentId = {"2"};
 		//登録件数を格納するint型の変数countを宣言
 		int count = 0;
 
@@ -280,7 +280,7 @@ class TaskUserCommentDAOTest {
 	@Test
 	void コメント削除情報取得() {
 		//Arrange
-		int commentId = 2;
+		String[] commentId = {"2"};
 		List<TaskUserCommentBean> list = new ArrayList<TaskUserCommentBean>();
 
 		//Act
@@ -293,26 +293,6 @@ class TaskUserCommentDAOTest {
 
 		//Assert
 		assertNotNull(list);
-	}
-	
-	@Test
-	void タスク削除時コメント削除() {
-		//Arrange
-		int taskId = 5;
-		int count = 0;
-		//Act
-		TaskUserCommentDAO dao = new TaskUserCommentDAO();
-		try {
-			count = dao.taskCommentDelete(taskId);
-		} catch (ClassNotFoundException e) {
-			// TODO 自動生成された catch ブロック
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO 自動生成された catch ブロック
-			e.printStackTrace();
-		}
-		//Assert
-		assertEquals(count, 1);
 	}
 
 }
