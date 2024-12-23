@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import Controller.validation.Validation;
 import model.dao.TaskCategoryUserStatusDAO;
 import model.entity.TaskCategoryUserStatusBean;
 
@@ -68,108 +68,66 @@ public class TaskEditServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		TaskCategoryUserStatusDAO dao = new TaskCategoryUserStatusDAO();
 		TaskCategoryUserStatusBean tcusbean = (TaskCategoryUserStatusBean) session.getAttribute("detail");
-		//変更用に入力されたタスク名
+		Validation check = new Validation();
 		try {
+			//変更用に入力されたタスク名
 			String updateTaskName = request.getParameter("updatetaskname");
-			//updateTaskName妥当性チェック
-			//taskNameの文字数をcountに代入
-			length = updateTaskName.length();
-			if (updateTaskName.isEmpty()) {
-				//未入力チェック
-				url = "task-edit-failure.jsp";
-			} else if (count < 0 || count > 50) {
-				//文字数チェック
-				url = "task-edit-failure.jsp";
-			}
-
+			
 			//セレクトボックスでカテゴリーIDを取得
 			String updatestrCategoryId = request.getParameter("updatecategoryid");
-			//カテゴリーIDをint型に型変換
-			int updateCategoryId = Integer.parseInt(updatestrCategoryId);
-			//カテゴリーIDの妥当性チェック
-			if (!(updateCategoryId == 1 || updateCategoryId == 2)) {
-				url = "task-edit-failure.jsp";
-			}
-
+			
 			//期限を取得
 			String updatestrLimitDate = request.getParameter("updatelimitdate");
-			//strLimitDate妥当性チェック
-			//変更する期限を格納するLocalDate型の変数limitDateを宣言
-			LocalDate limitDate = null;
-			//sql.date型の期限を格納する変数Dateを宣言
-			java.sql.Date sqlDate = null;
-			if (updatestrLimitDate == null || updatestrLimitDate.isEmpty()) {
-
-			} else {
-				try {
-					//strLimitDateをLocalDate型にキャスト
-					limitDate = LocalDate.parse(updatestrLimitDate, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-					//今日の日付を取得してLocalDate型の変数todayに代入
-					LocalDate today = LocalDate.now();
-					//今日の日付と入力された日付を比較する
-					if (today.isAfter(limitDate)) {
-						RequestDispatcher rd = request.getRequestDispatcher("task-edit-failure.jsp");
-						rd.forward(request, response);
-					}
-					//todayをString型にキャスト
-					String strToday = today.toString();
-
-					//セッションスコープに今日の日付を設定する
-					session.setAttribute("strToday", strToday);
-
-					//LocalDate型のlimitDateをsql.date型に変換する
-					sqlDate = java.sql.Date.valueOf(limitDate);
-				} catch (DateTimeParseException | NullPointerException e) {
-					url = "task-edit-failure.jsp";
-				}
-			}
-
+			
+			
 			//セレクトボックスでユーザーIDを取得
 			String updateUserId = request.getParameter("updateuserid");
-			//updateUserIdの妥当性チェック
-			//updateUserIdの文字数をcountに代入
-			count = updateUserId.length();
-			//文字数チェック
-			if (count < 0 || count > 24) {
-				url = "task-edit-failure.jsp";
-			}
-
+			
 			//セレクトボックスでステータスコードを取得
 			String updateStatusCode = request.getParameter("updatestatuscode");
-			//statusCodeの文字数をcountに代入
-			count = updateStatusCode.length();
-			//文字数チェック
-			if (count < 0 || count > 2) {
-				url = "task-edit-failure.jsp";
-			}
-			//範囲チェック
-			if (!(updateStatusCode.equals("00") || updateStatusCode.equals("50") || updateStatusCode.equals("99"))) {
-				url = "task-edit-failure.jsp";
-			}
-
+			
 			//メモを取得
 			String updateMemo = request.getParameter("updatememo");
-			//memo妥当性チェック
-			if (updateMemo == null || updateMemo.isEmpty()) {
-				updateMemo = null;
-			} else {
-				//memoの文字数をcountに代入
-				count = updateMemo.length();
-				//文字数チェック
-				if (count > 100) {
-					url = "task-edit-failure.jsp";
-				}
-			}
+			
+			//妥当性チェック
+			boolean checkValidation = check.checkValidation(updateTaskName, updatestrCategoryId, updatestrLimitDate, updateUserId, updateStatusCode, updateMemo);
 
 			//urlに登録失敗画面のurlマッピングが代入されていたら画面遷移する
-			if (url == "task-edit-failure.jsp") {
+			if (checkValidation = false) {
+				url = "task-edit-failure.jsp";
 				//転送先のパスを指定して転送処理用オブジェクトを取得
 				RequestDispatcher rd = request.getRequestDispatcher(url);
-
 				//リクエストの転送
 				rd.forward(request, response);
 				return;
 			}
+			
+			//必要な項目のキャスト及びセッション
+			
+			//int型に変換
+			int updateCategoryId = Integer.parseInt(updatestrCategoryId);
+			
+			
+			//変更する期限を格納するLocalDate型の変数limitDateを宣言
+			LocalDate limitDate = null;
+			//sql.date型の期限を格納する変数Dateを宣言
+			java.sql.Date sqlDate = null;
+			//strLimitDateをLocalDate型にキャスト
+			limitDate = LocalDate.parse(updatestrLimitDate, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+			//今日の日付を取得してLocalDate型の変数todayに代入
+			LocalDate today = LocalDate.now();
+			//todayをString型にキャスト
+			String strToday = today.toString();
+			//セッションスコープに今日の日付を設定する
+			session.setAttribute("strToday", strToday);
+			//LocalDate型のlimitDateをsql.date型に変換する
+			sqlDate = java.sql.Date.valueOf(limitDate);
+			
+			//memo妥当性チェック
+			if (updateMemo == null || updateMemo.isEmpty()) {
+				updateMemo = null;
+			}
+			
 
 			//			入力された値が元の値と全て同じの場合、編集失敗画面に遷移する
 			if (updateTaskName.equals(tcusbean.getTaskName()) &&
