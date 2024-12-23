@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" href="style.css" >
 <title>タスク登録失敗画面</title>
 </head>
 <body>
