@@ -75,7 +75,7 @@
 	<input type="submit" id="button" value="削除">
 	</form>
 	<br>
-	<form action="TaskListServlet" method="POST">
+	<form action="TaskListServlet" method="GET">
 	<input type="submit" id="button" value="一覧に戻る">
 	</form>
 		
