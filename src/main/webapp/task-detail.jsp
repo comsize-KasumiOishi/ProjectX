@@ -109,7 +109,6 @@ if(userName.equals(tcus.getUserName())){
 </form>
 
 <!-- コメント表示機能の及び削除ボタン追加を行う -->
-<table border="1">
 <% 
 //for文を用いてリストの中をすべて表示する
 //DetailServletを用いてタスクIDに紐づいたコメントのリストを取得する
@@ -119,6 +118,7 @@ if(commentList.isEmpty()){%>
 <%}else{
 for(TaskUserCommentBean tcubean : commentList){
 %>
+<table border="1">
 <tr>
 <td><form action = "CommentDeleteServlet" method = "GET">
 <input type = "checkbox" name =commentId value ="<%=tcubean.getCommentId()%>"></td>
@@ -130,10 +130,12 @@ for(TaskUserCommentBean tcubean : commentList){
 </tr>
 <% 
 }
-}
 %>
 </table>
 <input type = "submit" id="button" value = "削除">
 </form>
+<% 
+}
+%>
 </body>
 </html>
