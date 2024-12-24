@@ -64,14 +64,14 @@
 	<br>
 	<h3>以上のデータを削除しますか？</h3>
 	<br>
-
-	<form action="TaskListServlet" method="POST">
-	<input type="submit" id="button" value="一覧に戻る">
-	</form>
 	
 	<form action="TaskDeleteServlet" method="POST">
 	<input type="submit" id="button" value="削除">
 	</form>
-	
+	<br>
+	<form action="TaskListServlet" method="POST">
+	<input type="submit" id="button" value="一覧に戻る">
+	</form>
+		
 </body>
 </html>
