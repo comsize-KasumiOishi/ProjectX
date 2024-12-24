@@ -39,7 +39,13 @@
 	</tr>
 	<tr>
 		<td>期限</td>
+		<% 
+		if(limitDate == null){
+		%>
+		<td></td>
+		<%}else{ %>
 		<td><%= limitDate%></td>
+		<%} %>
 	</tr>
 	<tr>
 		<td>ユーザー名</td>
