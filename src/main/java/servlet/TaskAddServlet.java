@@ -125,29 +125,33 @@ public class TaskAddServlet extends HttpServlet {
 		} catch (NullPointerException e) {
 			e.printStackTrace();
 		}
+		//範囲チェック
+		if (tag(taskName)) {
+			url = "task-register-failure.jsp";
+		}
 
 		//categoryId妥当性チェック
 		//categoryIdとcategoryNameを格納する変数を宣言
 		String categoryName = null;
 		int categoryId = 0;
-			//未入力チェック
-			try {
-				//categoryにカンマが含まれてるか確認する
-				if (!(category.contains(","))) {
-					url = "task-register-failure.jsp";
-				}
-				//categoryをカンマで区切る
-				String[] categoryArray = category.split(",");
-				categoryName = categoryArray[0];
-				categoryId = Integer.parseInt(categoryArray[1]);
-			} catch (NullPointerException | ArrayIndexOutOfBoundsException e) {
-				e.printStackTrace();
+		//未入力チェック
+		try {
+			//categoryにカンマが含まれてるか確認する
+			if (!(category.contains(","))) {
 				url = "task-register-failure.jsp";
 			}
-			//範囲チェック
-			if (!(categoryId == 1 || categoryId == 2)) {
-				url = "task-register-failure.jsp";
-			}
+			//categoryをカンマで区切る
+			String[] categoryArray = category.split(",");
+			categoryName = categoryArray[0];
+			categoryId = Integer.parseInt(categoryArray[1]);
+		} catch (NullPointerException | ArrayIndexOutOfBoundsException e) {
+			e.printStackTrace();
+			url = "task-register-failure.jsp";
+		}
+		//範囲チェック
+		if (!(categoryId == 1 || categoryId == 2)) {
+			url = "task-register-failure.jsp";
+		}
 
 		//strLimitDate妥当性チェック
 		//登録する期限を格納するLocalDate型の変数limitDateを宣言
@@ -197,9 +201,9 @@ public class TaskAddServlet extends HttpServlet {
 
 			//範囲チェック(ユーザマスタの情報とuserIdが一致しているか調べる)
 			for (TaskCategoryUserStatusBean tcusbean : userList) {
-				if(userName.equals(tcusbean.getUserId()) || userId.equals(tcusbean.getUserName())) {
+				if (userName.equals(tcusbean.getUserId()) || userId.equals(tcusbean.getUserName())) {
 					break;
-				}else{
+				} else {
 					url = "task-register-failure.jsp";
 				}
 			}
@@ -222,7 +226,7 @@ public class TaskAddServlet extends HttpServlet {
 			String[] statusArray = status.split(",");
 			statusName = statusArray[0];
 			statusCode = statusArray[1];
-			
+
 			//statusCodeの文字数をcountに代入
 			count = statusCode.length();
 			//文字数チェック
@@ -253,6 +257,10 @@ public class TaskAddServlet extends HttpServlet {
 			} catch (NullPointerException e) {
 				e.printStackTrace();
 			}
+		}
+		//範囲チェック
+		if (tag(memo)) {
+			url = "task-register-failure.jsp";
 		}
 
 		//urlに登録失敗画面のurlマッピングが代入されていたら画面遷移する
@@ -302,6 +310,11 @@ public class TaskAddServlet extends HttpServlet {
 
 		//リクエストの転送
 		rd.forward(request, response);
+	}
+
+	public static boolean tag(String input) {
+		String pattern = ".*<[^>]+>.*";
+		return input.matches(pattern);
 	}
 
 }
