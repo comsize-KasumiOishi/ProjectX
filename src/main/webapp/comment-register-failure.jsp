@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic&display=swap" rel="stylesheet">
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,8 +11,8 @@
 <title>コメント登録失敗画面</title>
 </head>
 <body>
-	<h2>コメント登録失敗画面</h2>
-	<h3>コメントの登録に失敗しました。</h3>
+	<h1>コメント登録失敗画面</h1>
+	<h2>コメントの登録に失敗しました。</h2>
 	<form action="TaskListServlet" method="GET">
 		<input type="submit" id="button" value="タスク一覧表示画面">
 	</form>

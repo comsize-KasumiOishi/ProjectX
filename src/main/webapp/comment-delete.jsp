@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"
 	import="java.util.ArrayList,java.util.List,model.dao.TaskUserCommentDAO,model.entity.TaskUserCommentBean"%>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic&display=swap" rel="stylesheet">
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,7 +12,7 @@
 <title>コメント削除確認画面</title>
 </head>
 <body>
-	<h2>コメント削除確認画面</h2>
+	<h1>コメント削除確認画面</h1>
 
 	<table border="1">
 		<%--CommentDeleteServletのdoGetメソッドでセッションスコープに設定した
@@ -31,7 +34,7 @@
 		%>
 	</table>
 
-	<h3>以上のコメントを削除しますか？</h3>
+	<h2>以上のコメントを削除しますか？</h2>
 	<form action="CommentDeleteServlet" method="POST">
 		<input type="submit" id="button" value="削除">
 	</form>

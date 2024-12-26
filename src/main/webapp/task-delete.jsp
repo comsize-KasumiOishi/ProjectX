@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.Date,model.entity.TaskCategoryUserStatusBean,java.util.List"%>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic&display=swap" rel="stylesheet">
 <!DOCTYPE html>
+<!-- タスク削除画面 -->
+<!-- @author 坂上 -->
 <html>
 <head>
 <meta charset="UTF-8">
@@ -21,7 +26,7 @@
 		String memo = tcusbean.getMemo();
 	%>
 
-	<h2>タスク削除画面</h2>
+	<h1>タスク削除画面</h1>
 	<hr>
 	
 	<table border>
@@ -39,13 +44,7 @@
 	</tr>
 	<tr>
 		<td>期限</td>
-		<% 
-		if(limitDate == null){
-		%>
-		<td></td>
-		<%}else{ %>
 		<td><%= limitDate%></td>
-		<%} %>
 	</tr>
 	<tr>
 		<td>ユーザー名</td>
@@ -70,14 +69,14 @@
 	<br>
 	<h3>以上のデータを削除しますか？</h3>
 	<br>
+
+	<form action="TaskListServlet" method="POST">
+	<input type="submit" id="button" value="一覧に戻る">
+	</form>
 	
 	<form action="TaskDeleteServlet" method="POST">
 	<input type="submit" id="button" value="削除">
 	</form>
-	<br>
-	<form action="TaskListServlet" method="GET">
-	<input type="submit" id="button" value="一覧に戻る">
-	</form>
-		
+	
 </body>
 </html>

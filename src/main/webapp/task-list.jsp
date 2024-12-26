@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"
 	import="java.util.List, model.entity.TaskCategoryUserStatusBean, model.entity.TaskUserCommentBean, java.util.Date, java.time.LocalDate,java.time.ZoneId"%>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic&display=swap" rel="stylesheet">
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,22 +14,23 @@
 </head>
 <body>
 	<!-- ページタイトル -->
-	<h2>タスク一覧</h2>
+	<h1>タスク一覧</h1>
 	<hr>
 	<br>
 	<br>
 	<!-- メニュー画面遷移ボタン -->
+	<div class="btn btn-malformation">
 	<form action="menu.jsp" method="POST">
-		<input type="submit" id="menubutton" value="メニュー画面へ">
+		<input type="submit" id="button" value="メニュー画面へ">
 	</form>
-	
+	</div>
 	<!-- タスク一覧表示用の値をセッションから取得 -->
 	<%
 	List<TaskCategoryUserStatusBean> taskList = (List) session.getAttribute("taskList");
 	List<TaskUserCommentBean> commentCounts = (List) session.getAttribute("commentCounts");
 	%>
 
-
+	
 	<!-- タスク一覧生成用テーブル -->
 	<table border=1 class="fixed-table">
 
@@ -53,8 +58,8 @@
 				<form action="TaskDetailServlet " method="GET">
 
 					<input type="hidden" name="taskId" value="<%=task.getTaskId()%>">
-					<input type="submit" name="button" value="詳細"
-						style="background-color: lightgreen; width: 100%; height: 100%;">
+					<div class="btn_07"><input type="submit" name="button" value="詳細" id ="detailbutton"
+						style="background-color: #fcc800; border-color: #ffec47; color: #1569EF; width: 100%; height: 100%;"></div>
 
 				</form>
 			</td>
@@ -123,33 +128,20 @@
 		<% 
 		} else {
 			%>
-
-			<p>タスクは未登録です</p>
-
-			<%
+		</tr>
+	</table>
+	<p>タスクは未登録です</p>
+		<%
 			}
 			%>
-
-		</tr>
-
-	</table>
 	
 <!-- CSSの設定 -->
-	<style>
-
-.fixed-table {
-	table-layout: fixed;
-	width: 100%;
-	border-collapse: collapse;
-}
-
-.display-limit {
-	overflow: hidden;
-	display: -webkit-box;
-	-webkit-box-orient: vertical;
-	-webkit-line-clamp: 2;
+<style>
+h1{
+   font-family: "Zen Maru Gothic", serif;
+  font-weight: 600;
+  font-style: normal;
 }
 </style>
-
 </body>
 </html>

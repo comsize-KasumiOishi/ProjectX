@@ -1,12 +1,28 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" 
     import ="model.entity.TaskCategoryUserStatusBean , java.util.ArrayList , java.util.List , model.dao.TaskCategoryUserStatusDAO , model.dao.TaskUserCommentDAO , model.entity.TaskUserCommentBean "%>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic&display=swap" rel="stylesheet">
 <!DOCTYPE html>
+<!-- タスク編集画面 -->
+<!-- @author 坂上 -->
 <html>
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="style.css" >
 <title>タスク詳細画面</title>
+<style>
+.txt{
+    display: inline-block;
+    width: 70%;
+    height: auto;
+    border: 1px solid #999;
+    box-sizing: border-box;
+    background: #f2f2f2;
+    margin: 0.5em 0;
+}
+</style>
 </head>
 <body>
 <% 
@@ -15,7 +31,7 @@ TaskCategoryUserStatusBean tcus = new TaskCategoryUserStatusBean();
 tcus = (TaskCategoryUserStatusBean)session.getAttribute("detail");
 
 %>
-<h2>タスク詳細画面</h2>
+<h1>タスク詳細画面</h1>
 <hr>
  <table border="1">
  <tr>
@@ -92,10 +108,10 @@ if(userName.equals(tcus.getUserName())){
 //ログイン者がタスクの担当者ではない場合、ボタンを非活性化する
 %>	
 <form action="TaskDetailServlet" method="post">
-<input type="submit" id="button" value="編集" disabled>
+<input type="submit" id="disabled" value="編集" disabled>
 </form>
 <form action="task-delete.jsp" method="post">
-<input type="submit" id="button" value="削除" disabled>
+<input type="submit" id="disabled" value="削除" disabled>
 </form>
 <%} %>
 </table>
@@ -109,6 +125,7 @@ if(userName.equals(tcus.getUserName())){
 </form>
 
 <!-- コメント表示機能の及び削除ボタン追加を行う -->
+<table border="1">
 <% 
 //for文を用いてリストの中をすべて表示する
 //DetailServletを用いてタスクIDに紐づいたコメントのリストを取得する
@@ -118,24 +135,18 @@ if(commentList.isEmpty()){%>
 <%}else{
 for(TaskUserCommentBean tcubean : commentList){
 %>
-<table border="1">
 <tr>
-<td><form action = "CommentDeleteServlet" method = "GET">
-<input type = "checkbox" name =commentId value ="<%=tcubean.getCommentId()%>"></td>
 <td><b>投稿者:<%=tcubean.getUserName() %>></b></td>
 <td>投稿日:<%=tcubean.getUpdateDateTime() %></td>
+<td><a href="CommentDeleteServlet?commentId=<%=tcubean.getCommentId()%>">削除</a></td>
 </tr>
 <tr>
 <td colspan="3"><%=tcubean.getComment() %></td>
 </tr>
 <% 
 }
-%>
-</table>
-<input type = "submit" id="button" value = "削除">
-</form>
-<% 
 }
 %>
+</table>
 </body>
 </html>

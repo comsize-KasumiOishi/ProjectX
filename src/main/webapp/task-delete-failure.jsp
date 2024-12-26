@@ -1,7 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"
 	import="java.util.Date,model.entity.TaskCategoryUserStatusBean,java.util.List"%>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic&display=swap" rel="stylesheet">
 <!DOCTYPE html>
+<!-- タスク削除失敗画面 -->
+<!-- @author 坂上 -->
 <html>
 <head>
 <meta charset="UTF-8">
@@ -10,6 +15,8 @@
 </head>
 <body>
 	<% 
+	int commentCheck  = (int)session.getAttribute("check");
+	if(commentCheck == 0){
 		//詳細画面に表示したBean型を取得
 		TaskCategoryUserStatusBean tcusbean = (TaskCategoryUserStatusBean) session.getAttribute("detail");
 
@@ -33,7 +40,7 @@
 				
 	%>
 
-	<h2>タスク削除失敗画面</h2>
+	<h1>タスク削除失敗画面</h1>
 	<hr>
 
 	<h3>以下のデータを削除できませんでした。</h3>
@@ -81,6 +88,22 @@
 	<form action="TaskListServlet" method="get">
 		<input type="submit" id="button" value="一覧に戻る">
 	</form>
+<%
+}else{ 
 
+%>
+<h3>タスクにコメントが投稿されているのでコメントを削除してから削除をしてください</h3>
+<table>
+<td>
+<form action="TaskListServlet" method="get">
+		<input type="submit" id="button" value="一覧に戻る">
+	</form>
+	</td>
+	</table>
+
+<%
+
+}
+%>
 </body>
 </html>

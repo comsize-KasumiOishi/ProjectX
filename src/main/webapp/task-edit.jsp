@@ -1,7 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"
 	import="model.entity.TaskCategoryUserStatusBean , java.util.List , java.time.LocalDate"%>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic&display=swap" rel="stylesheet">
 <!DOCTYPE html>
+<!-- タスク編集画面 -->
+<!-- @author 坂上 -->
 <html>
 <head>
 <meta charset="UTF-8">
@@ -24,7 +29,7 @@
 	LocalDate currentDate = LocalDate.now();
 	
 	%>
-	<h2>タスク編集画面</h2>
+	<h1>タスク編集画面</h1>
 
 	<hr>
 	<!-- タスク編集Servletに変更内容を送る -->

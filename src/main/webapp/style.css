@@ -1,5 +1,4 @@
 @charset "UTF-8";
-
 /*	各JSPのヘッダーにCSSファイルを追記する
 	<link rel="stylesheet" href="style.css" >
 */
@@ -38,7 +37,7 @@ body {
 /*	ユーザIDとパスワードのテキストボックスと文字サイズの効果
 */
 #textbox {
-	margin: 1rem;
+	margin: 3rem;
 	font-size: 120%;
 }
 
@@ -55,6 +54,31 @@ body {
 	padding-right: 1em;
 	border-radius: 100vh;
 }
+
+#detailbutton {
+  background-color: #ffd700;
+  color: #fff;
+  padding: 10px 30px;
+  text-decoration: none;
+  font-size: 1em;
+  outline: 1px solid;
+  outline-color: #ffd700;
+  outline-offset: 0px;
+  display: inline-block;
+  transition: .3s;
+  
+}
+#detailbutton:hover {
+  color: #fff;
+  animation: light .8s infinite;
+}
+@keyframes light {
+  100% { 
+    outline-color: transparent;
+    outline-offset: 10px;
+  }
+}
+
 
 /*	タスク一覧画面のメニューボタンの効果
 	task-list.jspにid属性「id="menubutton"」を追記する
@@ -86,3 +110,265 @@ table {
 #commentbox{
 	padding: 3em;
 }
+
+
+* {
+box-sizing: border-box;
+}
+
+*:focus {
+  outline: none;
+}
+body {
+font-family: Arial;
+background-color: rgb(255, 255, 255);
+padding: 50px;
+}
+/*ログイン画面用デザイン*/
+.login {
+margin: 20px auto;
+width: 400px;
+}
+.login-screen {
+background-color: rgb(255, 255, 255);
+padding: 20px;
+border-radius: 5px
+}
+
+.app-title {
+text-align: center;
+color: #1569EF;
+}
+
+.login-form {
+text-align: center;
+}
+.control-group {
+margin-bottom: 30px;
+}
+
+#login {
+text-align: center;
+background-color: #ECF0F1;
+border: 2px solid transparent;
+border-radius: 3px;
+font-size: 16px;
+font-weight: 200;
+padding: 10px 0;
+width: 250px;
+transition: border .5s;
+}
+
+input:focus {
+border: 2px solid #3498DB;
+box-shadow: none;
+}
+
+.btn {
+ 
+  background: #2DA9EA;
+  color: #ffffff;
+  font-size: 16px;
+  line-height: 25px;
+  border-radius: 3px;
+  transition: 0.25s;
+  display: inline;
+  width: 180px;
+  margin: 4px auto;
+  border-color: #1569EF;
+}
+
+.btn:hover {
+  background-color: #0000cd;
+}
+
+.clearbtn {
+  background: #ffffff;
+  color: #1569EF;
+  font-size: 16px;
+  line-height: 25px;
+  border-radius: 3px;
+  transition: 0.25s;
+  display: inline;
+  width: 180px;
+  margin: 4px auto;
+  border-color: #1569EF;	
+}
+
+/*見出し用デザイン*/
+h1,h2,h3,h4{
+   font-family: "Zen Maru Gothic", serif;
+  font-weight: 600;
+  font-style: normal;
+}
+
+h3 {
+	color: red;
+}
+
+/*タスク一覧テーブル用デザイン*/
+table {
+  border-collapse: collapse;
+  background: #fafdff;
+}
+ th {
+  background: #83ccd2;
+}
+
+th, td {
+  border: 1px solid #e0ffff;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background: #fafdff;
+}
+
+tr:hover {
+  background: #ffedab;
+}
+
+/*タスク一覧用表示補正*/
+
+.fixed-table {
+	table-layout: fixed;
+	width: 100%;
+	border-collapse: collapse;
+}
+
+.display-limit {
+	overflow: hidden;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 2;
+}
+
+input {
+	font-family: "Zen Maru Gothic";
+}
+
+/*非活性化したボタン用グレーアウト*/
+#disabled {
+	opacity: 0.5;
+    pointer-events: none;
+    color: #FFFFFF;
+	background-color:#2DA9EA;
+	border: #2DA9EA;
+	font-size: 120%;
+	padding-left: 1em;
+	padding-right: 1em;
+	border-radius: 100vh;
+    
+}
+
+select {
+  /* ブラウザのデフォルトのスタイルをクリアする */
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  outline: 0;
+  /* サイズは親要素いっぱいになるようにすると扱いやすい */
+  width: 100%;
+  height: 100%;
+  /* 以下スタイルづけ */
+  border: 2px solid #ff2e63;
+  background-color: #fff5f4;
+  border-radius: 5px;
+  color: #ff2e63;
+  font-size: 0.9rem;
+  font-weight: bold;
+  padding: 5px 10px;
+}
+/* 以下、親要素に設定
+・サイズの指定
+・擬似要素の指定 */
+.wrapper{
+  width: 300px;
+  height: 40px;
+  display: block;
+    margin-left: auto;
+    margin-right: auto
+  
+}
+/* 擬似要素で矢印をつける */
+.wrapper::before{
+  content: "";
+  border-top: 10px solid #ff2e63;
+  border-right: 6px solid transparent;
+  border-left: 6px solid transparent;
+  position: relative;
+  right: -280px;
+  top: 40%;
+  transform: translateY(-50%);  
+}
+
+
+.cp_iptxt {
+  position: relative;
+  width: 100%;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.cp_iptxt input[type=text] {
+  font: 15px/1.6 sans-serif;
+  box-sizing: border-box;
+  width: 24%;
+  padding: 0.3em;
+  transition: 0.3s;
+  border: 1px solid #1b2538;
+  border-radius: 4px;
+  outline: none;
+}
+.cp_iptxt input[type=textarea] {
+  font: 15px/1.6 sans-serif;
+  box-sizing: border-box;
+  width: 80%;
+  padding: 0.3em;
+  transition: 0.3s;
+  border: 1px solid #1b2538;
+  border-radius: 4px;
+  outline: none;
+}
+.cp_iptxt input[type=text] {
+  margin-left: auto;
+    margin-right: auto
+}
+.cp_iptxt input[type=textarea] {
+  margin-left: auto;
+    margin-right: auto
+}
+.cp_iptxt [class^="svg_"] {
+  position: absolute;
+  left: 10px;
+  mask-repeat: no-repeat;
+  mask-position: center center;
+  mask-size: contain;
+  width: 20px;
+  height: 20px;
+  background-color: #aaaaaa;
+  transition: 0.3s;
+}
+.cp_iptxt .svg_user {
+  mask-image: url("user.svg");
+}
+.cp_iptxt .svg_mail {
+  mask-image: url("mail.svg");
+}
+/*focus時の設定*/
+.cp_iptxt input[type=text]:focus {
+  border-color: #da3c41;
+}
+.cp_iptxt input[type=text]:focus + [class^="svg_"] {
+  background-color: #da3c41;
+}
+
+/*focus時の設定*/
+.cp_iptxt input[type=textarea]:focus {
+  border-color: #da3c41;
+}
+.cp_iptxt input[type=textarea]:focus + [class^="svg_"] {
+  background-color: #da3c41;
+}
+
