@@ -37,10 +37,25 @@ public class CommentDeleteServlet extends HttpServlet {
 			throws ServletException, IOException {
 		//リクエストのエンコーディング方式を指定
 		request.setCharacterEncoding("UTF-8");
+		
+		//strCommentIdを格納するString型の配列を宣言
+		String[] strCommentId = null;
 
 		//リクエストパラメータの取得
-		String[] strCommentId = request.getParameterValues("commentId");
+		strCommentId = request.getParameterValues("commentId");
+		
+		//commentIdの空文字チェック
+		if(strCommentId == null) {
+			//転送先のパスを指定して転送処理用オブジェクトを取得
+			RequestDispatcher rd = request.getRequestDispatcher("comment-delete-failure.jsp");
 
+			//リクエストの転送
+			rd.forward(request, response);
+			
+			//メソッドを強制的に終了する
+			return;
+		}
+		
 		//TaskUserCommentDAOクラスのインスタンスを作成
 		TaskUserCommentDAO dao = new TaskUserCommentDAO();
 

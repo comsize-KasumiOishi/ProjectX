@@ -1,10 +1,12 @@
 package Controller.validation;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.List;
 
+import model.dao.TaskCategoryUserStatusDAO;
 import model.entity.TaskCategoryUserStatusBean;
 
 public class TaskAddValidation {
@@ -22,6 +24,10 @@ public class TaskAddValidation {
 
 		//文字数チェックが必要な項目の文字数をカウントするint型の変数countを宣言
 		int count = 0;
+
+		//categoryとstatusの範囲チェック用のdaoとBeanのインスタンスを作成
+		TaskCategoryUserStatusDAO dao = new TaskCategoryUserStatusDAO();
+		TaskCategoryUserStatusBean bean = new TaskCategoryUserStatusBean();
 
 		//taskName妥当性チェック
 		if (taskName == null || taskName.isEmpty()) {
@@ -61,8 +67,22 @@ public class TaskAddValidation {
 			e.printStackTrace();
 			flag = false;
 		}
-		//範囲チェック
-		if (!(categoryId == 1 || categoryId == 2)) {//修正
+		//カテゴリーIDを格納するリストを宣言
+		List<TaskCategoryUserStatusBean> categoryList = null;
+		//categoryListのためのカウント変数を宣言
+		int checkCount = 0;
+		try {
+			//範囲チェック
+			categoryList = dao.selectCategoryId();
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		}
+		for (TaskCategoryUserStatusBean categorybean : categoryList) {
+			if (categoryId == categorybean.getCategoryId()) {
+				checkCount++;
+			}
+		}
+		if (checkCount == 0) {
 			flag = false;
 		}
 
@@ -77,7 +97,7 @@ public class TaskAddValidation {
 		} else {
 			try {
 				//strLimitDateをLocalDate型にキャスト
-				limitDate = LocalDate.parse(strLimitDate, DateTimeFormatter.ofPattern("yyyy-MM-dd")); //Date型ではない？ localdate型を使う？ 補足資料読む
+				limitDate = LocalDate.parse(strLimitDate, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 				//範囲チェック
 				//今日の日付を取得してLocalDate型の変数todayに代入
 				LocalDate today = LocalDate.now();
@@ -143,10 +163,25 @@ public class TaskAddValidation {
 			if (count < 0 || count > 2) {
 				flag = false;
 			}
-			//範囲チェック 修正
-			if (!(statusCode.equals("00") || statusCode.equals("50") || statusCode.equals("99"))) {
+			//範囲チェック
+			//ステータスコードを格納するリストを宣言
+			List<TaskCategoryUserStatusBean> statusList = null;
+			try {
+				statusList = dao.selectStatusCode();
+			} catch (ClassNotFoundException | SQLException e) {
+				e.printStackTrace();
+			}
+			//範囲チェック用int変数を宣言
+			checkCount = 0;
+			for (TaskCategoryUserStatusBean statusbean : statusList) {
+				if (statusCode.equals(statusbean.getStatusCode())) {
+					checkCount++;
+				}
+			}
+			if (checkCount == 0) {
 				flag = false;
 			}
+
 		} catch (NullPointerException | ArrayIndexOutOfBoundsException e) {
 			e.printStackTrace();
 			flag = false;
