@@ -59,7 +59,7 @@
 
 					<input type="hidden" name="taskId" value="<%=task.getTaskId()%>">
 					<div class="btn_07"><input type="submit" name="button" value="詳細" id ="detailbutton"
-						style="background-color: #fcc800; border-color: #ffec47; color: #1569EF; width: 100%; height: 100%;"></div>
+						style="background-color: #eaf4fc;  color: #1569EF; width: 100%; height: 100%;"></div>
 
 				</form>
 			</td>

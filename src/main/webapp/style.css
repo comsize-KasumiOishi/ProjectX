@@ -56,14 +56,15 @@ body {
 }
 
 #detailbutton {
-  background-color: #ffd700;
+  background-color: #40e0d0;
+  border-color:#FFFFFF00;
   color: #fff;
   padding: 10px 30px;
   text-decoration: none;
   font-size: 1em;
   outline: 1px solid;
-  outline-color: #ffd700;
-  outline-offset: 0px;
+  outline-color: red;
+  outline-offset: 1px;
   display: inline-block;
   transition: .3s;
   
@@ -225,7 +226,7 @@ tr:nth-child(even) {
 }
 
 tr:hover {
-  background: #ffedab;
+  background: #87ceeb;
 }
 
 /*タスク一覧用表示補正*/
@@ -339,23 +340,8 @@ select {
   margin-left: auto;
     margin-right: auto
 }
-.cp_iptxt [class^="svg_"] {
-  position: absolute;
-  left: 10px;
-  mask-repeat: no-repeat;
-  mask-position: center center;
-  mask-size: contain;
-  width: 20px;
-  height: 20px;
-  background-color: #aaaaaa;
-  transition: 0.3s;
-}
-.cp_iptxt .svg_user {
-  mask-image: url("user.svg");
-}
-.cp_iptxt .svg_mail {
-  mask-image: url("mail.svg");
-}
+
+
 /*focus時の設定*/
 .cp_iptxt input[type=text]:focus {
   border-color: #da3c41;
